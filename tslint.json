@@ -1,0 +1,47 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts"
+    ]
+  },
+  "rules": {
+    "no-unused-expression": true,
+    "arrow-return-shorthand": true,
+    "interface-name": [
+      true,
+      "always-prefix"
+    ],
+    "jsx-boolean-value": false,
+    "jsx-equals-spacing": "never",
+    "jsx-no-lambda": false,
+    "jsx-self-close": true,
+    "jsx-wrap-multiline": true,
+    "no-console": false,
+    "no-unused-variable": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": true,
+    "prefer-const": true,
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ],
+    "semicolon": [
+      true,
+      "never"
+    ],
+    "switch-default": false,
+    "member-access": true,
+    "import-blacklist": [
+      true, 
+      "lodash"
+    ]
+  },
+  "defaultSeverity": "warning"
+}

@@ -1,0 +1,29 @@
+@import url('http://mcansh.github.io/yeezy-logo-font/assets/css/font.css');
+@import './variables.scss';
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+
+  color: $color-text;
+  font-family: 'Yeezy', sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased !important; 
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  width: 100%;
+  height: 100%;
+  background-color: $color-background;
+
+  /* iOS specific preventions for text selection */
+  *:not(input):not(textarea) {
+    -webkit-user-select: none; /* disable selection/Copy of UIWebView */
+    -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
+   }    
+}
+
+* {
+  color: $color-text;
+  font-family: 'Yeezy', sans-serif;
+  box-sizing: border-box;
+}

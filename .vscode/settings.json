@@ -1,0 +1,8 @@
+// Workspace settings
+{
+  "editor.codeActionsOnSave": [
+      "source.fixAll",
+      // "source.addMissingImports"
+  ],
+  "editor.snippetSuggestions": "top"
+}
