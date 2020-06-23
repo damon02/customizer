@@ -1,0 +1,12 @@
+@import '../../style/variables.scss';
+
+.shoe-components-list {
+  display: flex;
+  flex-direction: row;
+
+  button {
+    font-size: 16px;
+    max-width: 150px;
+    margin: 4px;
+  }
+}

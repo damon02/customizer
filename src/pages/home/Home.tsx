@@ -3,8 +3,10 @@ import React from 'react'
 import { IShoe, YEEZY_LINEUP } from '../../utils/constants'
 import './Home.scss'
 
+import ShoeOverview from '../../components/shoeOverview/ShoeOverview'
+
 const Home = () => {
-  const [activeShoe, setShoe] = React.useState<IShoe | undefined>()
+  const [activeShoe, setShoe] = React.useState<IShoe | undefined>(YEEZY_LINEUP[0])
 
   return (
     <div className="home">
@@ -14,12 +16,16 @@ const Home = () => {
           <button 
             className={`tab${activeShoe?.id === shoe.id ? ' active' : ''}`}
             key={shoe.id}
-            onClick={() => activeShoe === shoe ? setShoe(undefined) : setShoe(shoe)}
+            disabled={!shoe.enabled}
+            onClick={() => setShoe(shoe)}
           >
             {shoe.id}
           </button>
         ))}
+        
       </div>
+
+      <ShoeOverview activeShoe={activeShoe} />
     </div>
   )
 }

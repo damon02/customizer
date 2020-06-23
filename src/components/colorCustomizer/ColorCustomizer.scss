@@ -1,0 +1,22 @@
+@import '../../style/variables.scss';
+
+.color-customizer {
+  display: flex;
+  flex-direction: column;
+
+  .selected-item {
+    margin: unset;
+    margin-bottom: 4px;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+
+    .input {
+      width: 100%;
+      max-width: 50%;
+    }
+  }
+}
