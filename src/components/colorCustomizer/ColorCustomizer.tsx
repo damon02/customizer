@@ -1,11 +1,21 @@
 import * as React from 'react'
 
+import { sep } from 'path'
 import { IGenericPart } from '../../utils/constants'
 import './ColorCustomizer.scss'
 
 interface IProps {
   selectedPart: IGenericPart | undefined
-  children: (cssString: { filter: string }, slider: React.ReactNode) => React.ReactNode
+  allPartsCSS: { [partKey: string]: IColorProperties } | undefined
+  saveCSSToStorage: (css: IColorProperties, part: IGenericPart) => void
+  children: (css: { [partKey: string]: { filter: string } }, slider: React.ReactNode) => React.ReactNode
+}
+
+export interface IColorProperties {
+  saturation: number
+  hue: number
+  sepia: number
+  brightness: number
 }
 
 const ColorCustomizer = (props: IProps) => {
@@ -13,6 +23,12 @@ const ColorCustomizer = (props: IProps) => {
   const [hue, setHue] = React.useState<number>(0)
   const [sepia, setSepia] = React.useState<number>(0)
   const [brightness, setBrightness] = React.useState<number>(1)
+
+  React.useEffect(() => {
+    if (props.selectedPart) {
+      props.saveCSSToStorage({ saturation, hue, sepia, brightness }, props.selectedPart)
+    }
+  }, [saturation, hue, sepia, brightness])
 
   const slider = props.selectedPart && (
     <div className="color-customizer">
@@ -24,14 +40,23 @@ const ColorCustomizer = (props: IProps) => {
     </div>
   )
 
+  const allPartsCSS: { [partKey: string]: { filter: string } } = {}
+  
+  if (props.allPartsCSS) {
+    Object.keys(props.allPartsCSS).forEach(partKey => {
+      const css = combineIntoCSSFilter(props.allPartsCSS[partKey])
+      allPartsCSS[partKey] = css
+    })
+  }
+
   return (
     <React.Fragment>
-      {props.children(combineIntoCSSFilter(), slider)}
+      {props.children(allPartsCSS, slider)}
     </React.Fragment>
   )
 
-  function combineIntoCSSFilter() {
-    return { filter: `saturate(${saturation}) hue-rotate(${hue}deg) sepia(${sepia}) brightness(${brightness})` }
+  function combineIntoCSSFilter(x: IColorProperties) {
+    return { filter: `saturate(${x.saturation}) hue-rotate(${x.hue}deg) sepia(${x.sepia}) brightness(${x.brightness})` }
   }
 }
 
