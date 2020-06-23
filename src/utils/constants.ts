@@ -1,10 +1,14 @@
+import Midsole350V2 from '../assets/350V2/midsole.png'
+import Outsole350V2 from '../assets/350V2/outsole.png'
+import Upper350V2 from '../assets/350V2/upper.png'
+
 export interface IGenericPart {
   id: string
   name: string
   toggleable?: boolean
   zindex: number // z-index
   category?: string
-  filename?: string
+  file: string
 }
 
 export interface IShoe {
@@ -17,59 +21,34 @@ export interface IShoe {
 
 export const YEEZY_LINEUP: IShoe[] = [
   {
-    id: '350 V2',
+    id: '350V2',
     name: 'adidas YEEZY BOOST 350 V2',
     enabled: true,
     description: 'The popular one',
     assets: [
       {
-        id: 'heelTab',
-        name: 'Heel tab',
-        category: 'heeltab',
-        zindex: 53,
+        id: 'upper',
+        name: 'upper',
+        zindex: 1,
+        toggleable: false,
+        category: 'upper',
+        file: Upper350V2,
       },
       {
-        id: 'heelTabDots',
-        name: 'Heel tab dots',
-        category: 'heeltab',
-        zindex: 54,
+        id: 'midsole',
+        name: 'Midsole',
+        zindex: 100,
+        toggleable: false,
+        category: 'sole',
+        file: Midsole350V2,
       },
       {
         id: 'outsole',
         name: 'Outsole',
-        category: 'sole',
-        zindex: 100,
-        filename: '350V2/sole complete.png'
-      },
-      {
-        id: 'uppersole',
-        name: 'Sole',
-        category: 'sole',
-        zindex: 110,
-      },
-      {
-        id: 'upper',
-        name: 'Upper knit',
-        category: 'upper',
-        zindex: 50,
-      },
-      {
-        id: 'stripe',
-        name: 'Stripe',
-        toggleable: true,
-        category: 'upper',
-        zindex: 51,
-      },
-      {
-        id: 'laces',
-        name: 'Laces',
-        zindex: 52,
-      },
-      {
-        id: 'upperEdge',
-        name: 'Upper edge',
-        category: 'upper',
-        zindex: 53,
+        zindex: 101,
+        toggleable: false,
+        category: 'outsole',
+        file: Outsole350V2,
       },
     ],
   },

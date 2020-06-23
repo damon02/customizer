@@ -17,11 +17,21 @@ const ShoeOverview = (props: IProps) => {
 
   return (
     <div className="shoe-overview">
-      <ColorCustomizer selectedItem={activePart}>
+      <ColorCustomizer selectedPart={activePart}>
         {(cssProps, sliders) => (
           <React.Fragment>
             <div className="shoe-canvas">
-              <img className="sole" src={sole} style={{...cssProps}} />
+              {props.activeShoe?.assets?.map((part, key) => (
+                <img
+                  key={`${props.activeShoe?.name}-${part.id}`}
+                  className={`shoe-part-image ${part.id}`}
+                  style={{
+                    ...cssProps,
+                    zIndex: part.zindex,
+                    backgroundImage: `url(${part.file})`
+                  }}
+                />
+              ))}
             </div>
             <div className="bottom">
               <ComponentsList 

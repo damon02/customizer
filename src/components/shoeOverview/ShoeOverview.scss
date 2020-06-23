@@ -9,8 +9,17 @@
   width: auto;
 
   .shoe-canvas {
-    height: auto;
-    width: auto;
+    position: relative;
+    width: 1241px;
+    height: 714px;
+
+    .shoe-part-image {
+      position: absolute;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .bottom {

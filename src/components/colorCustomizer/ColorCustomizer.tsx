@@ -4,7 +4,7 @@ import { IGenericPart } from '../../utils/constants'
 import './ColorCustomizer.scss'
 
 interface IProps {
-  selectedItem: IGenericPart | undefined
+  selectedPart: IGenericPart | undefined
   children: (cssString: { filter: string }, slider: React.ReactNode) => React.ReactNode
 }
 
@@ -14,9 +14,9 @@ const ColorCustomizer = (props: IProps) => {
   const [sepia, setSepia] = React.useState<number>(0)
   const [brightness, setBrightness] = React.useState<number>(1)
 
-  const slider = props.selectedItem && (
+  const slider = props.selectedPart && (
     <div className="color-customizer">
-      <h4 className="selected-item">{props.selectedItem.name}</h4>
+      <h4 className="selected-item">{props.selectedPart.name}</h4>
       <GenericSlider name="Hue" min={0} max={360} value={hue} onChange={(e) => setHue(e)} />
       <GenericSlider name="Saturation" min={0} max={15} value={saturation} onChange={(e) => setSaturation(e)} />
       <GenericSlider name="Sepia" min={0} max={0.5} value={sepia} onChange={(e) => setSepia(e)} />
