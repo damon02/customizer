@@ -25,27 +25,36 @@ const ShoeOverview = (props: IProps) => {
       >
         {(cssProps, sliders) => (
           <React.Fragment>
-            <div className="shoe-canvas">
-              {props.activeShoe?.assets?.map((part, key) => (
-                <img
-                  key={`${props.activeShoe?.name}-${part.id}`}
-                  className={`shoe-part-image ${part.id}`}
-                  style={{
-                    ...cssProps[part.id],
-                    zIndex: part.zindex,
-                    backgroundImage: `url(${part.file})`
-                  }}
-                />
-              ))}
+            <div className="overview-row">
+              <div className="left"/>
+              <div className="shoe-canvas-wrapper">
+                <div className="shoe-canvas">
+                  <div className="border-cover"/>
+                  {props.activeShoe?.assets?.map((part, key) => (
+                    <img
+                      key={`${props.activeShoe?.name}-${part.id}`}
+                      className={`shoe-part-image ${part.id}`}
+                      style={{
+                        ...cssProps[part.id],
+                        zIndex: part.zindex,
+                        backgroundImage: `url(${part.file})`
+                      }}
+                    />
+                  ))}
+                </div>
+                <div className="bottom">
+                  <ComponentsList 
+                    components={props.activeShoe?.assets || []}
+                    onSetActiveComponent={(ac) => setActivePart(ac)}
+                    activeComponent={activePart}
+                  />
+                </div>
+              </div>
+              <div className="right">
+                {sliders}
+              </div>
             </div>
-            <div className="bottom">
-              <ComponentsList 
-                components={props.activeShoe?.assets || []}
-                onSetActiveComponent={(ac) => setActivePart(ac)}
-                activeComponent={activePart}
-              />
-              {sliders}
-            </div>
+            
           </React.Fragment>
         )}
       </ColorCustomizer>

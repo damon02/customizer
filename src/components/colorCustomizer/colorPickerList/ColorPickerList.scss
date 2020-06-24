@@ -1,0 +1,47 @@
+@import '../../../style/variables.scss';
+
+.presets {
+  margin: 8px;
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    border-radius: 5px;
+    overflow: hidden;
+
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  .row {
+    display: flex;
+    justify-content: stretch;
+    flex-direction: row;
+
+    .preset-button {
+      width: 100%;
+    }
+  }
+
+  .preset-button {
+    min-width: 32px;
+    min-height: 22px;
+    border: unset;
+
+    &:hover {
+      border: unset;
+    }
+  }
+
+  .button.delete {
+    background-color: unset;
+    min-width: unset;
+    max-width: unset;
+    font-size: 10px;
+    padding: unset;
+    min-width: 24px;
+    background-color: $color-notblack;
+    color: #fff;
+  }
+}

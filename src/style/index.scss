@@ -46,4 +46,8 @@ button, .tab {
     color: #dadada;
     cursor: not-allowed;
   }
+
+  &.small {
+    font-size: 13px;
+  }
 }

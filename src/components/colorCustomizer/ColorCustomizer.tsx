@@ -1,7 +1,9 @@
 import * as React from 'react'
 
-import { IGenericPart } from '../../utils/constants'
+import { IGenericPart, USER_PRESETS_KEY } from '../../utils/constants'
+import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
 import './ColorCustomizer.scss'
+import ColorPickerList from './colorPickerList/ColorPickerList'
 
 interface IProps {
   selectedPart: IGenericPart | undefined
@@ -25,6 +27,7 @@ const ColorCustomizer = (props: IProps) => {
   const [sepia, setSepia] = React.useState<number>(0)
   const [brightness, setBrightness] = React.useState<number>(1)
 
+  const [userPresets, setUserPresets] = React.useState<IColorProperties[]>(loadFromLocalStorage(USER_PRESETS_KEY, []) as IColorProperties[])
   const allPartsCSSFilter: { [partKey: string]: { filter: string } } = {}
 
   if (props.allPartsCSS) {
@@ -60,24 +63,52 @@ const ColorCustomizer = (props: IProps) => {
     }
   }, [selectedPart])
 
-  const slider = props.selectedPart && (
-    <div className="color-customizer">
-      <h4 className="selected-item">{props.selectedPart.name}</h4>
-      <GenericSlider selectedPart={selectedPart} name="Hue" min={0} max={360} value={hue} onChange={(e) => setHue(e)} />
-      <GenericSlider selectedPart={selectedPart} name="Saturation" min={0} max={15} value={saturation} onChange={(e) => setSaturation(e)} />
-      <GenericSlider selectedPart={selectedPart} name="Sepia" min={0} max={0.5} value={sepia} onChange={(e) => setSepia(e)} />
-      <GenericSlider selectedPart={selectedPart} name="Brightness" min={0.2} max={1.1} value={brightness} onChange={(e) => setBrightness(e)} />
-    </div>
-  )
 
   return (
     <React.Fragment>
-      {props.children(allPartsCSSFilter, slider)}
+      {props.children(
+        allPartsCSSFilter, (
+          <div className="color-picker">
+            <React.Fragment>
+              <div className="color-customizer">
+                <h4 className="selected-item">{props.selectedPart?.name || 'Choose a part of the shoe at the bottom to customize'}</h4>
+                {props.selectedPart && (
+                  <React.Fragment>
+                    <GenericSlider selectedPart={selectedPart} name="Hue" min={0} max={360} value={hue} onChange={(e) => setHue(e)} />
+                    <GenericSlider selectedPart={selectedPart} name="Saturation" min={0} max={15} value={saturation} onChange={(e) => setSaturation(e)} />
+                    <GenericSlider selectedPart={selectedPart} name="Sepia" min={0} max={0.5} value={sepia} onChange={(e) => setSepia(e)} />
+                    <GenericSlider selectedPart={selectedPart} name="Brightness" min={0.2} max={1.1} value={brightness} onChange={(e) => setBrightness(e)} />
+                    <button className="button small" onClick={() => savePresetToStorage()}>Save color preset</button>
+                  </React.Fragment>
+                )}
+              </div>
+              <ColorPickerList 
+                selectedPart={props.selectedPart}
+                setProperties={(cp) => {
+                  setHue(cp.hue)
+                  setBrightness(cp.brightness)
+                  setSaturation(cp.saturation)
+                  setSepia(cp.sepia)
+                }}
+                userPresets={userPresets}
+                setUserPresets={setUserPresets}
+              />
+            </React.Fragment>
+        </div>
+      ))}
     </React.Fragment>
   )
 
   function combineIntoCSSFilter(x: IColorProperties) {
     return { filter: `saturate(${x.saturation}) hue-rotate(${x.hue}deg) sepia(${x.sepia}) brightness(${x.brightness})` }
+  }
+
+  function savePresetToStorage() {
+    const presets = loadFromLocalStorage(USER_PRESETS_KEY, [])
+    presets.push({ sepia, saturation, brightness, hue })
+
+    saveToLocalStorage(USER_PRESETS_KEY, presets)
+    setUserPresets([...presets])
   }
 }
 
@@ -86,7 +117,7 @@ const GenericSlider = (props: { selectedPart: IGenericPart | undefined, name: st
 
   return (
     <div className={`item ${props.name.toLowerCase()}`}>
-      <span>{props.name}</span>
+      <span>{props.name} ({props.value}) </span>
       <input 
         type="range"
         min={(overrides && overrides[props.name.toLowerCase()]?.min) || props.min}
