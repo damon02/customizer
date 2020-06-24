@@ -1,9 +1,10 @@
 import * as React from 'react'
 
+import ColorPickerList from './colorPickerList/ColorPickerList'
+
 import { IGenericPart, USER_PRESETS_KEY } from '../../utils/constants'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
 import './ColorCustomizer.scss'
-import ColorPickerList from './colorPickerList/ColorPickerList'
 
 interface IProps {
   selectedPart: IGenericPart | undefined
@@ -61,7 +62,7 @@ const ColorCustomizer = (props: IProps) => {
       setSepia(properties.sepia)
       setBrightness(properties.brightness)
     }
-  }, [selectedPart])
+  }, [selectedPart, allPartsCSS])
 
 
   return (

@@ -3,7 +3,6 @@ import * as React from 'react'
 import ColorCustomizer, { IColorProperties } from '../colorCustomizer/ColorCustomizer'
 import ComponentsList from '../componentsList/ComponentsList'
 
-import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { IGenericPart, IShoe } from '../../utils/constants'
 
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
@@ -32,6 +31,7 @@ const ShoeOverview = (props: IProps) => {
                   <div className="border-cover"/>
                   {props.activeShoe?.assets?.map((part, key) => (
                     <img
+                      alt={''}
                       key={`${props.activeShoe?.name}-${part.id}`}
                       className={`shoe-part-image ${part.id}`}
                       style={{

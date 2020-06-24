@@ -1,9 +1,11 @@
 import React from 'react'
 
+import ShoeOverview from '../../components/shoeOverview/ShoeOverview'
+
+import pjson from '../../../package.json'
 import { IShoe, YEEZY_LINEUP } from '../../utils/constants'
 import './Home.scss'
 
-import ShoeOverview from '../../components/shoeOverview/ShoeOverview'
 
 const Home = () => {
   const [activeShoe, setShoe] = React.useState<IShoe | undefined>(YEEZY_LINEUP[0])
@@ -26,6 +28,11 @@ const Home = () => {
       </div>
 
       <ShoeOverview activeShoe={activeShoe} />
+
+      <div className="footer">
+        <div className="disclaimer">Created by damon02 - 2020</div>
+        <div className="version">v{pjson.version}</div>
+      </div>
     </div>
   )
 }
