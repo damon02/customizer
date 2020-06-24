@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import { sep } from 'path'
 import { IGenericPart } from '../../utils/constants'
 import './ColorCustomizer.scss'
 
@@ -19,39 +18,61 @@ export interface IColorProperties {
 }
 
 const ColorCustomizer = (props: IProps) => {
+  const { selectedPart, saveCSSToStorage, allPartsCSS } = props
+
   const [saturation, setSaturation] = React.useState<number>(1)
   const [hue, setHue] = React.useState<number>(0)
   const [sepia, setSepia] = React.useState<number>(0)
   const [brightness, setBrightness] = React.useState<number>(1)
 
+  const allPartsCSSFilter: { [partKey: string]: { filter: string } } = {}
+
+  if (props.allPartsCSS) {
+    Object.keys(props.allPartsCSS).forEach(partKey => {
+      if (partKey === selectedPart?.id) {
+        const currCSS = combineIntoCSSFilter({ saturation, hue, sepia, brightness })
+
+        allPartsCSSFilter[partKey] = currCSS
+      } else {
+        const css = props.allPartsCSS ? combineIntoCSSFilter(props.allPartsCSS[partKey]) : undefined
+
+        if (css) {
+          allPartsCSSFilter[partKey] = css
+        }
+      }
+
+    })
+  }
+
   React.useEffect(() => {
-    if (props.selectedPart) {
-      props.saveCSSToStorage({ saturation, hue, sepia, brightness }, props.selectedPart)
+    if (selectedPart) {
+      saveCSSToStorage({ saturation, hue, sepia, brightness }, selectedPart)
     }
-  }, [saturation, hue, sepia, brightness])
+  }, [saturation, hue, sepia, brightness, selectedPart, saveCSSToStorage])
+
+  React.useEffect(() => {
+    if (selectedPart && allPartsCSS && allPartsCSS[selectedPart.id]) {
+      const properties = allPartsCSS[selectedPart.id]
+      setSaturation(properties.saturation)
+      setHue(properties.hue)
+      setSepia(properties.sepia)
+      setBrightness(properties.brightness)
+    }
+  }, [selectedPart])
 
   const slider = props.selectedPart && (
     <div className="color-customizer">
       <h4 className="selected-item">{props.selectedPart.name}</h4>
-      <GenericSlider name="Hue" min={0} max={360} value={hue} onChange={(e) => setHue(e)} />
-      <GenericSlider name="Saturation" min={0} max={15} value={saturation} onChange={(e) => setSaturation(e)} />
-      <GenericSlider name="Sepia" min={0} max={0.5} value={sepia} onChange={(e) => setSepia(e)} />
-      <GenericSlider name="Brightness" min={0.8} max={1.1} value={brightness} onChange={(e) => setBrightness(e)} />
+      <GenericSlider selectedPart={selectedPart} name="Hue" min={0} max={360} value={hue} onChange={(e) => setHue(e)} />
+      <GenericSlider selectedPart={selectedPart} name="Saturation" min={0} max={15} value={saturation} onChange={(e) => setSaturation(e)} />
+      <GenericSlider selectedPart={selectedPart} name="Sepia" min={0} max={0.5} value={sepia} onChange={(e) => setSepia(e)} />
+      <GenericSlider selectedPart={selectedPart} name="Brightness" min={0.2} max={1.1} value={brightness} onChange={(e) => setBrightness(e)} />
     </div>
   )
 
-  const allPartsCSS: { [partKey: string]: { filter: string } } = {}
-  
-  if (props.allPartsCSS) {
-    Object.keys(props.allPartsCSS).forEach(partKey => {
-      const css = combineIntoCSSFilter(props.allPartsCSS[partKey])
-      allPartsCSS[partKey] = css
-    })
-  }
-
   return (
     <React.Fragment>
-      {props.children(allPartsCSS, slider)}
+      {props.children(allPartsCSSFilter, slider)}
     </React.Fragment>
   )
 
@@ -60,14 +81,16 @@ const ColorCustomizer = (props: IProps) => {
   }
 }
 
-const GenericSlider = (props: { name: string, value: number, min: number, max: number, onChange: (v: number) => void }) => {
+const GenericSlider = (props: { selectedPart: IGenericPart | undefined, name: string, value: number, min: number, max: number, onChange: (v: number) => void }) => {
+  const overrides = props.selectedPart?.overrides
+
   return (
     <div className={`item ${props.name.toLowerCase()}`}>
       <span>{props.name}</span>
       <input 
         type="range"
-        min={props.min}
-        max={props.max}
+        min={(overrides && overrides[props.name.toLowerCase()]?.min) || props.min}
+        max={(overrides && overrides[props.name.toLowerCase()]?.max) || props.max}
         step="0.01"
         value={props.value}
         onChange={(e) => props.onChange(Number(e.target.value))}
