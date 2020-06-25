@@ -24,7 +24,6 @@ const Home = () => {
             {shoe.id}
           </button>
         ))}
-        
       </div>
 
       <ShoeOverview activeShoe={activeShoe} />

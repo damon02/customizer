@@ -27,7 +27,7 @@ const ShoeOverview = (props: IProps) => {
             <div className="overview-row">
               <div className="left"/>
               <div className="shoe-canvas-wrapper">
-                <div className="shoe-canvas">
+                <div className="shoe-canvas" id="img-src">
                   <div className="border-cover"/>
                   {props.activeShoe?.assets?.map((part, key) => (
                     <img
