@@ -54,7 +54,8 @@ const Home = () => {
           <p>All color customizations are saved to your local storage, when you close and come back later you can pick up where you left off.</p>
 
           <b>Contact</b>
-          <p><a href="https://www.reddit.com/u/damon02" target="_blank">@damon02 on reddit</a></p>
+          <p><a href="https://www.reddit.com/u/damon02" rel="noopener noreferrer" target="_blank">@damon02 on reddit</a></p>
+          <p><a href="https://www.reddit.com/r/yeezys/comments/heh28m/this_is_what_kind_of_colorway_i_want/fvrdkma/" rel="noopener noreferrer" target="_blank">Inspired by this reddit comment</a></p>
         </div>
       </Modal>
 

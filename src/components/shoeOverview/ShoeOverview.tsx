@@ -64,7 +64,22 @@ const ShoeOverview = (props: IProps) => {
 
   function loadCSSFromStorage() {
     if (props.activeShoe) {
-      return loadFromLocalStorage(props.activeShoe.id)
+      const css = loadFromLocalStorage(props.activeShoe.id, null)
+
+      if (!css) {
+        const defaultCSS = { "saturation": 1, "hue": 0, "sepia": 0, "brightness": 1 }
+        const newCSS: { [part: string]: IColorProperties } = {}
+
+        props.activeShoe.assets?.forEach((asset, i) => {
+          newCSS[asset.id] = defaultCSS
+        })
+
+        saveToLocalStorage(props.activeShoe.id, newCSS)
+
+        return newCSS
+      } else {
+        return css
+      }
     } else {
       return undefined
     }
