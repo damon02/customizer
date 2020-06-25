@@ -1,12 +1,11 @@
-import { cloneDeep } from 'lodash'
 import React, { useState } from 'react'
+import Modal from '../modal/Modal'
 
 import { IShoe } from '../../utils/constants'
 import './ImagesCombiner.scss'
 
 interface IProps {
   activeShoe: IShoe | undefined
-  username: string
 }
 
 const ImagesCombiner = (props: IProps) => {
@@ -17,12 +16,35 @@ const ImagesCombiner = (props: IProps) => {
 
   const { activeShoe } = props 
   const accumulatedImages: string[] = []
+
+  const [showSaveModal, setShowSaveModal] = useState(false)
   const [shoeName, setShoeName] = useState<string>('')
+  const [creator, setCreator] = useState<string>('')
 
   return (
     <div className="images-combiner">
-      <input className="input yeezy-name" value={shoeName} onChange={(e) => setShoeName(e.target.value)} />
-      <button onClick={() => combineCSSIntoImages()}>Download as image</button>
+      <button onClick={() => setShowSaveModal(true)}>Download as image</button>
+
+      <Modal
+        showModal={showSaveModal}
+        onCancel={() => setShowSaveModal(false)}
+        closeText={'Save as PNG'}
+        onClose={() => {
+          setShowSaveModal(false)
+          combineCSSIntoImages()
+        }}
+        uuid={'saveImageModal'}
+      >
+        <div>
+          <h3>Add your own custom name to the image</h3>
+          <input className="input yeezy-name" placeholder={'Shoe model name'} value={shoeName} onChange={(e) => setShoeName(e.target.value)} />
+          <input className="input yeezy-name" placeholder={'Your own name'} value={shoeName} onChange={(e) => setCreator(e.target.value)} />
+
+          <h3>Your shoe</h3>
+          <p>{`${activeShoe?.name} '${shoeName || 'CONCEPT'}'`}</p>
+          <p>{`Created by ${creator || 'a fan'}`}</p>
+        </div>
+      </Modal>
     </div>
   )
 
@@ -69,7 +91,7 @@ const ImagesCombiner = (props: IProps) => {
     }
 
     const now = new Date()
-    const filename = `${activeShoe?.id}_${shoeName || 'NEW'}_${now.toLocaleDateString()}-${now.toLocaleTimeString()}`
+    const filename = `${activeShoe?.id}_${shoeName || 'CONCEPT'}_${now.toLocaleDateString()}-${now.toLocaleTimeString()}`
 
     const finalCanvas = document.createElement(`canvas`)
     const finalContext = finalCanvas.getContext('2d')
@@ -79,23 +101,23 @@ const ImagesCombiner = (props: IProps) => {
 
     if (finalContext) {
       // Add background
-      finalContext.fillStyle = "#ecece2";
+      finalContext.fillStyle = '#ecece2'
       finalContext.fillRect(0, 0, canvasWidth, canvasHeight)
 
       // Add brand name text
-      finalContext.fillStyle = "rgb(46, 50, 56)"
+      finalContext.fillStyle = 'rgb(46, 50, 56)'
       finalContext.font = '800 48px Yeezy'
-      finalContext.textAlign = "center"
+      finalContext.textAlign = 'center'
       finalContext.fillText(`${activeShoe?.name} '${shoeName || 'CONCEPT'}'`, canvasWidth / 2, 80)
       
       // Add username to image
       finalContext.font = '800 24px Yeezy'
-      finalContext.textAlign = "center"
-      finalContext.fillText(`Created by ${props.username}`, canvasWidth / 2, 110)
+      finalContext.textAlign = 'center'
+      finalContext.fillText(`Created by ${creator || 'a fan'}`, canvasWidth / 2, 110)
       
       // Add watermark
       finalContext.font = '400 12px Yeezy'
-      finalContext.fillText(`customizer.damon.dev`, canvasWidth / 2, canvasHeight - 40)
+      finalContext.fillText(`damon02.github.io/shoe-customizer/`, canvasWidth / 2, canvasHeight - 40)
 
     }
   
@@ -109,21 +131,19 @@ const ImagesCombiner = (props: IProps) => {
 
           if ((j + 1) === accumulatedImages.length) {
             // READY TO DOWNLOAD
-            // const URL = finalCanvas.toDataURL('image/png')
+            const URL = finalCanvas.toDataURL('image/png')
 
-            // const anchor = document.createElement('a')
-            // anchor.href = URL
-            // anchor.setAttribute('download', filename)
+            const anchor = document.createElement('a')
+            anchor.href = URL
+            anchor.setAttribute('download', filename)
 
-            // anchor.click()
+            anchor.click()
+
+            setShoeName('')
           }
         }
       }
     })
-  
-    
-    document.body.append(finalCanvas)
-      
   }
 }
 

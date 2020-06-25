@@ -37,7 +37,7 @@
       "never"
     ],
     "switch-default": false,
-    "member-access": true,
+    "member-access": true
   },
   "defaultSeverity": "warning"
 }

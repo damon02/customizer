@@ -1,18 +1,17 @@
 import React from 'react'
 
 import ImagesCombiner from '../../components/imagesCombiner/ImagesCombiner'
-import ShoeOverview from '../../components/shoeOverview/ShoeOverview'
 import Modal from '../../components/modal/Modal'
+import ShoeOverview from '../../components/shoeOverview/ShoeOverview'
 
 import pjson from '../../../package.json'
 import { IShoe, YEEZY_LINEUP } from '../../utils/constants'
-import './Home.scss'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
+import './Home.scss'
 
 
 const Home = () => {
   const [showIntroductionModal, setShowIntroModal] = React.useState<boolean>(loadFromLocalStorage('showIntro', true))
-  const [username, setUsername] = React.useState<string | null>(loadFromLocalStorage('username', null))
   const [activeShoe, setShoe] = React.useState<IShoe | undefined>(YEEZY_LINEUP[0])
 
   return (
@@ -32,10 +31,10 @@ const Home = () => {
       </div>
 
       <ShoeOverview activeShoe={activeShoe} />
-      <ImagesCombiner activeShoe={activeShoe} username="damon02" />
+      <ImagesCombiner activeShoe={activeShoe} />
 
       <div className="footer">
-        <div className="disclaimer">Created by damon02 - 2020</div>
+        <div className="disclaimer"><p><a href="https://www.github.com/damon02" rel="noopener noreferrer" target="_blank">Created by damon02</a></p></div>
         <div className="version">v{pjson.version}</div>
       </div>
 
@@ -46,16 +45,20 @@ const Home = () => {
           setShowIntroModal(false)
           saveToLocalStorage('showIntro', false)
         }}
+        uuid={'introModal'}
       >
         <div>
           <h3>Hello world!</h3>
+          <p>I am a huge YEEZY fan, but wanted to see what kind of color combinations are possible.</p>
+          <p>So I went to work and boom here it is. Go crazy on the colors and don't bait too many people on Instagram.</p>
+          <p><a href="https://www.reddit.com/r/yeezys/comments/heh28m/this_is_what_kind_of_colorway_i_want/fvrdkma/" rel="noopener noreferrer" target="_blank">Inspired by this reddit comment</a></p>
           <b>Cookies</b>
           <p>This website uses cookies, but does not share anything with other websites.</p>
           <p>All color customizations are saved to your local storage, when you close and come back later you can pick up where you left off.</p>
 
           <b>Contact</b>
-          <p><a href="https://www.reddit.com/u/damon02" rel="noopener noreferrer" target="_blank">@damon02 on reddit</a></p>
-          <p><a href="https://www.reddit.com/r/yeezys/comments/heh28m/this_is_what_kind_of_colorway_i_want/fvrdkma/" rel="noopener noreferrer" target="_blank">Inspired by this reddit comment</a></p>
+          <p><a href="https://www.reddit.com/u/damon02" rel="noopener noreferrer" target="_blank">Reddit</a></p>
+          <p><a href="https://www.github.com/damon02" rel="noopener noreferrer" target="_blank">Github</a></p>
         </div>
       </Modal>
 
