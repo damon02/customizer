@@ -7,6 +7,14 @@
   .selected-item {
     margin: unset;
     margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .button.enabled {
+      margin: 12px 0px;
+      font-size: 14px;
+    }
   }
 
   .item {
@@ -19,4 +27,8 @@
       max-width: 50%;
     }
   }
+}
+
+.color-picker {
+  width: 100%;
 }

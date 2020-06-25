@@ -38,7 +38,7 @@ const ImagesCombiner = (props: IProps) => {
         <div>
           <h3>Add your own custom name to the image</h3>
           <input className="input yeezy-name" placeholder={'Shoe model name'} value={shoeName} onChange={(e) => setShoeName(e.target.value)} />
-          <input className="input yeezy-name" placeholder={'Your own name'} value={shoeName} onChange={(e) => setCreator(e.target.value)} />
+          <input className="input yeezy-name" placeholder={'Your own name'} value={creator} onChange={(e) => setCreator(e.target.value)} />
 
           <h3>Your shoe</h3>
           <p>{`${activeShoe?.name} '${shoeName || 'CONCEPT'}'`}</p>

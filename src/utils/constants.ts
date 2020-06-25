@@ -1,6 +1,7 @@
 import Laces350V2 from '../assets/350V2/laces.png'
 import Midsole350V2 from '../assets/350V2/midsole.png'
 import Outsole350V2 from '../assets/350V2/outsole.png'
+import Pulltab350V2 from '../assets/350V2/pulltab.png'
 import Stripe350V2 from '../assets/350V2/stripe.png'
 import Upper350V2 from '../assets/350V2/upper.png'
 import UpperLip350V2 from '../assets/350V2/upper_lip.png'
@@ -75,7 +76,7 @@ export const YEEZY_LINEUP: IShoe[] = [
         id: 'upperlip',
         name: 'Upper lip',
         zindex: 2,
-        toggleable: true,
+        toggleable: false,
         category: 'upper',
         file: UpperLip350V2,
         overrides: {
@@ -96,10 +97,22 @@ export const YEEZY_LINEUP: IShoe[] = [
         presets: DEFAULT_COLORS,
       },
       {
+        id: 'pulltab',
+        name: 'Pull tab',
+        zindex: 4,
+        toggleable: true,
+        category: 'upper',
+        file: Pulltab350V2,
+        overrides: {
+          brightness: { max: 3 }
+        },
+        presets: DEFAULT_COLORS,
+      },
+      {
         id: 'laces',
         name: 'Laces',
         zindex: 5,
-        toggleable: true,
+        toggleable: false,
         category: 'laces',
         file: Laces350V2,
         overrides: {

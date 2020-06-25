@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import ColorCustomizer, { IColorProperties } from '../colorCustomizer/ColorCustomizer'
+import ColorCustomizer, { IColorProperties, ICSSProperties } from '../colorCustomizer/ColorCustomizer'
 import ComponentsList from '../componentsList/ComponentsList'
 
 import { IGenericPart, IShoe } from '../../utils/constants'
@@ -38,7 +38,7 @@ const ShoeOverview = (props: IProps) => {
                       style={{
                         ...cssProps[part.id],
                         zIndex: part.zindex,
-                        backgroundImage: `url(${part.file})`
+                        backgroundImage: `url(${part.file})`,
                       }}
                     />
                   ))}
@@ -63,12 +63,13 @@ const ShoeOverview = (props: IProps) => {
   )
 
   function loadCSSFromStorage() {
+    const defaultCSS: ICSSProperties = { 'saturation': 1, 'hue': 0, 'sepia': 0, 'brightness': 1, display: 'block' }
+
     if (props.activeShoe) {
       const css = loadFromLocalStorage(props.activeShoe.id, null)
 
       if (!css) {
-        const defaultCSS = { 'saturation': 1, 'hue': 0, 'sepia': 0, 'brightness': 1 }
-        const newCSS: { [part: string]: IColorProperties } = {}
+        const newCSS: { [part: string]: ICSSProperties } = {}
 
         props.activeShoe.assets?.forEach((asset, i) => {
           newCSS[asset.id] = defaultCSS
@@ -78,6 +79,20 @@ const ShoeOverview = (props: IProps) => {
 
         return newCSS
       } else {
+        // Check if all keys are present, no new ones have been added
+        let edited = false
+        props.activeShoe.assets?.forEach((asset, i) => {
+          if (!css[asset.id] || Object.keys(css[asset.id]).length !== Object.keys(defaultCSS).length) {
+            // Existing object has been extended, edit saved CSS
+            css[asset.id] = { ...defaultCSS, ...css[asset.id] }
+            edited = true
+          }
+        })
+        
+        if (edited) {
+          saveToLocalStorage(props.activeShoe.id, css)
+        }
+
         return css
       }
     } else {

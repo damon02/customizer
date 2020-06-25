@@ -8,9 +8,14 @@ import './ColorCustomizer.scss'
 
 interface IProps {
   selectedPart: IGenericPart | undefined
-  allPartsCSS: { [partKey: string]: IColorProperties } | undefined
-  saveCSSToStorage: (css: IColorProperties, part: IGenericPart) => void
-  children: (css: { [partKey: string]: { filter: string } }, slider: React.ReactNode) => React.ReactNode
+  allPartsCSS: { [partKey: string]: ICSSProperties } | undefined
+  saveCSSToStorage: (css: ICSSProperties, part: IGenericPart) => void
+  children: (css: { [partKey: string]: IExposedCSS }, slider: React.ReactNode) => React.ReactNode
+}
+
+export interface IExposedCSS {
+  filter: string
+  display: 'none' | 'block'
 }
 
 export interface IColorProperties {
@@ -20,6 +25,10 @@ export interface IColorProperties {
   brightness: number
 }
 
+export interface ICSSProperties extends IColorProperties {
+  display: 'block' | 'none'
+}
+
 const ColorCustomizer = (props: IProps) => {
   const { selectedPart, saveCSSToStorage, allPartsCSS } = props
 
@@ -27,18 +36,19 @@ const ColorCustomizer = (props: IProps) => {
   const [hue, setHue] = React.useState<number>(0)
   const [sepia, setSepia] = React.useState<number>(0)
   const [brightness, setBrightness] = React.useState<number>(1)
+  const [display, setDisplay] = React.useState<'none' | 'block'>('block')
 
   const [userPresets, setUserPresets] = React.useState<IColorProperties[]>(loadFromLocalStorage(USER_PRESETS_KEY, []) as IColorProperties[])
-  const allPartsCSSFilter: { [partKey: string]: { filter: string } } = {}
+  const allPartsCSSFilter: { [partKey: string]: IExposedCSS } = {}
 
   if (props.allPartsCSS) {
     Object.keys(props.allPartsCSS).forEach(partKey => {
       if (partKey === selectedPart?.id) {
-        const currCSS = combineIntoCSSFilter({ saturation, hue, sepia, brightness })
+        const currCSS = combineIntoCSS({ saturation, hue, sepia, brightness, display })
 
         allPartsCSSFilter[partKey] = currCSS
       } else {
-        const css = props.allPartsCSS ? combineIntoCSSFilter(props.allPartsCSS[partKey]) : undefined
+        const css = props.allPartsCSS ? combineIntoCSS(props.allPartsCSS[partKey]) : undefined
 
         if (css) {
           allPartsCSSFilter[partKey] = css
@@ -50,9 +60,9 @@ const ColorCustomizer = (props: IProps) => {
 
   React.useEffect(() => {
     if (selectedPart) {
-      saveCSSToStorage({ saturation, hue, sepia, brightness }, selectedPart)
+      saveCSSToStorage({ saturation, hue, sepia, brightness, display }, selectedPart)
     }
-  }, [saturation, hue, sepia, brightness, selectedPart, saveCSSToStorage])
+  }, [saturation, hue, sepia, brightness, selectedPart, display, saveCSSToStorage])
 
   React.useEffect(() => {
     if (selectedPart && allPartsCSS && allPartsCSS[selectedPart.id]) {
@@ -61,6 +71,7 @@ const ColorCustomizer = (props: IProps) => {
       setHue(properties.hue)
       setSepia(properties.sepia)
       setBrightness(properties.brightness)
+      setDisplay(properties.display)
     }
   }, [selectedPart, allPartsCSS])
 
@@ -72,8 +83,12 @@ const ColorCustomizer = (props: IProps) => {
           <div className="color-picker">
             <React.Fragment>
               <div className="color-customizer">
-                <h4 className="selected-item">{props.selectedPart?.name || 'Choose a part of the shoe at the bottom to customize'}</h4>
-                {props.selectedPart && (
+                <div className="selected-item">
+                  <h3>{props.selectedPart?.name || 'Choose a part of the shoe at the bottom to customize'}</h3>
+                  {props.selectedPart && props.selectedPart.toggleable && <button className="button enabled" onClick={() => setDisplay(display === 'block' ? 'none' : 'block')}>{display === 'none' ? 'Add' : 'Remove'}</button>}
+                </div>
+
+                {props.selectedPart && display && (
                   <React.Fragment>
                     <GenericSlider selectedPart={selectedPart} name="Hue" min={0} max={360} value={hue} onChange={(e) => setHue(e)} />
                     <GenericSlider selectedPart={selectedPart} name="Saturation" min={0} max={15} value={saturation} onChange={(e) => setSaturation(e)} />
@@ -83,25 +98,27 @@ const ColorCustomizer = (props: IProps) => {
                   </React.Fragment>
                 )}
               </div>
-              <ColorPickerList 
-                selectedPart={props.selectedPart}
-                setProperties={(cp) => {
-                  setHue(cp.hue)
-                  setBrightness(cp.brightness)
-                  setSaturation(cp.saturation)
-                  setSepia(cp.sepia)
-                }}
-                userPresets={userPresets}
-                setUserPresets={setUserPresets}
-              />
+              {display && (
+                <ColorPickerList 
+                  selectedPart={props.selectedPart}
+                  setProperties={(cp) => {
+                    setHue(cp.hue)
+                    setBrightness(cp.brightness)
+                    setSaturation(cp.saturation)
+                    setSepia(cp.sepia)
+                  }}
+                  userPresets={userPresets}
+                  setUserPresets={setUserPresets}
+                />
+              )}
             </React.Fragment>
         </div>
       ))}
     </React.Fragment>
   )
 
-  function combineIntoCSSFilter(x: IColorProperties) {
-    return { filter: `saturate(${x.saturation}) hue-rotate(${x.hue}deg) sepia(${x.sepia}) brightness(${x.brightness})` }
+  function combineIntoCSS(x: ICSSProperties): IExposedCSS  {
+    return { filter: `saturate(${x.saturation}) hue-rotate(${x.hue}deg) sepia(${x.sepia}) brightness(${x.brightness})`, display: x.display }
   }
 
   function savePresetToStorage() {
