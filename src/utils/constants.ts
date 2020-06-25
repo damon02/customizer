@@ -55,7 +55,7 @@ export const DEFAULT_COLORS: IGenericPart['presets'] = [
 export const YEEZY_LINEUP: IShoe[] = [
   {
     id: '350V2',
-    name: 'adidas YEEZY BOOST 350 V2',
+    name: 'YEEZY BOOST 350 V2',
     enabled: true,
     description: 'The popular one',
     assets: [
@@ -97,7 +97,7 @@ export const YEEZY_LINEUP: IShoe[] = [
       },
       {
         id: 'laces',
-        name: 'laces',
+        name: 'Laces',
         zindex: 5,
         toggleable: true,
         category: 'laces',
@@ -130,13 +130,13 @@ export const YEEZY_LINEUP: IShoe[] = [
   },
   {
     id: '500',
-    name: 'adidas YEEZY 500',
+    name: 'YEEZY 500',
     enabled: false,
     description: 'chunky boi',
   },
   {
     id: '700',
-    name: 'adidas YEEZY BOOST 700',
+    name: 'YEEZY BOOST 700',
     enabled: false,
     description: 'The one your dad wears',
   },

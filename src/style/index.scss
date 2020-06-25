@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
 @import url('https://mcansh.github.io/yeezy-logo-font/assets/css/font.css');
 @import './variables.scss';
 
@@ -7,7 +8,7 @@ html {
   padding: 0;
 
   color: $color-text;
-  font-family: 'Yeezy', sans-serif;
+  font-family: 'Yeezy', 'Lexend Deca', sans-serif;
   -webkit-font-smoothing: subpixel-antialiased !important; 
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
