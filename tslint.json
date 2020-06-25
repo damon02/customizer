@@ -38,10 +38,6 @@
     ],
     "switch-default": false,
     "member-access": true,
-    "import-blacklist": [
-      true, 
-      "lodash"
-    ]
   },
   "defaultSeverity": "warning"
 }

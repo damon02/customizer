@@ -1,5 +1,6 @@
 import React from 'react'
 
+import ImagesCombiner from '../../components/imagesCombiner/ImagesCombiner'
 import ShoeOverview from '../../components/shoeOverview/ShoeOverview'
 
 import pjson from '../../../package.json'
@@ -32,6 +33,8 @@ const Home = () => {
         <div className="disclaimer">Created by damon02 - 2020</div>
         <div className="version">v{pjson.version}</div>
       </div>
+
+      <ImagesCombiner activeShoe={activeShoe} />
     </div>
   )
 }

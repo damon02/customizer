@@ -34,6 +34,7 @@ const ShoeOverview = (props: IProps) => {
                       alt={''}
                       key={`${props.activeShoe?.name}-${part.id}`}
                       className={`shoe-part-image ${part.id}`}
+                      id={`shoe-img`}
                       style={{
                         ...cssProps[part.id],
                         zIndex: part.zindex,
