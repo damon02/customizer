@@ -4,6 +4,7 @@ import ColorCustomizer from '../colorCustomizer/ColorCustomizer'
 import ComponentsList from '../componentsList/ComponentsList'
 
 import { IColorProperties, ICSSProperties, IGenericPart, IGenericProduct } from '../../@types/types'
+import { usePrevious } from '../../hooks/usePrevious'
 import { DEFAULT_WHITE } from '../../utils/constants'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
 import './ProductOverview.scss'
@@ -13,7 +14,14 @@ interface IProps {
 }
 
 const ProductOverview = (props: IProps) => {
+  const previousActiveProduct = usePrevious(props.activeProduct)
   const [activePart, setActivePart] = React.useState<IGenericPart | undefined>()
+
+  React.useEffect(() => {
+    if (!previousActiveProduct && !activePart && props.activeProduct?.assets) {
+      setActivePart(props.activeProduct.assets[0])
+    }
+  }, [previousActiveProduct, activePart, setActivePart, props.activeProduct])
 
   return (
     <div className="shoe-overview">
@@ -25,7 +33,15 @@ const ProductOverview = (props: IProps) => {
         {(cssProps, sliders) => (
           <React.Fragment>
             <div className="overview-row">
-              <div className="left"/>
+              <div className="left">
+                <ComponentsList 
+                  components={props.activeProduct?.assets || []}
+                  onSetActiveComponent={(ac) => setActivePart(ac)}
+                  activeComponent={activePart}
+                  activeComponentCSS={cssProps}
+                  applyComponentSettings={() => ({})}
+                />
+              </div>
               <div className="shoe-canvas-wrapper">
                 <div className="shoe-canvas" id="img-src">
                   <div className="border-cover"/>
@@ -43,13 +59,7 @@ const ProductOverview = (props: IProps) => {
                     />
                   ))}
                 </div>
-                <div className="bottom">
-                  <ComponentsList 
-                    components={props.activeProduct?.assets || []}
-                    onSetActiveComponent={(ac) => setActivePart(ac)}
-                    activeComponent={activePart}
-                  />
-                </div>
+                <div className="bottom"/>
               </div>
               <div className="right">
                 {sliders}

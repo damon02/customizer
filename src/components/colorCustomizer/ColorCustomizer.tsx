@@ -12,7 +12,10 @@ interface IProps {
   selectedPart: IGenericPart | undefined
   allPartsCSS: { [partKey: string]: ICSSProperties } | undefined
   saveCSSToStorage: (css: ICSSProperties, part: IGenericPart) => void
-  children: (css: { [partKey: string]: IExposedCSS }, slider: React.ReactNode) => React.ReactNode
+  children: (
+    css: { [partKey: string]: IExposedCSS }, 
+    slider: React.ReactNode
+  ) => React.ReactNode
 }
 
 const ColorCustomizer = (props: IProps) => {
@@ -70,7 +73,7 @@ const ColorCustomizer = (props: IProps) => {
             <React.Fragment>
               <div className="color-customizer">
                 <div className="selected-item">
-                  <h3>{props.selectedPart?.name || 'Choose a part of the shoe at the bottom to customize'}</h3>
+                  {props.selectedPart && <h3>{props.selectedPart.name}</h3>}
                   {props.selectedPart && props.selectedPart.toggleable && <button className="button enabled" onClick={() => setDisplay(display === 'block' ? 'none' : 'block')}>{display === 'none' ? 'Add' : 'Remove'}</button>}
                 </div>
 

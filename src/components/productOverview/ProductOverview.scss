@@ -36,7 +36,7 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0,0,0,0);
-      border: 5px solid $color-background;
+      border: 5px solid $color-background-dark;
       position: absolute;
       z-index: 900000;
     }
@@ -50,6 +50,7 @@
       width: 100%;
       height: 100%;
       border-image: unset;
+      transition: $default-transition;
     }
   }
 

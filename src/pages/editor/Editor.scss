@@ -1,0 +1,23 @@
+@import '../../style/variables.scss';
+
+.page.editor {
+  background-color: $color-background-dark;
+  
+  .title-box {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    background-color: $color-background-darker;
+
+    .title {
+      margin: 0;
+    }
+
+    button {
+      position: absolute;
+      left: 24px;
+      top: 24px;
+    }
+  }
+}

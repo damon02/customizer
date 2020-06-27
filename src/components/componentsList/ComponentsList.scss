@@ -1,12 +1,42 @@
 @import '../../style/variables.scss';
 
-.shoe-components-list {
+.components-list {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  width: 100%;
 
-  button {
-    font-size: 16px;
-    max-width: 150px;
-    margin: 4px;
+  .component-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    .select-button {
+      background-color: $color-background-darkish;
+      color: #fff;
+      font-size: 16px;
+      padding: 16px;
+      border: 0px;
+      margin-bottom: 4px;
+      width: 100%;
+      
+      &:hover, &:focus {
+        border: 0px;
+        background-color: $color-background-notdark;
+      }
+  
+      &.active {
+        background-color: #aaaaaa;
+        color: $color-notblack;
+        border: 0px;
+      }
+    }
+
+    .options {
+      display: none;
+
+      &.show {
+        display: flex;
+      }
+    }
   }
 }
