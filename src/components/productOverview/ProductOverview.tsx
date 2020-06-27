@@ -1,18 +1,18 @@
 import * as React from 'react'
 
-import ColorCustomizer, { IColorProperties, ICSSProperties } from '../colorCustomizer/ColorCustomizer'
+import ColorCustomizer from '../colorCustomizer/ColorCustomizer'
 import ComponentsList from '../componentsList/ComponentsList'
 
-import { IGenericPart, IShoe } from '../../utils/constants'
-
+import { IColorProperties, ICSSProperties, IGenericPart, IGenericProduct } from '../../@types/types'
+import { DEFAULT_WHITE } from '../../utils/constants'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
-import './ShoeOverview.scss'
+import './ProductOverview.scss'
 
 interface IProps {
-  activeShoe: IShoe | undefined
+  activeProduct: IGenericProduct | undefined
 }
 
-const ShoeOverview = (props: IProps) => {
+const ProductOverview = (props: IProps) => {
   const [activePart, setActivePart] = React.useState<IGenericPart | undefined>()
 
   return (
@@ -29,10 +29,10 @@ const ShoeOverview = (props: IProps) => {
               <div className="shoe-canvas-wrapper">
                 <div className="shoe-canvas" id="img-src">
                   <div className="border-cover"/>
-                  {props.activeShoe?.assets?.map((part, key) => (
+                  {props.activeProduct?.assets?.map((part) => (
                     <img
                       alt={''}
-                      key={`${props.activeShoe?.name}-${part.id}`}
+                      key={`${props.activeProduct?.name}-${part.id}`}
                       className={`shoe-part-image ${part.id}`}
                       id={`shoe-img`}
                       style={{
@@ -45,7 +45,7 @@ const ShoeOverview = (props: IProps) => {
                 </div>
                 <div className="bottom">
                   <ComponentsList 
-                    components={props.activeShoe?.assets || []}
+                    components={props.activeProduct?.assets || []}
                     onSetActiveComponent={(ac) => setActivePart(ac)}
                     activeComponent={activePart}
                   />
@@ -63,25 +63,25 @@ const ShoeOverview = (props: IProps) => {
   )
 
   function loadCSSFromStorage() {
-    const defaultCSS: ICSSProperties = { 'saturation': 1, 'hue': 0, 'sepia': 0, 'brightness': 1, display: 'block' }
+    const defaultCSS: ICSSProperties = { ...DEFAULT_WHITE.values, display: 'block' }
 
-    if (props.activeShoe) {
-      const css = loadFromLocalStorage(props.activeShoe.id, null)
+    if (props.activeProduct) {
+      const css = loadFromLocalStorage(props.activeProduct.id, null)
 
       if (!css) {
         const newCSS: { [part: string]: ICSSProperties } = {}
 
-        props.activeShoe.assets?.forEach((asset, i) => {
+        props.activeProduct.assets?.forEach((asset, i) => {
           newCSS[asset.id] = defaultCSS
         })
 
-        saveToLocalStorage(props.activeShoe.id, newCSS)
+        saveToLocalStorage(props.activeProduct.id, newCSS)
 
         return newCSS
       } else {
         // Check if all keys are present, no new ones have been added
         let edited = false
-        props.activeShoe.assets?.forEach((asset, i) => {
+        props.activeProduct.assets?.forEach((asset, i) => {
           if (!css[asset.id] || Object.keys(css[asset.id]).length !== Object.keys(defaultCSS).length) {
             // Existing object has been extended, edit saved CSS
             css[asset.id] = { ...defaultCSS, ...css[asset.id] }
@@ -90,7 +90,7 @@ const ShoeOverview = (props: IProps) => {
         })
         
         if (edited) {
-          saveToLocalStorage(props.activeShoe.id, css)
+          saveToLocalStorage(props.activeProduct.id, css)
         }
 
         return css
@@ -101,10 +101,10 @@ const ShoeOverview = (props: IProps) => {
   }
 
   function saveCSSToStorage(css: IColorProperties, part: IGenericPart) {
-    if (props.activeShoe) {
-      const originalSaved = loadFromLocalStorage(props.activeShoe?.id, {})
+    if (props.activeProduct) {
+      const originalSaved = loadFromLocalStorage(props.activeProduct?.id, {})
   
-      saveToLocalStorage(props.activeShoe.id, {
+      saveToLocalStorage(props.activeProduct.id, {
         ...originalSaved,
         [part.id]: css
       })
@@ -112,4 +112,4 @@ const ShoeOverview = (props: IProps) => {
   }
 }
 
-export default ShoeOverview
+export default ProductOverview

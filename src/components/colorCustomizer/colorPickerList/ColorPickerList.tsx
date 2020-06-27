@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { IGenericPart, USER_PRESETS_KEY } from '../../../utils/constants'
+import { IColorProperties, IGenericPart } from '../../../@types/types'
+import { USER_PRESETS_KEY } from '../../../utils/constants'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../../utils/localStorage'
-import { IColorProperties } from '../ColorCustomizer'
-
 import './ColorPickerList.scss'
 
 interface IProps {

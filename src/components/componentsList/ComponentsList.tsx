@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { IGenericPart } from '../../utils/constants'
+import { IGenericPart } from '../../@types/types'
 import './ComponentsList.scss'
 
 interface IProps {

@@ -1,0 +1,82 @@
+@import '../../style/variables.scss';
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  height: 100%;
+  background-color: $color-background-dark;
+  border-radius: 2px;
+  transition: $default-transition;
+  border-width: 0px;
+  padding: 0;
+  margin-right: 20px;
+
+  .card-bottom-border {
+    height: 4px;
+    width: 100%;
+    background-color: rgba(0,0,0,0);
+  }
+
+  &:focus, &:hover {
+    border-width: 0px;
+    background-color: #222222;
+    
+    .image .border-cover {
+      border-color: #222222;
+    }
+
+    .product-name {
+      background-color: unset;
+    }
+    
+    .card-bottom-border {
+      background-color: red;
+    }
+  }
+
+
+  .product-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 6px;
+    z-index: 100;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 2px;
+    border-radius: $border-radius;
+    transition: $default-transition;
+  }
+  
+  .image {
+    width: 200px;
+    height: 150px;
+    z-index: 99;
+
+    .border-cover {
+      width: 200px;
+      height: 150px;
+      background-color: rgba(0,0,0,0);
+      border: 5px solid $color-background-dark;
+      position: absolute;
+      z-index: 900000;
+      transition: $default-transition;
+    }
+
+    .card-product-layer {
+      position: absolute;
+      background-color: unset;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      width: 200px;
+      height: 150px;
+      border-image: unset;
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import Modal from '../modal/Modal'
 
-import { IShoe } from '../../utils/constants'
+import { IGenericProduct } from '../../@types/types'
 import './ImagesCombiner.scss'
 
 interface IProps {
-  activeShoe: IShoe | undefined
+  activeProduct: IGenericProduct | undefined
 }
 
 const ImagesCombiner = (props: IProps) => {
@@ -14,11 +14,11 @@ const ImagesCombiner = (props: IProps) => {
   const canvasWidth = 1337
   const canvasHeight = 900
 
-  const { activeShoe } = props 
+  const { activeProduct } = props 
   const accumulatedImages: string[] = []
 
   const [showSaveModal, setShowSaveModal] = useState(false)
-  const [shoeName, setShoeName] = useState<string>('')
+  const [productName, setProductName] = useState<string>('')
   const [creator, setCreator] = useState<string>('')
 
   return (
@@ -37,11 +37,11 @@ const ImagesCombiner = (props: IProps) => {
       >
         <div>
           <h3>Add your own custom name to the image</h3>
-          <input className="input yeezy-name" placeholder={'Shoe model name'} value={shoeName} onChange={(e) => setShoeName(e.target.value)} />
-          <input className="input yeezy-name" placeholder={'Your own name'} value={creator} onChange={(e) => setCreator(e.target.value)} />
+          <input className="input product-name" placeholder={'Shoe model name'} value={productName} onChange={(e) => setProductName(e.target.value)} />
+          <input className="input product-name" placeholder={'Your own name'} value={creator} onChange={(e) => setCreator(e.target.value)} />
 
           <h3>Your shoe</h3>
-          <p>{`${activeShoe?.name} '${shoeName || 'CONCEPT'}'`}</p>
+          <p>{`${activeProduct?.name} '${productName || 'CONCEPT'}'`}</p>
           <p>{`Created by ${creator || 'a fan'}`}</p>
         </div>
       </Modal>
@@ -91,7 +91,7 @@ const ImagesCombiner = (props: IProps) => {
     }
 
     const now = new Date()
-    const filename = `${activeShoe?.id}_${shoeName || 'CONCEPT'}_${now.toLocaleDateString()}-${now.toLocaleTimeString()}`
+    const filename = `${activeProduct?.id}_${productName || 'CONCEPT'}_${now.toLocaleDateString()}-${now.toLocaleTimeString()}`
 
     const finalCanvas = document.createElement(`canvas`)
     const finalContext = finalCanvas.getContext('2d')
@@ -108,7 +108,7 @@ const ImagesCombiner = (props: IProps) => {
       finalContext.fillStyle = 'rgb(46, 50, 56)'
       finalContext.font = '800 48px Yeezy'
       finalContext.textAlign = 'center'
-      finalContext.fillText(`${activeShoe?.name} '${shoeName || 'CONCEPT'}'`, canvasWidth / 2, 80)
+      finalContext.fillText(`${activeProduct?.name} '${productName || 'CONCEPT'}'`, canvasWidth / 2, 80)
       
       // Add username to image
       finalContext.font = '800 24px Yeezy'
@@ -139,7 +139,7 @@ const ImagesCombiner = (props: IProps) => {
 
             anchor.click()
 
-            setShoeName('')
+            setProductName('')
           }
         }
       }

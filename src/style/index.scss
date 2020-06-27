@@ -1,14 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
-@import url('https://mcansh.github.io/yeezy-logo-font/assets/css/font.css');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700;800;900&display=swap');
 @import './variables.scss';
+
+* {
+  color: $color-text;
+  font-family: $font-family;
+  box-sizing: border-box;
+}
 
 body,
 html {
   margin: 0;
   padding: 0;
 
-  color: $color-text;
-  font-family: 'Yeezy', 'Lexend Deca', sans-serif;
   -webkit-font-smoothing: subpixel-antialiased !important; 
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -17,19 +20,18 @@ html {
   background-color: $color-background;
 }
 
-* {
-  color: $color-text;
-  font-family: 'Yeezy', sans-serif;
-  box-sizing: border-box;
+h1, h2, h3, h4, h5, h6 {
+  margin-top: unset;
 }
 
 button, .tab {
   border: none;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
   background-color: $color-white;
   color: $color-notblack;
   cursor: pointer;
+  border-radius: $border-radius;
 
   padding: 6px 12px;
   padding-bottom: 4px;
@@ -53,13 +55,49 @@ button, .tab {
   }
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 .input {
   padding: 6px 8px;
   border: 1px solid #d1d1d1;
-  border-radius: 12px;
+  border-radius: $border-radius;
   width: 100%;
   outline: 0;
 
   font-size: 14px;
   font-family: 'Yeezy',
+}
+
+.content-box {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  padding: 24px;
+  margin: 24px 0px;
+
+  background-color: $color-background-dark;
+  border-radius: $border-radius;
+
+  &.full-width {
+    max-width: unset;
+    margin: 3em;
+  }
 }

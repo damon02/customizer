@@ -2,7 +2,9 @@ import * as React from 'react'
 
 import ColorPickerList from './colorPickerList/ColorPickerList'
 
-import { IGenericPart, USER_PRESETS_KEY } from '../../utils/constants'
+import { IColorProperties, ICSSProperties, IExposedCSS, IGenericPart } from '../../@types/types'
+import { USER_PRESETS_KEY } from '../../utils/constants'
+import { combineIntoCSS } from '../../utils/css'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
 import './ColorCustomizer.scss'
 
@@ -11,22 +13,6 @@ interface IProps {
   allPartsCSS: { [partKey: string]: ICSSProperties } | undefined
   saveCSSToStorage: (css: ICSSProperties, part: IGenericPart) => void
   children: (css: { [partKey: string]: IExposedCSS }, slider: React.ReactNode) => React.ReactNode
-}
-
-export interface IExposedCSS {
-  filter: string
-  display: 'none' | 'block'
-}
-
-export interface IColorProperties {
-  saturation: number
-  hue: number
-  sepia: number
-  brightness: number
-}
-
-export interface ICSSProperties extends IColorProperties {
-  display: 'block' | 'none'
 }
 
 const ColorCustomizer = (props: IProps) => {
@@ -116,10 +102,6 @@ const ColorCustomizer = (props: IProps) => {
       ))}
     </React.Fragment>
   )
-
-  function combineIntoCSS(x: ICSSProperties): IExposedCSS  {
-    return { filter: `saturate(${x.saturation}) hue-rotate(${x.hue}deg) sepia(${x.sepia}) brightness(${x.brightness})`, display: x.display }
-  }
 
   function savePresetToStorage() {
     const presets = loadFromLocalStorage(USER_PRESETS_KEY, [])
