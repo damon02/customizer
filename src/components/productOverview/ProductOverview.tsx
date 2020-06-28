@@ -1,4 +1,5 @@
 import * as React from 'react'
+import pjson from '../../../package.json'
 
 import ColorCustomizer from '../colorCustomizer/ColorCustomizer'
 import ComponentsList from '../componentsList/ComponentsList'
@@ -46,7 +47,8 @@ const ProductOverview = (props: IProps) => {
               <div className="product-canvas-wrapper">
                 <div className="product-canvas" id="img-src">
                   <div className="border-cover"/>
-                  {props.activeProduct?.assets?.map((part) => {
+                  <div className="bruh">{pjson.homepage}</div>
+                  {props.activeProduct?.assets?.map((part) => { 
                     const variantID = cssProps[part.id].variant.id
                     const variantImage = part.variants.find(p => p.id === variantID)?.file || part.variants[0].file
 

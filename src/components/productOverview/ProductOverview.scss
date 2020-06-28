@@ -1,5 +1,7 @@
 @import '../../style/variables.scss';
 
+$f-h-max: calc(100vh - #{$height-footer} - #{$height-header} - #{$height-titlebox});
+
 .product-overview {
   display: flex;
   flex-direction: column;
@@ -7,7 +9,7 @@
   height: 100%;
   width: 100%;
   border-width: 0px;
-  max-height: 900px;
+  max-height: m#{i}n($f-h-max, 900px);
   background-color: $color-background-dark;
 
   .overview-row { 
@@ -56,6 +58,17 @@
           height: 100%;
           border-image: unset;
           transition: $quick-transition;
+        }
+
+        .bruh {
+          position: absolute;
+          bottom: 50%;
+          left: 50%;
+          transform: translateX(50%);
+          z-index: 10000;
+          font-size: 11px;
+          opacity: 0.5;
+          color: rgba(255,255,255, 0.2);
         }
       }
     }

@@ -1,10 +1,12 @@
+const globalPrefix = 'CUSTOMIZER-'
+
 export function parseStorage(v: any) {
   return v !== undefined && v !== 'undefined' ? JSON.parse(v) : null
 }
 
 export function loadFromLocalStorage(key: string, defaultValue?: any) {
   try {
-    const value = localStorage[key]
+    const value = localStorage[`${globalPrefix}${key}`]
     return value !== undefined && value !== 'undefined' ? JSON.parse(value) : defaultValue
   } catch (err) {
     return defaultValue
@@ -18,7 +20,7 @@ export function loadFromLocalStorage(key: string, defaultValue?: any) {
  */
 export function saveToLocalStorage(key: string, value: any) {
   try {
-    localStorage[key] = JSON.stringify(value)
+    localStorage[`${globalPrefix}${key}`] = JSON.stringify(value)
   } catch (err) {
     console.error('Error in function saveToLocalStorage  ' + err.message)
   }
@@ -30,7 +32,7 @@ export function saveToLocalStorage(key: string, value: any) {
  */
 export function removeFromLocalStorage(key: string) {
   try {
-    delete localStorage[key]
+    delete localStorage[`${globalPrefix}${key}`]
   } catch (err) {
     console.error('Error in function removeFromLocalStorage  ' + err.message)
   }
