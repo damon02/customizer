@@ -3,7 +3,7 @@ import * as React from 'react'
 import ColorCustomizer from '../colorCustomizer/ColorCustomizer'
 import ComponentsList from '../componentsList/ComponentsList'
 
-import { IColorProperties, ICSSProperties, IGenericPart, IGenericProduct } from '../../@types/types'
+import { IColorProperties, ICSSProperties, IGenericPart, IGenericProduct, IPartPropsCSSProperties, IPartVariant } from '../../@types/types'
 import { usePrevious } from '../../hooks/usePrevious'
 import { DEFAULT_WHITE } from '../../utils/constants'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
@@ -26,11 +26,11 @@ const ProductOverview = (props: IProps) => {
   return (
     <div className="shoe-overview">
       <ColorCustomizer
-        allPartsCSS={loadCSSFromStorage()}
+        allPartProps={loadCSSFromStorage()}
         selectedPart={activePart}
         saveCSSToStorage={saveCSSToStorage}
       >
-        {(cssProps, sliders) => (
+        {(cssProps, sliders, applyPartPropsChanges) => (
           <React.Fragment>
             <div className="overview-row">
               <div className="left">
@@ -39,7 +39,7 @@ const ProductOverview = (props: IProps) => {
                   onSetActiveComponent={(ac) => setActivePart(ac)}
                   activeComponent={activePart}
                   activeComponentCSS={cssProps}
-                  applyComponentSettings={() => ({})}
+                  applyPartPropsChanges={(changes) => applyPartPropsChanges(changes)}
                 />
               </div>
               <div className="shoe-canvas-wrapper">
@@ -50,11 +50,11 @@ const ProductOverview = (props: IProps) => {
                       alt={''}
                       key={`${props.activeProduct?.name}-${part.id}`}
                       className={`shoe-part-image ${part.id}`}
-                      id={`shoe-img`}
+                      id={`shoe-img ${part.id}`}
                       style={{
-                        ...cssProps[part.id],
+                        ...cssProps[part.id].css,
                         zIndex: part.zindex,
-                        backgroundImage: `url(${part.file})`,
+                        backgroundImage: `url(${cssProps[part.id].variant.file})`,
                       }}
                     />
                   ))}
@@ -76,13 +76,22 @@ const ProductOverview = (props: IProps) => {
     const defaultCSS: ICSSProperties = { ...DEFAULT_WHITE.values, display: 'block' }
 
     if (props.activeProduct) {
-      const css = loadFromLocalStorage(props.activeProduct.id, null)
+      const partProps = loadFromLocalStorage(props.activeProduct.id, null) as IPartPropsCSSProperties
 
-      if (!css) {
-        const newCSS: { [part: string]: ICSSProperties } = {}
+      const defaultVariants = {}
+      // Set default variants for each part
+      props.activeProduct.assets?.forEach(part => {
+        defaultVariants[part.id] = part.variants[0]
+      })    
 
-        props.activeProduct.assets?.forEach((asset, i) => {
-          newCSS[asset.id] = defaultCSS
+      if (!partProps) {
+        const newCSS: IPartPropsCSSProperties = {}
+
+        props.activeProduct.assets?.forEach((part, i) => {
+          newCSS[part.id] = {
+            css: defaultCSS,
+            variant: defaultVariants[part.id],
+          }
         })
 
         saveToLocalStorage(props.activeProduct.id, newCSS)
@@ -92,31 +101,31 @@ const ProductOverview = (props: IProps) => {
         // Check if all keys are present, no new ones have been added
         let edited = false
         props.activeProduct.assets?.forEach((asset, i) => {
-          if (!css[asset.id] || Object.keys(css[asset.id]).length !== Object.keys(defaultCSS).length) {
+          if (!partProps[asset.id] || Object.keys(partProps[asset.id]).length !== Object.keys(defaultCSS).length) {
             // Existing object has been extended, edit saved CSS
-            css[asset.id] = { ...defaultCSS, ...css[asset.id] }
+            // partProps.css[asset.id] = { ...defaultCSS, ...partProps[asset.id] }
             edited = true
           }
         })
         
         if (edited) {
-          saveToLocalStorage(props.activeProduct.id, css)
+          saveToLocalStorage(props.activeProduct.id, partProps)
         }
 
-        return css
+        return partProps
       }
     } else {
       return undefined
     }
   }
 
-  function saveCSSToStorage(css: IColorProperties, part: IGenericPart) {
+  function saveCSSToStorage(css: IColorProperties, variant: IPartVariant, part: IGenericPart) {
     if (props.activeProduct) {
       const originalSaved = loadFromLocalStorage(props.activeProduct?.id, {})
   
       saveToLocalStorage(props.activeProduct.id, {
         ...originalSaved,
-        [part.id]: css
+        [part.id]: { css, variant }
       })
     }
   }

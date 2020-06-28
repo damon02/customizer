@@ -1,15 +1,14 @@
 import * as React from 'react'
 
-import { IExposedCSS, IGenericPart } from '../../@types/types'
+import { IGenericPart, IOptionalCSSProperties, IPartPropsExposedCSS, IPartVariant } from '../../@types/types'
 import './ComponentsList.scss'
 
 interface IProps {
   components: IGenericPart[]
   activeComponent: IGenericPart | undefined
-  activeComponentCSS: { [partKey: string]: IExposedCSS } | undefined
+  activeComponentCSS: IPartPropsExposedCSS | undefined
   onSetActiveComponent: (activeComponent: IGenericPart | undefined) => void
-
-  applyComponentSettings: () => void
+  applyPartPropsChanges: (changes: { css?: IOptionalCSSProperties, variant?: IPartVariant }) => void
 }
 
 const ComponentsList = (props: IProps) => {
@@ -19,11 +18,15 @@ const ComponentsList = (props: IProps) => {
         const isActive = c === props.activeComponent
         const onClick = () => props.onSetActiveComponent(c)
         const isEnabled = props.activeComponent?.toggleable
-          ? props.activeComponentCSS && props.activeComponentCSS[props.activeComponent.id].display === 'block'
+          ? props.activeComponentCSS && props.activeComponentCSS[props.activeComponent.id].css.display === 'block'
           : undefined
 
+        const variants = c.variants.map(variant => 
+          <option className="option-variant" key={variant.id} value={variant.id}>{variant.name} {variant.description && `(${variant.description})`}</option>
+        )
+
         return (
-          <div className="component-wrapper" key={`part-${c.id}`}>
+          <div className={`component-wrapper${isActive ? ' active' : ''}`} key={`part-${c.id}`}>
             <button
               className={`select-button ${isActive ? 'active' : ''}`}
               onClick={onClick}
@@ -32,10 +35,20 @@ const ComponentsList = (props: IProps) => {
               {c.name}
             </button>
             <div className={`options${isActive ? ' show' : ''}`}>
+              <h3 className="title">Options</h3>
+              {variants.length > 1 ? (
+                <select onChange={(e) => handleOnVariantChange(c, e.target.value)}>
+                  <option disabled>Select {c.name.toLowerCase()} type</option>
+                  {variants}
+                </select>
+              ) : (
+                <div>No variants available</div>
+              )}
+
               {props.activeComponent?.toggleable && (
                 <button
                   className={`button-part ${isEnabled}`}
-                  onClick={() => ({})}
+                  onClick={() => handleOnDisplayChange(props.activeComponent, !isEnabled)}
                 >
                   {isEnabled ? `Remove ${c.name}` : `Add ${c.name}`}
                 </button>
@@ -46,6 +59,21 @@ const ComponentsList = (props: IProps) => {
       })}
     </div>
   )
+
+  function handleOnVariantChange(anyPart: IGenericPart, variantID: string) {
+    const part = anyPart.variants.find(x => x.id === variantID)
+
+    if (part) {
+      props.applyPartPropsChanges({ variant: part })
+    }
+  }
+
+  function handleOnDisplayChange(part: IGenericPart | undefined, value: boolean) {
+
+    if (part) {
+      props.applyPartPropsChanges({ css: { display: value ? 'block' : 'none' } })
+    }
+  }
 }
 
 export default ComponentsList

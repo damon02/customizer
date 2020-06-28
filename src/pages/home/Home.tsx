@@ -4,7 +4,7 @@ import { useHistory } from 'react-router'
 
 import Modal from '../../components/modal/Modal'
 
-import { ICSSProperties, IGenericProduct } from '../../@types/types'
+import { ICSSProperties, IGenericProduct, IPartPropsCSSProperties } from '../../@types/types'
 import Card from '../../components/card/Card'
 import { URL_PREFIX } from '../../utils/constants'
 import { loadFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
@@ -37,7 +37,7 @@ const Home = () => {
               {unsavedProducts.map(unsavedProduct => (
                 <Card 
                   key={unsavedProduct.product.id}
-                  css={unsavedProduct.css}
+                  partProps={unsavedProduct.partProps}
                   product={unsavedProduct.product}
                   handleClick={() => history.push(`${URL_PREFIX}/edit/${unsavedProduct.product.id}`)}
                 />
@@ -125,12 +125,13 @@ const Home = () => {
     }
   }
 
-  function detectUnsavedProducts() {
-    return ALL_PRODUCTS.map(p => p.id)
-      .map(id => ({ key: id, value: loadFromLocalStorage(id, null) as { [key: string]: ICSSProperties}  | null }))
-      .filter(keyValuePair => keyValuePair.value !== null)
-      .map(kv => ({ product: ALL_PRODUCTS.find((p) => p.id === kv.key), css: kv.value }))
-      .filter(unsavedProduct => unsavedProduct.product !== null) as unknown as { product: IGenericProduct, css: {[key: string]: ICSSProperties} }[]
+  function detectUnsavedProducts() : { product: IGenericProduct, partProps: IPartPropsCSSProperties }[] {
+    const savedProducts = ALL_PRODUCTS.map(product => ({ 
+      product,
+      partProps: loadFromLocalStorage(product.id, null) as IPartPropsCSSProperties 
+    })).filter(p => p.partProps !== null)
+
+    return savedProducts
   }
 }
 

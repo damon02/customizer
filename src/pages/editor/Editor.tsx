@@ -19,7 +19,7 @@ const Editor = () => {
   const history = useHistory()
   const params = useParams<IParams>()
   const activeProduct = ALL_PRODUCTS.find(p => p.id === params.id)
-  const [name, setName] = React.useState('')
+  // const [name, setName] = React.useState('')
 
   React.useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search)

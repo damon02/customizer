@@ -14,9 +14,9 @@ export interface IGenericPart {
   id: string
   name: string
   toggleable?: boolean
-  zindex: number // z-index
+  zindex: number
+  variants: IPartVariant[]
   category?: string
-  file: string
   overrides?: {
     brightness?: IMinMax
     saturation?: IMinMax
@@ -27,6 +27,13 @@ export interface IGenericPart {
     cssString: string
     values: { brightness: number, saturation: number, sepia: number, hue: number }
   }[]
+}
+
+export interface IPartVariant {
+  id: string
+  file: string
+  name: string
+  description?: string
 }
 
 export interface IMinMax {
@@ -48,4 +55,21 @@ export interface IColorProperties {
 
 export interface ICSSProperties extends IColorProperties {
   display: 'block' | 'none'
+}
+
+// Used for parts list => ColorCustomizer
+export interface IOptionalCSSProperties {
+  saturation?: number
+  hue?: number
+  sepia?: number
+  brightness?: number
+  display?: 'block' | 'none'
+}
+
+export interface IPartPropsExposedCSS {
+  [partKey: string]: { css: IExposedCSS, variant: IPartVariant }
+}
+
+export interface IPartPropsCSSProperties { 
+  [partKey: string]: { css: ICSSProperties, variant: IPartVariant }
 }

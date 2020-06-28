@@ -1,20 +1,22 @@
 import React from 'react'
 
-import { ICSSProperties, IGenericProduct } from '../../@types/types'
+import { IGenericProduct, IPartPropsCSSProperties } from '../../@types/types'
 import { DEFAULT_WHITE } from '../../utils/constants'
 import { combineIntoCSS } from '../../utils/css'
 
 import './Card.scss'
 
 interface IProps {
-  css?: { [partID: string]: ICSSProperties }
+  partProps?: IPartPropsCSSProperties
   product: IGenericProduct
   handleClick: () => void
 }
 
 const Card = (props: IProps) => {
-  const { css, product, handleClick } = props
-  const upperCSS = css && combineIntoCSS({ ...css.upper, saturation: 1 })
+  const { partProps, product, handleClick } = props
+  const upperCSS = partProps && combineIntoCSS({ ...partProps.upper.css, saturation: 1 })
+
+  console.log(partProps)
 
   return (
     <button
@@ -25,9 +27,10 @@ const Card = (props: IProps) => {
       <div className="image">
         <div className="border-cover"/>
         {product.assets?.map((part) => {
-          const partCSS = css 
-            ? combineIntoCSS(css[part.id]) 
+          const partCSS = partProps 
+            ? combineIntoCSS(partProps[part.id].css) 
             : combineIntoCSS({ ...DEFAULT_WHITE.values, display: 'block' })
+          const variant = partProps ? partProps[part.id].variant.file : part.variants[0].file
 
           return (
             <img
@@ -37,7 +40,7 @@ const Card = (props: IProps) => {
               style={{
                 ...partCSS,
                 zIndex: part.zindex,
-                backgroundImage: `url(${part.file})`,
+                backgroundImage: `url(${variant})`,
               }}
             />
           )

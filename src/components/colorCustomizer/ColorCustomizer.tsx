@@ -2,7 +2,15 @@ import * as React from 'react'
 
 import ColorPickerList from './colorPickerList/ColorPickerList'
 
-import { IColorProperties, ICSSProperties, IExposedCSS, IGenericPart } from '../../@types/types'
+import { 
+  IColorProperties,
+  ICSSProperties,
+  IGenericPart,
+  IOptionalCSSProperties,
+  IPartPropsCSSProperties,
+  IPartPropsExposedCSS,
+  IPartVariant
+} from '../../@types/types'
 import { USER_PRESETS_KEY } from '../../utils/constants'
 import { combineIntoCSS } from '../../utils/css'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
@@ -10,17 +18,19 @@ import './ColorCustomizer.scss'
 
 interface IProps {
   selectedPart: IGenericPart | undefined
-  allPartsCSS: { [partKey: string]: ICSSProperties } | undefined
-  saveCSSToStorage: (css: ICSSProperties, part: IGenericPart) => void
+  allPartProps: IPartPropsCSSProperties | undefined
+  saveCSSToStorage: (css: ICSSProperties, variant: IPartVariant, part: IGenericPart) => void
   children: (
-    css: { [partKey: string]: IExposedCSS }, 
-    slider: React.ReactNode
+    partProps: IPartPropsExposedCSS, 
+    slider: React.ReactNode, 
+    setPartProperties: (changes: { css?: IOptionalCSSProperties, variant?: IPartVariant }) => void
   ) => React.ReactNode
 }
 
 const ColorCustomizer = (props: IProps) => {
-  const { selectedPart, saveCSSToStorage, allPartsCSS } = props
+  const { selectedPart, saveCSSToStorage, allPartProps } = props
 
+  const [selectedVariant, setVariant] = React.useState<IPartVariant | undefined>(selectedPart?.variants[0])
   const [saturation, setSaturation] = React.useState<number>(1)
   const [hue, setHue] = React.useState<number>(0)
   const [sepia, setSepia] = React.useState<number>(0)
@@ -28,42 +38,51 @@ const ColorCustomizer = (props: IProps) => {
   const [display, setDisplay] = React.useState<'none' | 'block'>('block')
 
   const [userPresets, setUserPresets] = React.useState<IColorProperties[]>(loadFromLocalStorage(USER_PRESETS_KEY, []) as IColorProperties[])
-  const allPartsCSSFilter: { [partKey: string]: IExposedCSS } = {}
+  const allPartsCSSFilter: IPartPropsExposedCSS = {}
 
-  if (props.allPartsCSS) {
-    Object.keys(props.allPartsCSS).forEach(partKey => {
+  // Prepare CSS to expose for rendering
+  if (props.allPartProps) {
+    Object.keys(props.allPartProps).forEach(partKey => {
+      // Check if selectedPart is equal to partKey, apply current changes if so
       if (partKey === selectedPart?.id) {
         const currCSS = combineIntoCSS({ saturation, hue, sepia, brightness, display })
+        const currentVariant = selectedVariant || selectedPart.variants[0]
 
-        allPartsCSSFilter[partKey] = currCSS
+        allPartsCSSFilter[partKey] = { css: currCSS, variant: currentVariant }
       } else {
-        const css = props.allPartsCSS ? combineIntoCSS(props.allPartsCSS[partKey]) : undefined
+        // Apply changes from storage
+        const css = props.allPartProps && props.allPartProps[partKey].css 
+          ? combineIntoCSS(props.allPartProps[partKey].css) 
+          : undefined
 
-        if (css) {
-          allPartsCSSFilter[partKey] = css
+        const variant = props.allPartProps 
+          ? props.allPartProps[partKey].variant
+          : selectedPart?.variants[0]
+
+        if (css && variant) {
+          allPartsCSSFilter[partKey] = { css, variant }
         }
       }
-
     })
   }
 
   React.useEffect(() => {
     if (selectedPart) {
-      saveCSSToStorage({ saturation, hue, sepia, brightness, display }, selectedPart)
+      saveCSSToStorage({ saturation, hue, sepia, brightness, display }, selectedVariant || selectedPart.variants[0], selectedPart)
     }
-  }, [saturation, hue, sepia, brightness, selectedPart, display, saveCSSToStorage])
+  }, [saturation, hue, sepia, brightness, selectedPart, display, selectedVariant, saveCSSToStorage])
 
   React.useEffect(() => {
-    if (selectedPart && allPartsCSS && allPartsCSS[selectedPart.id]) {
-      const properties = allPartsCSS[selectedPart.id]
+    if (selectedPart && allPartProps && allPartProps[selectedPart.id].css) {
+      const properties = allPartProps[selectedPart.id].css
       setSaturation(properties.saturation)
       setHue(properties.hue)
       setSepia(properties.sepia)
       setBrightness(properties.brightness)
       setDisplay(properties.display)
+      setVariant(allPartProps[selectedPart.id].variant)
     }
-  }, [selectedPart, allPartsCSS])
-
+  }, [selectedPart, allPartProps])
 
   return (
     <React.Fragment>
@@ -102,7 +121,8 @@ const ColorCustomizer = (props: IProps) => {
               )}
             </React.Fragment>
         </div>
-      ))}
+      ), (changes) => applyPartPropsChanges(changes)
+      )}
     </React.Fragment>
   )
 
@@ -112,6 +132,30 @@ const ColorCustomizer = (props: IProps) => {
 
     saveToLocalStorage(USER_PRESETS_KEY, presets)
     setUserPresets([...presets])
+  }
+
+  function applyPartPropsChanges(changes: { css?: IOptionalCSSProperties, variant?: IPartVariant }) {
+    console.log('Applying changes to', props.selectedPart, changes)
+    if (changes.css) {
+      // Apply css changes
+      if (changes.css.saturation) {
+        setSaturation(changes.css.saturation)
+      }
+      if (changes.css.hue) {
+        setHue(changes.css.hue)
+      }
+      if (changes.css.sepia) {
+        setSepia(changes.css.sepia)
+      }
+      if (changes.css.brightness) {
+        setBrightness(changes.css.brightness)
+      }
+      if (changes.css.display) {
+        setDisplay(changes.css.display)
+      }
+    } else if (changes.variant) {
+      setVariant(changes.variant)
+    }
   }
 }
 

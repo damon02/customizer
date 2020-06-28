@@ -2,6 +2,7 @@ import React from 'react'
 
 import { IColorProperties, IGenericPart } from '../../../@types/types'
 import { USER_PRESETS_KEY } from '../../../utils/constants'
+import { combineIntoCSSFilter } from '../../../utils/css'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../../utils/localStorage'
 import './ColorPickerList.scss'
 
@@ -35,7 +36,7 @@ const ColorPickerList = (props: IProps) => {
             <div className="row user-preset" key={i}>
               <button
                 className="preset-button"
-                style={{ backgroundColor: 'red', filter: combineIntoCSSFilter(p).filter }}
+                style={{ backgroundColor: 'red', filter: combineIntoCSSFilter(p) }}
                 onClick={() => setProperties(p)}
               />
               <button className="button delete" onClick={() => deleteFromPresets(i)}>x</button>
@@ -54,10 +55,6 @@ const ColorPickerList = (props: IProps) => {
 
     saveToLocalStorage(USER_PRESETS_KEY, presets)
     setUserPresets([...presets])
-  }
-
-  function combineIntoCSSFilter(colorProperties: IColorProperties) {
-    return { filter: `saturate(${colorProperties.saturation}) hue-rotate(${colorProperties.hue}deg) sepia(${colorProperties.sepia}) brightness(${colorProperties.brightness})` }
   }
 }
 
