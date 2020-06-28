@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+  width: 100%;
 
   .title {
     margin: 8px 0px;
@@ -24,6 +25,10 @@
   
       max-height: 300px;
       overflow: auto;
+    }
+
+    &.mobile {
+      display: none;
     }
   }
 

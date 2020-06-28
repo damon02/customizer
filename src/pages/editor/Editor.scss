@@ -26,8 +26,8 @@
 
 
 @media screen and (max-width: 1000px) {
-  .model-background-wrapper {
-    display: block;
+  #modal-wrapper-part-selector {
+    display: flex;
   }
 
   .page.editor {

@@ -114,9 +114,18 @@ button, .tab {
   }
 
   .back-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background-color: unset;
     color: #fff;
     padding: 0;
+    
+    .text {
+      margin-left: 12px;
+    }
+
     &:hover, &:focus {
       border-color: $color-primary;
     }

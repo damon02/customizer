@@ -79,12 +79,14 @@ const ImagesCombiner = (props: IProps) => {
       partImage.src = bgURL
       partImage.onload = (e) => {
         // Draw the image including the CSS filter
-        ctx.drawImage(partImage, (canvasWidth - width) / 2, (canvasHeight - height) / 2, width, height)
-        accumulatedImages.push(canvas.toDataURL('image/png'))
-
-        // READY, all products have been loaded
-        if ((i + 1) === productParts.length) {
-          mergeImages()
+        if (getComputedStyle(s).display !== 'none') {
+          ctx.drawImage(partImage, (canvasWidth - width) / 2, (canvasHeight - height) / 2, width, height)
+          accumulatedImages.push(canvas.toDataURL('image/png'))
+  
+          // READY, all products have been loaded
+          if ((i + 1) === productParts.length) {
+            mergeImages()
+          }
         }
       }
     })
@@ -138,9 +140,9 @@ const ImagesCombiner = (props: IProps) => {
 
       // Add URL
       finalContext.textAlign = 'center'
-      finalContext.font = '400 18px Chakra Petch'
-      finalContext.fillText(`https://damon02.github.io/customizer/`, canvasWidth / 2, canvasHeight - 20)
-
+      finalContext.font = '400 14px Chakra Petch'
+      finalContext.fillText(`Design your dream shoes!`, canvasWidth / 2, canvasHeight - 30)
+      finalContext.fillText(`https://damon02.github.io/customizer/`, canvasWidth / 2, canvasHeight - 10)
     }
   
     accumulatedImages.forEach((imgString, j) => {
@@ -150,11 +152,15 @@ const ImagesCombiner = (props: IProps) => {
         
         i.onload = () => {
           finalContext?.drawImage(i, 0,0, canvasWidth, canvasHeight)
-
+          
+          
           if ((j + 1) === accumulatedImages.length) {
+            if (finalContext) {
+              finalContext.fillStyle = 'rgba(255,255,255,0.05)'
+              finalContext.fillText(`Not a real product, don't fall for it :)`, canvasWidth / 2, canvasHeight / 3)
+            }
             // READY TO DOWNLOAD
             const URL = finalCanvas.toDataURL('image/png')
-
             const anchor = document.createElement('a')
             anchor.href = URL
             anchor.setAttribute('download', filename)

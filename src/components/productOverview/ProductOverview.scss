@@ -62,13 +62,13 @@ $f-h-max: calc(100vh - #{$height-footer} - #{$height-header} - #{$height-titlebo
 
         .bruh {
           position: absolute;
-          top: 20%;
+          bottom: 25%;
           right: 50%;
           transform: translateX(50%);
           z-index: 10000;
           font-size: 11px;
           opacity: 0.2;
-          color: rgba(255,255,255, 0.2);
+          color: rgba(255,255,255, 0.3);
         }
       }
     }

@@ -139,6 +139,9 @@ export const SHOES_YEEZY: IGenericProduct[] = [
             name: 'Default',
           },
         ],
+        overrides: {
+          brightness: { min: 0, max: 2 }
+        },
       },
       {
         id: 'outsole',
@@ -147,6 +150,9 @@ export const SHOES_YEEZY: IGenericProduct[] = [
         toggleable: false,
         category: 'outsole',
         presets: DEFAULT_COLORS,
+        overrides: {
+          brightness: { min: 0, max: 2 }
+        },
         variants: [
           {
             id: 'outsole350V2static',
