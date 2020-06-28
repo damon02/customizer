@@ -7,10 +7,11 @@
   width: 100%;
   overflow: auto;
   padding: 6px;
-
+  
   .color-customizer {
     display: flex;
     flex-direction: column;
+    width: 100%;
   
     .selected-item {
       display: flex;

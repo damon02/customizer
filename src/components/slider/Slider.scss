@@ -1,0 +1,14 @@
+.slider.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  > span {
+    width: 50%;
+  }
+
+  > div {
+    width: 50%;
+  }
+}

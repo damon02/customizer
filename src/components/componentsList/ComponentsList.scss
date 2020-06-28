@@ -43,6 +43,10 @@
       }
 
       .names {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         text-align: left;
         
         .part-variant {
@@ -56,6 +60,8 @@
         align-items: center;
         width: 16px;
         height: 16px;
+        min-width: 16px;
+        min-height: 16px;
         border-radius: 50%;
         margin-right: 12px;
         font-size: 16px;
@@ -82,14 +88,17 @@
       }
 
       select {
+        -webkit-appearance:none;
         background-color: $color-background-notdark;
-        color: #fff;
+        color: $font-darkmode;
         height: 40px;
         border: unset;
         outline: unset;
         font-size: 13px;
         width: 100%;
         padding: 0px 12px;
+        border-radius: $border-radius;
+        font-weight: 700;
       }
 
       .button-part {
@@ -100,13 +109,23 @@
         width: 100%;
         border-radius: $border-radius;
         max-width: 100%;
-        padding: 6px 12px;
+        padding: 12px;
+        min-height: 32px;
 
         &:hover, &:focus {
           border: 0px;
           background-color: $color-primary;
         }
       }
+
+      .no-variants {
+        display: none;
+      }
     }
   }
+}
+
+.modal-part-selector {
+  display: flex;
+  flex-direction: column;
 }

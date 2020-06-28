@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import { IGenericPart, IOptionalCSSProperties, IPartPropsExposedCSS, IPartVariant } from '../../@types/types'
+import { IGenericPart, IOptionalCSSProperties, IPartPropsExposedCSS } from '../../@types/types'
+import Modal from '../modal/Modal'
 import './ComponentsList.scss'
 
 interface IProps {
@@ -52,7 +53,7 @@ const ComponentsList = (props: IProps) => {
                   className={`button-part ${isEnabled}`}
                   onClick={() => handleOnDisplayChange(props.activeComponent, !isEnabled)}
                 >
-                  {isEnabled ? `Remove ${c.name}` : `Add ${c.name}`}
+                  {isEnabled ? `Remove` : `Add`}
                 </button>
               )}
               {variants.length > 1 ? (
@@ -61,13 +62,55 @@ const ComponentsList = (props: IProps) => {
                   {variants}
                 </select>
               ) : (
-                <div>No variants available</div>
+                <div className="no-variants">No variants available</div>
               )}
 
             </div>
           </div>
         )
       })}
+      <Modal
+        showModal={collapsed}
+        onClose={() => {
+          setCollapsed(false)
+        }}
+        uuid={'part-selector'}
+        closeText={''}
+        noButtons={true}
+      >
+        <div className="modal-part-selector fullscreen">
+          {props.components.map(c => {
+            const isActive = c === props.activeComponent
+            const onClick = () => {
+              if (isActive) {
+                setCollapsed(!collapsed)
+              } else {
+                props.onSetActiveComponent(c)
+                setCollapsed(false)
+              }
+            }
+
+            const isEnabled = props.activeComponentCSS && props.activeComponentCSS[c.id].css.display !== 'none' 
+            const currentVariant = props.activeComponentCSS && props.activeComponentCSS[c.id].variant
+
+            return (
+              <div className={`component-wrapper small ${isActive && !collapsed ? ' active' : ''}`} key={`part-${c.id}`}>
+                <button
+                  className={`select-button ${isActive ? 'active' : ''}`}
+                  onClick={onClick}
+                  key={c.id}
+                >
+                  <div className={`color-peek ${isEnabled ? 'enabled' : 'disabled'}`} style={isEnabled ? { filter: props.activeComponentCSS && props.activeComponentCSS[c.id].css.filter } : {}} />
+                  <div className="names">
+                    <div className="part-name">{c.name}</div>
+                    <div className="part-variant">{isEnabled ? currentVariant?.name : 'Disabled'}</div>
+                  </div>
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </Modal>
     </div>
   )
 

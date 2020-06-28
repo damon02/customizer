@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Modal from '../modal/Modal'
 
-import { format } from 'path'
 import { IGenericProduct } from '../../@types/types'
 import './ImagesCombiner.scss'
 

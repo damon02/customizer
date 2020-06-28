@@ -53,3 +53,22 @@
     min-height: 400px;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .header {
+    height: $height-header-small;
+
+    
+    .title {
+      .name {
+        font-size: 14px;
+      }
+      .logo {
+        height: 20px;
+        width: 20px;
+        margin: unset;
+        margin-right: 8px;
+      }
+    }
+  }
+}

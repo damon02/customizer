@@ -29,7 +29,7 @@ const Card = (props: IProps) => {
             ? combineIntoCSS(partProps[part.id].css) 
             : combineIntoCSS({ ...DEFAULT_WHITE.values, display: 'block' })
 
-          const variantID = partProps && partProps[part.id].variant.id || part.variants[0].id
+          const variantID = (partProps && partProps[part.id].variant.id) || part.variants[0].id
           const variantImage = part.variants.find(p => p.id === variantID)?.file || part.variants[0].file
 
           return (

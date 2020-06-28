@@ -2,7 +2,6 @@ import React from 'react'
 import ReactGA from 'react-ga'
 import { Redirect, useHistory, useParams } from 'react-router'
 
-import ImagesCombiner from '../../components/imagesCombiner/ImagesCombiner'
 import ProductOverview from '../../components/productOverview/ProductOverview'
 
 import { IGenericProduct } from '../../@types/types'
@@ -35,7 +34,8 @@ const Editor = () => {
       <div className="title-box">
         <h3 className="title">Editing {activeProduct.brand} {activeProduct.name}</h3>
         <button className="back-button" onClick={() => history.push(`${URL_PREFIX}`)}>
-          Save and go back
+          <i className="fas fa-arrow-left" />
+          <div className="text">Save and go back</div>
         </button>
       </div>
       <ProductOverview activeProduct={activeProduct} />

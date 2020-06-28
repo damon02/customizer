@@ -35,15 +35,13 @@ const ProductOverview = (props: IProps) => {
         {(cssProps, sliders, applyPartPropsChanges) => (
           <React.Fragment>
             <div className="overview-row">
-              <div className="left">
-                <ComponentsList 
-                  components={props.activeProduct?.assets || []}
-                  onSetActiveComponent={(ac) => setActivePart(ac)}
-                  activeComponent={activePart}
-                  activeComponentCSS={cssProps}
-                  applyPartPropsChanges={(changes) => applyPartPropsChanges(changes)}
-                />
-              </div>
+              <ComponentsList 
+                components={props.activeProduct?.assets || []}
+                onSetActiveComponent={(ac) => setActivePart(ac)}
+                activeComponent={activePart}
+                activeComponentCSS={cssProps}
+                applyPartPropsChanges={(changes) => applyPartPropsChanges(changes)}
+              />
               <div className="product-canvas-wrapper">
                 <div className="product-canvas" id="img-src">
                   <div className="border-cover"/>
@@ -71,9 +69,7 @@ const ProductOverview = (props: IProps) => {
                   <ImagesCombiner activeProduct={props.activeProduct} />
                 </div>
               </div>
-              <div className="right">
-                {sliders}
-              </div>
+              {sliders}
             </div>
             
           </React.Fragment>

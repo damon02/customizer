@@ -18,11 +18,11 @@ $f-h-max: calc(100vh - #{$height-footer} - #{$height-header} - #{$height-titlebo
     height: 100%;
     justify-content: center;
   
-    .left, .right {
+    .components-list, .color-picker {
       display: flex;
       align-items: center;
       flex-direction: column;
-      min-width: 300px;
+      max-width: 300px;
     }
 
     .product-canvas-wrapper {
@@ -62,12 +62,12 @@ $f-h-max: calc(100vh - #{$height-footer} - #{$height-header} - #{$height-titlebo
 
         .bruh {
           position: absolute;
-          bottom: 50%;
-          left: 50%;
+          top: 20%;
+          right: 50%;
           transform: translateX(50%);
           z-index: 10000;
           font-size: 11px;
-          opacity: 0.5;
+          opacity: 0.2;
           color: rgba(255,255,255, 0.2);
         }
       }

@@ -7,6 +7,8 @@ interface IProps {
   children: React.ReactNode
   uuid: string
   buttonColors?: { color: string, backgroundColor: string }
+
+  noButtons?: boolean
   
   inContent?: boolean
   onClose: () => void
@@ -18,7 +20,7 @@ interface IProps {
 }
 
 const Modal = (props: IProps) => {
-  const { showModal, children, onClose, closeText, onCancel, uuid, allowOutsideCancel, cancelText, inContent } = props
+  const { showModal, children, onClose, closeText, onCancel, uuid, allowOutsideCancel, cancelText, inContent, noButtons } = props
 
   if (!showModal) {
     return null
@@ -29,15 +31,19 @@ const Modal = (props: IProps) => {
       <div className="modal-inner">
         <div className="content">
           {children}
+          {!noButtons && (
+            <div className="buttons">
+              {inContent && onCancel && <button className="button" onClick={() => onCancel()}>{cancelText}</button>}
+              {inContent && <button className="button" style={{...props.buttonColors}} onClick={() => onClose()}>{closeText}</button>}
+            </div>
+          )}
+        </div>
+        {!noButtons && (
           <div className="buttons">
-          {inContent && onCancel && <button className="button" onClick={() => onCancel()}>{cancelText}</button>}
-          {inContent && <button className="button" style={{...props.buttonColors}} onClick={() => onClose()}>{closeText}</button>}
+            {!inContent && onCancel && <button className="button" onClick={() => onCancel()}>{cancelText}</button>}
+            {!inContent && <button className="button" style={{...props.buttonColors}} onClick={() => onClose()}>{closeText}</button>}
           </div>
-        </div>
-        <div className="buttons">
-          {!inContent && onCancel && <button className="button" onClick={() => onCancel()}>{cancelText}</button>}
-          {!inContent && <button className="button" style={{...props.buttonColors}} onClick={() => onClose()}>{closeText}</button>}
-        </div>
+        )}
       </div>
     </div>
   )

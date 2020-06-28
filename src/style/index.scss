@@ -21,10 +21,15 @@ html {
   background-color: $color-background;
 }
 
+/* iOS specific preventions for text selection */
+*:not(input):not(textarea) {
+  -webkit-user-select: none; /* disable selection/Copy of UIWebView */
+  -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
+}
+
 #root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -96,7 +101,7 @@ button, .tab {
 .page {
   display: flex;
   flex-direction: column;
-  max-height: 900px;
+  max-height: calc(100vh - #{$height-footer} - #{$height-header} - #{$height-titlebox});
   width: 100%;
   max-width: 1920px;
   margin: 0px auto;
@@ -131,5 +136,18 @@ button, .tab {
   &.full-width {
     max-width: unset;
     margin: 3em;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .root-inner {
+    position: fixed;
+    width: 100%;
+    padding-bottom: m#{a}x(32px, #{env(safe-area-inset-bottom)});
+    
+    .page {
+      max-height: calc(100vh - #{$height-header-small});
+      overflow: hidden;
+    }
   }
 }

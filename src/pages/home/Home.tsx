@@ -4,7 +4,7 @@ import { useHistory } from 'react-router'
 
 import Modal from '../../components/modal/Modal'
 
-import { ICSSProperties, IGenericProduct, IPartPropsCSSProperties } from '../../@types/types'
+import { IGenericProduct, IPartPropsCSSProperties } from '../../@types/types'
 import Card from '../../components/card/Card'
 import { URL_PREFIX } from '../../utils/constants'
 import { loadFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'

@@ -1,6 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 // import ReactGA from 'react-ga'
+import Div100vh from 'react-div-100vh'
+import ReactDOM from 'react-dom'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import Footer from './components/footer/Footer'
@@ -22,15 +23,17 @@ import './style/index.scss'
 
 ReactDOM.render((
   <React.StrictMode>
-    <BrowserRouter>
-      <Header />
-      <Switch>
-        <Route exact path={`${URL_PREFIX}/edit/:id`} component={Editor} />
-        <Route exact path={`${URL_PREFIX}`} component={Home} />
-        <Redirect to={`${URL_PREFIX}`} />
-      </Switch>
-      <Footer />
-    </BrowserRouter>
+    <Div100vh className="root-inner">
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route exact path={`${URL_PREFIX}/edit/:id`} component={Editor} />
+          <Route exact path={`${URL_PREFIX}`} component={Home} />
+          <Redirect to={`${URL_PREFIX}`} />
+        </Switch>
+        <Footer />
+      </BrowserRouter>
+    </Div100vh>
     
   </React.StrictMode>
   ), document.getElementById('root')

@@ -20,7 +20,7 @@ const ColorPickerList = (props: IProps) => {
     return (
       <div className="presets">
         <h4 className="title">Colors</h4>
-        <div className="columns">
+        <div className="columns bigscreen">
           <div className="column">
             {selectedPart.presets.map(p => (
               <button
@@ -47,6 +47,30 @@ const ColorPickerList = (props: IProps) => {
               ))}
             </div>
           )}
+        </div>
+        <div className="columns mobile">
+          <div className="column">
+            {userPresets.map((p, i) => (
+              <div className="row user-preset" key={i}>
+                <button
+                  className="preset-button"
+                  style={{ backgroundColor: 'red', filter: combineIntoCSSFilter(p) }}
+                  onClick={() => setProperties(p)}
+                />
+                <button className="button delete" onClick={() => deleteFromPresets(i)}>
+                  <i className="fas fa-times" />
+                </button>
+              </div>
+            ))}
+            {selectedPart.presets.map(p => (
+              <button
+                key={p.name}
+                className="preset-button"
+                style={{ backgroundColor: p.cssString }}
+                onClick={() => setProperties(p.values)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     )

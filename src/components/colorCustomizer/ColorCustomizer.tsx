@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import GenericSlider from '../slider/Slider'
 import ColorPickerList from './colorPickerList/ColorPickerList'
 
 import { 
@@ -98,7 +99,7 @@ const ColorCustomizer = (props: IProps) => {
                 {props.selectedPart && display && (
                   <React.Fragment>
                     <GenericSlider selectedPart={selectedPart} name="Hue" min={0} max={360} value={hue} onChange={(e) => setHue(e)} />
-                    <GenericSlider selectedPart={selectedPart} name="Saturation" min={0} max={15} value={saturation} onChange={(e) => setSaturation(e)} />
+                    <GenericSlider selectedPart={selectedPart} name="Saturation" min={0} max={2} value={saturation} onChange={(e) => setSaturation(e)} />
                     <GenericSlider selectedPart={selectedPart} name="Sepia" min={0} max={1} value={sepia} onChange={(e) => setSepia(e)} />
                     <GenericSlider selectedPart={selectedPart} name="Brightness" min={0.2} max={1.1} value={brightness} onChange={(e) => setBrightness(e)} />
                     <button className="button small save-preset" onClick={() => savePresetToStorage()}>Save color preset</button>
@@ -159,25 +160,6 @@ const ColorCustomizer = (props: IProps) => {
       }
     }
   }
-}
-
-const GenericSlider = (props: { selectedPart: IGenericPart | undefined, name: string, value: number, min: number, max: number, onChange: (v: number) => void }) => {
-  const overrides = props.selectedPart?.overrides
-
-  return (
-    <div className={`item ${props.name.toLowerCase()}`}>
-      <span>{props.name} ({props.value}) </span>
-      <input 
-        type="range"
-        min={(overrides && overrides[props.name.toLowerCase()]?.min) || props.min}
-        max={(overrides && overrides[props.name.toLowerCase()]?.max) || props.max}
-        step="0.01"
-        value={props.value}
-        onChange={(e) => props.onChange(Number(e.target.value))}
-        className="slider" 
-      />
-    </div>
-  )
 }
 
 export default ColorCustomizer
