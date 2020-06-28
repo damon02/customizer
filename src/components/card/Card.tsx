@@ -16,8 +16,6 @@ const Card = (props: IProps) => {
   const { partProps, product, handleClick } = props
   const upperCSS = partProps && combineIntoCSS({ ...partProps.upper.css, saturation: 1 })
 
-  console.log(partProps)
-
   return (
     <button
       className="card"
@@ -30,7 +28,9 @@ const Card = (props: IProps) => {
           const partCSS = partProps 
             ? combineIntoCSS(partProps[part.id].css) 
             : combineIntoCSS({ ...DEFAULT_WHITE.values, display: 'block' })
-          const variant = partProps ? partProps[part.id].variant.file : part.variants[0].file
+
+          const variantID = partProps && partProps[part.id].variant.id || part.variants[0].id
+          const variantImage = part.variants.find(p => p.id === variantID)?.file || part.variants[0].file
 
           return (
             <img
@@ -40,7 +40,7 @@ const Card = (props: IProps) => {
               style={{
                 ...partCSS,
                 zIndex: part.zindex,
-                backgroundImage: `url(${variant})`,
+                backgroundImage: `url(${variantImage})`,
               }}
             />
           )

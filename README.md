@@ -1,4 +1,4 @@
-# shoe-customizer
+# customizer
 
 This project started out as a fan project to easily make and customize my own shoes. 
 
@@ -9,6 +9,7 @@ The website uses multi layered imagery placed atop eachother in a certain order,
 ## Disclaimer
 
 This project does not affilliate itself in any way with adidas, YEEZY or any other trademarks, brandnames.
+All used trademarks belong to their respective owners.
 
 ## License 
 

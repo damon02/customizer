@@ -19,29 +19,34 @@ const ColorPickerList = (props: IProps) => {
   if (selectedPart && selectedPart.presets) {
     return (
       <div className="presets">
-        <h4>Basic colors</h4>
-        <div className="column">
-          {selectedPart.presets.map(p => (
-            <button
-              key={p.name}
-              className="preset-button"
-              style={{ backgroundColor: p.cssString }}
-              onClick={() => setProperties(p.values)}
-            />
-          ))}
-        </div>
-        {userPresets.length > 0 && <h4>Saved color presets</h4>}
-        <div className="column">
-          {userPresets.map((p, i) => (
-            <div className="row user-preset" key={i}>
+        <h4 className="title">Colors</h4>
+        <div className="columns">
+          <div className="column">
+            {selectedPart.presets.map(p => (
               <button
+                key={p.name}
                 className="preset-button"
-                style={{ backgroundColor: 'red', filter: combineIntoCSSFilter(p) }}
-                onClick={() => setProperties(p)}
+                style={{ backgroundColor: p.cssString }}
+                onClick={() => setProperties(p.values)}
               />
-              <button className="button delete" onClick={() => deleteFromPresets(i)}>x</button>
+            ))}
+          </div>
+          {userPresets.length > 0 && (
+            <div className="column">
+              {userPresets.map((p, i) => (
+                <div className="row user-preset" key={i}>
+                  <button
+                    className="preset-button"
+                    style={{ backgroundColor: 'red', filter: combineIntoCSSFilter(p) }}
+                    onClick={() => setProperties(p)}
+                  />
+                  <button className="button delete" onClick={() => deleteFromPresets(i)}>
+                    <i className="fas fa-times" />
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </div>
     )

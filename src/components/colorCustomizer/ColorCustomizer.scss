@@ -1,34 +1,43 @@
 @import '../../style/variables.scss';
 
-.color-customizer {
+.color-picker {
   display: flex;
   flex-direction: column;
-
-  .selected-item {
-    margin: unset;
-    margin-bottom: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .button.enabled {
-      margin: 12px 0px;
-      font-size: 14px;
-    }
-  }
-
-  .item {
-    display: flex;
-    justify-content: space-between;
-    width: 280px;
-
-    .input {
-      width: 100%;
-      max-width: 50%;
-    }
-  }
-}
-
-.color-picker {
+  height: 100%;
   width: 100%;
+  overflow: auto;
+  padding: 6px;
+
+  .color-customizer {
+    display: flex;
+    flex-direction: column;
+  
+    .selected-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px;
+      height: 42px;
+      
+      .title {
+        margin: unset;
+      }
+    }
+
+    .save-preset {
+      margin-top: 8px;
+    }
+    
+    .item {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 3px 12px;
+  
+      .input {
+        width: 100%;
+        max-width: 50%;
+      }
+    }
+  }
 }

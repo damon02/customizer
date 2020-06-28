@@ -1,14 +1,12 @@
 @import '../../style/variables.scss';
 
-$header-height: 52px;
-
 .header {
   position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: $header-height;
+  height: $height-header;
   width: 100%;
   
   .title {
@@ -38,8 +36,8 @@ $header-height: 52px;
 
 .menu-wrapper {
   position: absolute;
-  top: $header-height;
-  height: calc(100% - #{$header-height});
+  top: $height-header;
+  height: calc(100% - #{$height-header});
   width: 100%;
   background-color: rgba(0,0,0,0.6);
 

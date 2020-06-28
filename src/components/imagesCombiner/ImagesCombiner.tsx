@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Modal from '../modal/Modal'
 
+import { format } from 'path'
 import { IGenericProduct } from '../../@types/types'
 import './ImagesCombiner.scss'
 
@@ -34,26 +35,31 @@ const ImagesCombiner = (props: IProps) => {
           combineCSSIntoImages()
         }}
         uuid={'saveImageModal'}
+        cancelText={'Back to editing'}
       >
-        <div>
-          <h3>Add your own custom name to the image</h3>
-          <input className="input product-name" placeholder={'Shoe model name'} value={productName} onChange={(e) => setProductName(e.target.value)} />
-          <input className="input product-name" placeholder={'Your own name'} value={creator} onChange={(e) => setCreator(e.target.value)} />
-
-          <h3>Your shoe</h3>
-          <p>{`${activeProduct?.name} '${productName || 'CONCEPT'}'`}</p>
-          <p>{`Created by ${creator || 'a fan'}`}</p>
+        <div className="modal-save-image">
+          <div className="inputs">
+            <h3>Add your own custom name to the image</h3>
+            <input className="input product-name" placeholder={'Model name'} value={productName} onChange={(e) => setProductName(e.target.value)} />
+            <input className="input product-name" placeholder={'Your name'} value={creator} onChange={(e) => setCreator(e.target.value)} />
+          </div>
+          <div className="summary">
+            <h3>Your {activeProduct?.type.toLowerCase()}</h3>
+            <p>{`${activeProduct?.name} '${productName || 'CONCEPT'}'`}</p>
+            <p>{`as imagined by ${creator || 'a fan'}`}</p>
+          </div>
         </div>
       </Modal>
     </div>
   )
 
   function combineCSSIntoImages() {
-    // Get all individual shoe parts
-    const shoeparts = Array.from(document.getElementsByClassName('shoe-part-image'))
+    // Get all individual parts
+    const productParts = Array.from(document.getElementsByClassName('product-part-image'))
     
-    // Iterate over each shoe part
-    shoeparts.forEach((s, i) => {
+    // Iterate over each part
+    productParts.forEach((s, i) => {
+      // Create a new canvas for this particular part
       const canvas = document.createElement(`canvas`)
       const ctx = canvas.getContext('2d')
       canvas.id = `canvas-${i}`
@@ -65,19 +71,20 @@ const ImagesCombiner = (props: IProps) => {
         return
       }
   
-      const shoePartImage = new Image(width, height)
+      // Apply the CSS styling to this canvas element
+      const partImage = new Image(width, height)
       const backgroundImageSource = getComputedStyle(s).backgroundImage
       const bgURL = backgroundImageSource.substring(5, backgroundImageSource.length - 2)
-  
       ctx.filter = getComputedStyle(s).filter
     
-      shoePartImage.src = bgURL
-      shoePartImage.onload = (e) => {
-        ctx.drawImage(shoePartImage, (canvasWidth - width) / 2, (canvasHeight - height) / 2, width, height)
+      partImage.src = bgURL
+      partImage.onload = (e) => {
+        // Draw the image including the CSS filter
+        ctx.drawImage(partImage, (canvasWidth - width) / 2, (canvasHeight - height) / 2, width, height)
         accumulatedImages.push(canvas.toDataURL('image/png'))
 
-        // READY
-        if ((i + 1) === shoeparts.length) {
+        // READY, all products have been loaded
+        if ((i + 1) === productParts.length) {
           mergeImages()
         }
       }
@@ -101,23 +108,39 @@ const ImagesCombiner = (props: IProps) => {
 
     if (finalContext) {
       // Add background
-      finalContext.fillStyle = '#ecece2'
+      finalContext.fillStyle = '#2a2a2a'
       finalContext.fillRect(0, 0, canvasWidth, canvasHeight)
 
       // Add brand name text
-      finalContext.fillStyle = 'rgb(46, 50, 56)'
-      finalContext.font = '800 48px Yeezy'
+      finalContext.fillStyle = '#fff'
+      finalContext.font = '800 48px Chakra Petch'
       finalContext.textAlign = 'center'
       finalContext.fillText(`${activeProduct?.name} '${productName || 'CONCEPT'}'`, canvasWidth / 2, 80)
       
       // Add username to image
-      finalContext.font = '800 24px Yeezy'
+      finalContext.font = '400 24px Chakra Petch'
       finalContext.textAlign = 'center'
-      finalContext.fillText(`Created by ${creator || 'a fan'}`, canvasWidth / 2, 110)
+      finalContext.fillText(`as imagined by ${creator || 'a fan'}`, canvasWidth / 2, 110)
       
       // Add watermark
-      finalContext.font = '400 12px Yeezy'
-      finalContext.fillText(`damon02.github.io/shoe-customizer/`, canvasWidth / 2, canvasHeight - 40)
+      finalContext.fillStyle = '#1C1C1E'
+      finalContext.fillRect(0, canvasHeight - 52, canvasWidth, 52)
+
+      // Add circle
+      finalContext.fillStyle = '#d30f0f'
+      finalContext.arc(26, canvasHeight - 26, 16, 0, 6)
+      finalContext.fill()
+
+      // Add text
+      finalContext.fillStyle = '#fff'
+      finalContext.textAlign = 'left'
+      finalContext.font = '700 18px Chakra Petch'
+      finalContext.fillText('CUSTOMIZER', 52, canvasHeight - 20)
+
+      // Add URL
+      finalContext.textAlign = 'center'
+      finalContext.font = '400 18px Chakra Petch'
+      finalContext.fillText(`https://damon02.github.io/shoe-customizer/`, canvasWidth / 2, canvasHeight - 20)
 
     }
   

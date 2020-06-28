@@ -11,11 +11,17 @@ $color-white: #fff;
 
 $color-blue: #0077c2;
 $color-red: #d30f0f;
+$color-red-default: #dc3d4b;
 $color-background-yzy: #ecece2;
+
 
 $border-radius: 2px;
 $color-background: $color-background-darker;
 $color-text: $font-darkmode;
 $color-primary: $color-red;
-$default-transition: ease-in-out 20ms all;
+$height-header: 52px;
+$height-footer: 40px;
+$height-titlebox: 73px;
+$quick-transition: ease-in-out 20ms all;
+$default-transition: ease-in-out 100ms all;
 $font-family: 'Chakra Petch', sans-serif;

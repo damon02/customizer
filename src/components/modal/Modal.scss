@@ -32,13 +32,13 @@
 
     .buttons {
       display: flex;
-      justify-content: space-between;
-
+      
       button {
         width: 100%;
+        border-radius: 0px;
 
         &:not(:first-child) {
-          margin-left: 8px;
+          margin-left: 1px;
         }
       }
     }

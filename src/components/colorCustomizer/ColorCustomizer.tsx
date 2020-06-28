@@ -23,7 +23,7 @@ interface IProps {
   children: (
     partProps: IPartPropsExposedCSS, 
     slider: React.ReactNode, 
-    setPartProperties: (changes: { css?: IOptionalCSSProperties, variant?: IPartVariant }) => void
+    setPartProperties: (changes: { css?: IOptionalCSSProperties, variant?: { id: string } }) => void
   ) => React.ReactNode
 }
 
@@ -92,17 +92,16 @@ const ColorCustomizer = (props: IProps) => {
             <React.Fragment>
               <div className="color-customizer">
                 <div className="selected-item">
-                  {props.selectedPart && <h3>{props.selectedPart.name}</h3>}
-                  {props.selectedPart && props.selectedPart.toggleable && <button className="button enabled" onClick={() => setDisplay(display === 'block' ? 'none' : 'block')}>{display === 'none' ? 'Add' : 'Remove'}</button>}
+                  {props.selectedPart && <h3 className="title">{props.selectedPart.name}</h3>}
                 </div>
 
                 {props.selectedPart && display && (
                   <React.Fragment>
                     <GenericSlider selectedPart={selectedPart} name="Hue" min={0} max={360} value={hue} onChange={(e) => setHue(e)} />
                     <GenericSlider selectedPart={selectedPart} name="Saturation" min={0} max={15} value={saturation} onChange={(e) => setSaturation(e)} />
-                    <GenericSlider selectedPart={selectedPart} name="Sepia" min={0} max={0.5} value={sepia} onChange={(e) => setSepia(e)} />
+                    <GenericSlider selectedPart={selectedPart} name="Sepia" min={0} max={1} value={sepia} onChange={(e) => setSepia(e)} />
                     <GenericSlider selectedPart={selectedPart} name="Brightness" min={0.2} max={1.1} value={brightness} onChange={(e) => setBrightness(e)} />
-                    <button className="button small" onClick={() => savePresetToStorage()}>Save color preset</button>
+                    <button className="button small save-preset" onClick={() => savePresetToStorage()}>Save color preset</button>
                   </React.Fragment>
                 )}
               </div>
@@ -134,7 +133,7 @@ const ColorCustomizer = (props: IProps) => {
     setUserPresets([...presets])
   }
 
-  function applyPartPropsChanges(changes: { css?: IOptionalCSSProperties, variant?: IPartVariant }) {
+  function applyPartPropsChanges(changes: { css?: IOptionalCSSProperties, variant?: { id: string } }) {
     console.log('Applying changes to', props.selectedPart, changes)
     if (changes.css) {
       // Apply css changes
@@ -154,7 +153,10 @@ const ColorCustomizer = (props: IProps) => {
         setDisplay(changes.css.display)
       }
     } else if (changes.variant) {
-      setVariant(changes.variant)
+      const matchedVariant = props.selectedPart?.variants.find(v => v.id === changes.variant?.id)
+      if (matchedVariant) {
+        setVariant(matchedVariant)
+      }
     }
   }
 }

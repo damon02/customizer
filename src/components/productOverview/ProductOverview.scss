@@ -1,62 +1,73 @@
 @import '../../style/variables.scss';
 
-.overview-row { 
-  display: flex;
-  width: 100%;
-  justify-content: center;
-
-  .left, .right {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    min-width: 300px;
-  }
-}
-
-.shoe-canvas-wrapper {
-  width: 100%;
-}
-
-.shoe-overview {
+.product-overview {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
   width: 100%;
   border-width: 0px;
-  background-color: unset;
-  
-  .shoe-canvas {
-    position: relative;
-    width: 100%;
-    height: 500px;
-    background-color: unset;
+  max-height: 900px;
+  background-color: $color-background-dark;
 
-    .border-cover {
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0);
-      border: 5px solid $color-background-dark;
-      position: absolute;
-      z-index: 900000;
+  .overview-row { 
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+  
+    .left, .right {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      min-width: 300px;
     }
-    
-    .shoe-part-image {
-      background-color: unset;
-      position: absolute;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      width: 100%;
+
+    .product-canvas-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       height: 100%;
-      border-image: unset;
-      transition: $default-transition;
+      width: 100%;
+
+      .product-canvas {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: unset;
+    
+        .border-cover {
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0,0,0,0);
+          border: 5px solid $color-background-dark;
+          position: absolute;
+          z-index: 900000;
+        }
+        
+        .product-part-image {
+          background-color: unset;
+          position: absolute;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          width: 100%;
+          height: 100%;
+          border-image: unset;
+          transition: $quick-transition;
+        }
+      }
     }
   }
 
   .bottom {
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    width: 100%;
+    height: 64px;
   }
 }

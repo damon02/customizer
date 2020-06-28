@@ -7,6 +7,7 @@ import { IColorProperties, ICSSProperties, IGenericPart, IGenericProduct, IPartP
 import { usePrevious } from '../../hooks/usePrevious'
 import { DEFAULT_WHITE } from '../../utils/constants'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
+import ImagesCombiner from '../imagesCombiner/ImagesCombiner'
 import './ProductOverview.scss'
 
 interface IProps {
@@ -24,7 +25,7 @@ const ProductOverview = (props: IProps) => {
   }, [previousActiveProduct, activePart, setActivePart, props.activeProduct])
 
   return (
-    <div className="shoe-overview">
+    <div className="product-overview">
       <ColorCustomizer
         allPartProps={loadCSSFromStorage()}
         selectedPart={activePart}
@@ -42,24 +43,31 @@ const ProductOverview = (props: IProps) => {
                   applyPartPropsChanges={(changes) => applyPartPropsChanges(changes)}
                 />
               </div>
-              <div className="shoe-canvas-wrapper">
-                <div className="shoe-canvas" id="img-src">
+              <div className="product-canvas-wrapper">
+                <div className="product-canvas" id="img-src">
                   <div className="border-cover"/>
-                  {props.activeProduct?.assets?.map((part) => (
-                    <img
-                      alt={''}
-                      key={`${props.activeProduct?.name}-${part.id}`}
-                      className={`shoe-part-image ${part.id}`}
-                      id={`shoe-img ${part.id}`}
-                      style={{
-                        ...cssProps[part.id].css,
-                        zIndex: part.zindex,
-                        backgroundImage: `url(${cssProps[part.id].variant.file})`,
-                      }}
-                    />
-                  ))}
+                  {props.activeProduct?.assets?.map((part) => {
+                    const variantID = cssProps[part.id].variant.id
+                    const variantImage = part.variants.find(p => p.id === variantID)?.file || part.variants[0].file
+
+                    return (
+                      <img
+                        alt={''}
+                        key={`${props.activeProduct?.name}-${part.id}`}
+                        className={`product-part-image ${part.id}`}
+                        id={`product-img ${part.id}`}
+                        style={{
+                          ...cssProps[part.id].css,
+                          zIndex: part.zindex,
+                          backgroundImage: `url(${variantImage})`,
+                        }}
+                      />
+                    )
+                  })}
                 </div>
-                <div className="bottom"/>
+                <div className="bottom">
+                  <ImagesCombiner activeProduct={props.activeProduct} />
+                </div>
               </div>
               <div className="right">
                 {sliders}
@@ -81,7 +89,7 @@ const ProductOverview = (props: IProps) => {
       const defaultVariants = {}
       // Set default variants for each part
       props.activeProduct.assets?.forEach(part => {
-        defaultVariants[part.id] = part.variants[0]
+        defaultVariants[part.id] = { id: part.variants[0].id }
       })    
 
       if (!partProps) {
@@ -120,12 +128,12 @@ const ProductOverview = (props: IProps) => {
   }
 
   function saveCSSToStorage(css: IColorProperties, variant: IPartVariant, part: IGenericPart) {
-    if (props.activeProduct) {
+    if (props.activeProduct && variant) {
       const originalSaved = loadFromLocalStorage(props.activeProduct?.id, {})
   
       saveToLocalStorage(props.activeProduct.id, {
         ...originalSaved,
-        [part.id]: { css, variant }
+        [part.id]: { css, variant: { id: variant.id } }
       })
     }
   }

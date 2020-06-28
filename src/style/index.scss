@@ -1,3 +1,4 @@
+@import '../assets/fontawesome/css/fontawesome-all.css';
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700;800;900&display=swap');
 @import './variables.scss';
 
@@ -20,6 +21,12 @@ html {
   background-color: $color-background;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin-top: unset;
 }
@@ -28,8 +35,8 @@ button, .tab {
   border: none;
   font-size: 16px;
   font-weight: 700;
-  background-color: $color-white;
-  color: $color-notblack;
+  background-color: $color-background-notdark;
+  color: $font-darkmode;
   cursor: pointer;
   border-radius: $border-radius;
 
@@ -41,7 +48,7 @@ button, .tab {
   outline: 0;
   
   &:hover, &.active, &:focus {
-    border-bottom: 3px solid $color-notblack;
+    background-color: $color-background-dark;
   }
 
   &:disabled {
@@ -77,14 +84,23 @@ button, .tab {
 
 .input {
   padding: 6px 8px;
-  border: 1px solid #d1d1d1;
+  border: 1px solid $color-background-darkish;
   border-radius: $border-radius;
   width: 100%;
   outline: 0;
   font-size: 14px;
+  background-color: $color-background-dark;
+  color: $font-darkmode;
 }
 
 .page {
+  display: flex;
+  flex-direction: column;
+  max-height: 900px;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0px auto;
+
   .title-box {
     display: flex;
     flex-direction: column;

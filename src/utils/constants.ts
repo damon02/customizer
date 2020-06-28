@@ -3,6 +3,7 @@ import { IGenericPart } from '../@types/types'
 export const URL_PREFIX = '/shoe-customizer'
 export const USER_PRESETS_KEY = 'colorPresets'
 
+export const RED_COLOR = '#dc3d4b'
 export const DEFAULT_WHITE = { name: 'White', cssString: '#ffffff', values: { brightness: 2, sepia: 0, saturation: 0, hue: 0 } }
 export const DEFAULT_COLORS: IGenericPart['presets'] = [
   { name: 'Black', cssString: '#000000', values: { brightness: 0.25, sepia: 0, saturation: 0, hue: 0 } },

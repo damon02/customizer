@@ -4,3 +4,27 @@
   display: flex;
   flex-direction: column;
 }
+
+.modal-save-image {
+  input {
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    margin-bottom: 12px;
+  }
+
+  .inputs {
+    margin-bottom: 12px;
+  }
+
+  .summary {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      margin: 0;
+      text-align: center;
+    }
+  }
+}

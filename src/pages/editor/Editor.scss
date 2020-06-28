@@ -1,7 +1,8 @@
 @import '../../style/variables.scss';
 
 .page.editor {
-  background-color: $color-background-dark;
+  background-color: $color-background-darker;
+  height: 100%;
   
   .title-box {
     position: relative;

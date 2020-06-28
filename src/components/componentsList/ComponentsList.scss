@@ -5,17 +5,23 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  transition: none;
+  overflow: auto;
+  padding: 6px;
 
   .component-wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
-    
+    transition: $default-transition;
+
     &.active {
       height: 100%;
     }
     
     .select-button {
+      display: flex;
+      align-items: center;
       background-color: $color-background-darkish;
       color: #fff;
       font-size: 16px;
@@ -23,17 +29,43 @@
       border: 0px;
       margin-bottom: 4px;
       width: 100%;
+      transition: $default-transition;
       
       &:hover, &:focus {
         border: 0px;
-        background-color: $color-background-notdark;
+        background-color: lighten($color-background-darkish, 10);
       }
   
       &.active {
-        background-color: #aaaaaa;
+        background-color: lighten($color-background-darkish, 10);
         color: $color-notblack;
         border: 0px;
-        margin-bottom: 0px;
+      }
+
+      .names {
+        text-align: left;
+        
+        .part-variant {
+          font-size: 12px;
+        }
+      }
+
+      .color-peek {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin-right: 12px;
+        font-size: 16px;
+        background-color: $color-red-default;
+        
+        &.disabled {
+          background-color: unset;
+          filter: unset;
+          color: #fff;
+        }
       }
     }
 
@@ -42,35 +74,38 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-
-      .title {
-        margin: 16px;
-      }
+      padding: 16px;
       
       &.show {
         display: flex;
-        margin-bottom: 16px;
         height: 100%;
       }
 
       select {
-        background-color: $color-background-darker;
+        background-color: $color-background-notdark;
         color: #fff;
         height: 40px;
         border: unset;
         outline: unset;
-        font-size: 16px;
+        font-size: 13px;
         width: 100%;
+        padding: 0px 12px;
       }
 
       .button-part {
         background-color: unset;
         color: #fff;
-        margin-top: 16px;
-
+        margin-bottom: 16px;
+        border: 0px;
         width: 100%;
         border-radius: $border-radius;
         max-width: 100%;
+        padding: 6px 12px;
+
+        &:hover, &:focus {
+          border: 0px;
+          background-color: $color-primary;
+        }
       }
     }
   }

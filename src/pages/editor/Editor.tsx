@@ -39,7 +39,6 @@ const Editor = () => {
         </button>
       </div>
       <ProductOverview activeProduct={activeProduct} />
-      <ImagesCombiner activeProduct={activeProduct} />
     </div>
   )
 }

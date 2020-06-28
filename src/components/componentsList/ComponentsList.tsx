@@ -8,43 +8,45 @@ interface IProps {
   activeComponent: IGenericPart | undefined
   activeComponentCSS: IPartPropsExposedCSS | undefined
   onSetActiveComponent: (activeComponent: IGenericPart | undefined) => void
-  applyPartPropsChanges: (changes: { css?: IOptionalCSSProperties, variant?: IPartVariant }) => void
+  applyPartPropsChanges: (changes: { css?: IOptionalCSSProperties, variant?: { id: string } }) => void
 }
 
 const ComponentsList = (props: IProps) => {
+  const [collapsed, setCollapsed] = React.useState(false)
+
   return (
     <div className="components-list">
       {props.components.map(c => {
         const isActive = c === props.activeComponent
-        const onClick = () => props.onSetActiveComponent(c)
-        const isEnabled = props.activeComponent?.toggleable
-          ? props.activeComponentCSS && props.activeComponentCSS[props.activeComponent.id].css.display === 'block'
-          : undefined
+        const onClick = () => {
+          if (isActive) {
+            setCollapsed(!collapsed)
+          } else {
+            props.onSetActiveComponent(c)
+            setCollapsed(false)
+          }
+        }
 
+        const isEnabled = props.activeComponentCSS && props.activeComponentCSS[c.id].css.display !== 'none' 
+        const currentVariant = props.activeComponentCSS && props.activeComponentCSS[c.id].variant
         const variants = c.variants.map(variant => 
           <option className="option-variant" key={variant.id} value={variant.id}>{variant.name} {variant.description && `(${variant.description})`}</option>
         )
 
         return (
-          <div className={`component-wrapper${isActive ? ' active' : ''}`} key={`part-${c.id}`}>
+          <div className={`component-wrapper${isActive && !collapsed ? ' active' : ''}`} key={`part-${c.id}`}>
             <button
               className={`select-button ${isActive ? 'active' : ''}`}
               onClick={onClick}
               key={c.id}
             >
-              {c.name}
+              <div className={`color-peek ${isEnabled ? 'enabled' : 'disabled'}`} style={isEnabled ? { filter: props.activeComponentCSS && props.activeComponentCSS[c.id].css.filter } : {}} />
+              <div className="names">
+                <div className="part-name">{c.name}</div>
+                <div className="part-variant">{isEnabled ? currentVariant?.name : 'Disabled'}</div>
+              </div>
             </button>
-            <div className={`options${isActive ? ' show' : ''}`}>
-              <h3 className="title">Options</h3>
-              {variants.length > 1 ? (
-                <select onChange={(e) => handleOnVariantChange(c, e.target.value)}>
-                  <option disabled>Select {c.name.toLowerCase()} type</option>
-                  {variants}
-                </select>
-              ) : (
-                <div>No variants available</div>
-              )}
-
+            <div className={`options${isActive && !collapsed ? ' show' : ''}`}>
               {props.activeComponent?.toggleable && (
                 <button
                   className={`button-part ${isEnabled}`}
@@ -53,6 +55,15 @@ const ComponentsList = (props: IProps) => {
                   {isEnabled ? `Remove ${c.name}` : `Add ${c.name}`}
                 </button>
               )}
+              {variants.length > 1 ? (
+                <select onChange={(e) => handleOnVariantChange(e.target.value)}>
+                  <option disabled>Select {c.name.toLowerCase()} type</option>
+                  {variants}
+                </select>
+              ) : (
+                <div>No variants available</div>
+              )}
+
             </div>
           </div>
         )
@@ -60,16 +71,11 @@ const ComponentsList = (props: IProps) => {
     </div>
   )
 
-  function handleOnVariantChange(anyPart: IGenericPart, variantID: string) {
-    const part = anyPart.variants.find(x => x.id === variantID)
-
-    if (part) {
-      props.applyPartPropsChanges({ variant: part })
-    }
+  function handleOnVariantChange(variantID: string) {
+    props.applyPartPropsChanges({ variant: { id: variantID } })
   }
 
   function handleOnDisplayChange(part: IGenericPart | undefined, value: boolean) {
-
     if (part) {
       props.applyPartPropsChanges({ css: { display: value ? 'block' : 'none' } })
     }

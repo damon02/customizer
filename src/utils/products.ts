@@ -1,13 +1,13 @@
 // Assets
-import Laces350V2 from '../assets/350V2/laces.png'
-import Midsole350V2 from '../assets/350V2/midsole.png'
-import Outsole350V2 from '../assets/350V2/outsole.png'
-import Pulltab350V2 from '../assets/350V2/pulltab.png'
-import Stripe350V2 from '../assets/350V2/stripe.png'
-import StripeNotFull350V2 from '../assets/350V2/stripe_notfull.png'
-import StripeTailLight350V2 from '../assets/350V2/stripe_taillight.png'
-import Upper350V2 from '../assets/350V2/upper.png'
-import UpperLip350V2 from '../assets/350V2/upper_lip.png'
+import Laces350V2 from '../assets/shoes/350V2/laces.png'
+import Midsole350V2 from '../assets/shoes/350V2/midsole.png'
+import Outsole350V2 from '../assets/shoes/350V2/outsole.png'
+import Pulltab350V2 from '../assets/shoes/350V2/pulltab.png'
+import Stripe350V2 from '../assets/shoes/350V2/stripe.png'
+import StripeNotFull350V2 from '../assets/shoes/350V2/stripe_notfull.png'
+import StripeTailLight350V2 from '../assets/shoes/350V2/stripe_taillight.png'
+import Upper350V2 from '../assets/shoes/350V2/upper.png'
+import UpperLip350V2 from '../assets/shoes/350V2/upper_lip.png'
 
 import { IGenericProduct } from '../@types/types'
 import { DEFAULT_COLORS } from './constants'
@@ -72,19 +72,19 @@ export const SHOES_YEEZY: IGenericProduct[] = [
             id: 'stripe350V2full',
             file: Stripe350V2,
             name: 'Full length',
-            description: 'Stripe goes along the entire shoe'
+            description: 'Stripe wraps around heel'
           },
           {
             id: 'stripe350V2',
             file: StripeNotFull350V2,
             name: 'Default',
-            description: 'Single colored stripe'
+            description: 'Default stripe'
           },
           {
             id: 'stripe350V2short',
             file: StripeTailLight350V2,
             name: 'Short',
-            description: 'Short colored stripe like Tail Lights'
+            description: 'Short stripe like Tail Lights'
           },
         ],
       },
