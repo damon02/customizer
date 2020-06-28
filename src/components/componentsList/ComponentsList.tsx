@@ -28,8 +28,8 @@ const ComponentsList = (props: IProps) => {
           }
         }
 
-        const isEnabled = props.activeComponentCSS && props.activeComponentCSS[c.id].css.display !== 'none' 
-        const currentVariant = props.activeComponentCSS && props.activeComponentCSS[c.id].variant
+        const isEnabled = props.activeComponentCSS && props.activeComponentCSS[c.id]?.css.display !== 'none' 
+        const currentVariant = props.activeComponentCSS && props.activeComponentCSS[c.id]?.variant
         const variants = c.variants.map(variant => 
           <option className="option-variant" key={variant.id} value={variant.id}>{variant.name} {variant.description && `(${variant.description})`}</option>
         )
@@ -41,7 +41,7 @@ const ComponentsList = (props: IProps) => {
               onClick={onClick}
               key={c.id}
             >
-              <div className={`color-peek ${isEnabled ? 'enabled' : 'disabled'}`} style={isEnabled ? { filter: props.activeComponentCSS && props.activeComponentCSS[c.id].css.filter } : {}} />
+              <div className={`color-peek ${isEnabled ? 'enabled' : 'disabled'}`} style={isEnabled ? { filter: props.activeComponentCSS && props.activeComponentCSS[c.id]?.css.filter } : {}} />
               <div className="names">
                 <div className="part-name">{c.name}</div>
                 <div className="part-variant">{isEnabled ? currentVariant?.name : 'Disabled'}</div>
@@ -90,8 +90,8 @@ const ComponentsList = (props: IProps) => {
               }
             }
 
-            const isEnabled = props.activeComponentCSS && props.activeComponentCSS[c.id].css.display !== 'none' 
-            const currentVariant = props.activeComponentCSS && props.activeComponentCSS[c.id].variant
+            const isEnabled = props.activeComponentCSS && props.activeComponentCSS[c.id]?.css.display !== 'none' 
+            const currentVariant = props.activeComponentCSS && props.activeComponentCSS[c.id]?.variant
 
             return (
               <div className={`component-wrapper small ${isActive && !collapsed ? ' active' : ''}`} key={`part-${c.id}`}>
@@ -100,7 +100,7 @@ const ComponentsList = (props: IProps) => {
                   onClick={onClick}
                   key={c.id}
                 >
-                  <div className={`color-peek ${isEnabled ? 'enabled' : 'disabled'}`} style={isEnabled ? { filter: props.activeComponentCSS && props.activeComponentCSS[c.id].css.filter } : {}} />
+                  <div className={`color-peek ${isEnabled ? 'enabled' : 'disabled'}`} style={isEnabled ? { filter: props.activeComponentCSS && props.activeComponentCSS[c.id]?.css.filter } : {}} />
                   <div className="names">
                     <div className="part-name">{c.name}</div>
                     <div className="part-variant">{isEnabled ? currentVariant?.name : 'Disabled'}</div>

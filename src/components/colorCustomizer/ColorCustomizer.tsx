@@ -74,7 +74,7 @@ const ColorCustomizer = (props: IProps) => {
   }, [saturation, hue, sepia, brightness, selectedPart, display, selectedVariant, saveCSSToStorage])
 
   React.useEffect(() => {
-    if (selectedPart && allPartProps && allPartProps[selectedPart.id].css) {
+    if (selectedPart && allPartProps && allPartProps[selectedPart.id]?.css) {
       const properties = allPartProps[selectedPart.id].css
       setSaturation(properties.saturation)
       setHue(properties.hue)
@@ -135,7 +135,6 @@ const ColorCustomizer = (props: IProps) => {
   }
 
   function applyPartPropsChanges(changes: { css?: IOptionalCSSProperties, variant?: { id: string } }) {
-    console.log('Applying changes to', props.selectedPart, changes)
     if (changes.css) {
       // Apply css changes
       if (changes.css.saturation) {

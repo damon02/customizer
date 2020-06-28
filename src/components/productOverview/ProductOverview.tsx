@@ -47,7 +47,7 @@ const ProductOverview = (props: IProps) => {
                   <div className="border-cover"/>
                   <div className="bruh">{pjson.homepage}</div>
                   {props.activeProduct?.assets?.map((part) => { 
-                    const variantID = cssProps[part.id].variant.id
+                    const variantID = cssProps[part.id]?.variant.id
                     const variantImage = part.variants.find(p => p.id === variantID)?.file || part.variants[0].file
 
                     return (
@@ -57,7 +57,7 @@ const ProductOverview = (props: IProps) => {
                         className={`product-part-image ${part.id}`}
                         id={`product-img ${part.id}`}
                         style={{
-                          ...cssProps[part.id].css,
+                          ...cssProps[part.id]?.css,
                           zIndex: part.zindex,
                           backgroundImage: `url(${variantImage})`,
                         }}
