@@ -140,7 +140,7 @@ const ImagesCombiner = (props: IProps) => {
       // Add URL
       finalContext.textAlign = 'center'
       finalContext.font = '400 18px Chakra Petch'
-      finalContext.fillText(`https://damon02.github.io/shoe-customizer/`, canvasWidth / 2, canvasHeight - 20)
+      finalContext.fillText(`https://damon02.github.io/customizer/`, canvasWidth / 2, canvasHeight - 20)
 
     }
   
