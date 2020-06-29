@@ -10,6 +10,7 @@ import StripeNotFull350V2 from './stripe_notfull.png'
 import StripeTailLight350V2 from './stripe_taillight.png'
 import Upper350V2 from './upper.png'
 import UpperLip350V2 from './upper_lip.png'
+import Upper350V2Sesame from './upper_sesame.png'
 
 export const Shoe350V2: IGenericProduct = {
   id: '350V2',
@@ -34,6 +35,11 @@ export const Shoe350V2: IGenericProduct = {
           id: 'upper350V2static',
           file: Upper350V2,
           name: 'Static knit',
+        },
+        {
+          id: 'upper350V2sesame',
+          file: Upper350V2Sesame,
+          name: 'Sesame knit',
         },
       ],
     },
@@ -108,7 +114,7 @@ export const Shoe350V2: IGenericProduct = {
       id: 'laces',
       name: 'Laces',
       zindex: 5,
-      toggleable: true,
+      toggleable: false,
       category: 'laces',
       overrides: {
         brightness: { max: 2 },
