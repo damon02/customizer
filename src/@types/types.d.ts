@@ -26,7 +26,8 @@ export interface IGenericPart {
     name: string
     cssString: string
     values: { brightness: number, saturation: number, sepia: number, hue: number }
-  }[]
+  }[],
+  default?: ICSSProperties
 }
 
 export interface IPartVariant {

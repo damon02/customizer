@@ -3,7 +3,7 @@ import { IColorProperties, ICSSProperties, IExposedCSS } from '../@types/types'
 export function combineIntoCSS(cssProperties: ICSSProperties): IExposedCSS  {
   return { 
     filter: combineIntoCSSFilter({...cssProperties}),
-    display: cssProperties.display 
+    display: cssProperties?.display 
   }
 }
 

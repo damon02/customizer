@@ -1,7 +1,9 @@
 import * as React from 'react'
 
-import { IGenericPart, IOptionalCSSProperties, IPartPropsExposedCSS } from '../../@types/types'
 import Modal from '../modal/Modal'
+
+import { IGenericPart, IOptionalCSSProperties, IPartPropsExposedCSS } from '../../@types/types'
+import { sortByKey } from '../../utils/general'
 import './ComponentsList.scss'
 
 interface IProps {
@@ -17,7 +19,7 @@ const ComponentsList = (props: IProps) => {
 
   return (
     <div className="components-list">
-      {props.components.map(c => {
+      {sortByKey(props.components, 'name').map(c => {
         const isActive = c === props.activeComponent
         const onClick = () => {
           if (isActive) {

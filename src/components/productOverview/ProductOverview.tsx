@@ -95,7 +95,7 @@ const ProductOverview = (props: IProps) => {
 
         props.activeProduct.assets?.forEach((part, i) => {
           newCSS[part.id] = {
-            css: defaultCSS,
+            css: part.default || defaultCSS,
             variant: defaultVariants[part.id],
           }
         })

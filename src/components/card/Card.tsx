@@ -26,10 +26,12 @@ const Card = (props: IProps) => {
         <div className="border-cover"/>
         {product.assets?.map((part) => {
           const partCSS = partProps 
-            ? combineIntoCSS(partProps[part.id].css) 
-            : combineIntoCSS({ ...DEFAULT_WHITE.values, display: 'block' })
+            ? combineIntoCSS(partProps[part.id]?.css) 
+            : part.default
+              ? combineIntoCSS(part.default)
+              : combineIntoCSS({ ...DEFAULT_WHITE.values, display: 'block' })
 
-          const variantID = (partProps && partProps[part.id].variant.id) || part.variants[0].id
+          const variantID = (partProps && partProps[part.id]?.variant.id) || part.variants[0].id
           const variantImage = part.variants.find(p => p.id === variantID)?.file || part.variants[0].file
 
           return (
