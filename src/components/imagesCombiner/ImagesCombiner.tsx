@@ -124,6 +124,7 @@ const ImagesCombiner = (props: IProps) => {
         finalContext.fillText(`${activeProduct?.name} '${productName || 'CONCEPT'}'`, canvasWidth / 2, 80)
         
         // Add username to image
+        finalContext.fillStyle = '#fff'
         finalContext.font = '400 24px Chakra Petch'
         finalContext.textAlign = 'center'
         finalContext.fillText(`as imagined by ${creator || 'a fan'}`, canvasWidth / 2, 110)
@@ -144,9 +145,11 @@ const ImagesCombiner = (props: IProps) => {
         finalContext.fillText('CUSTOMIZER', 52, canvasHeight - 20)
   
         // Add URL
+        finalContext.fillStyle = '#fff'
         finalContext.textAlign = 'center'
         finalContext.font = '400 14px Chakra Petch'
         finalContext.fillText(`Design your dream shoes!`, canvasWidth / 2, canvasHeight - 30)
+        finalContext.fillStyle = '#fff'
         finalContext.fillText(`https://damon02.github.io/customizer/`, canvasWidth / 2, canvasHeight - 10)
       }
     
@@ -164,7 +167,8 @@ const ImagesCombiner = (props: IProps) => {
                 finalContext.fillStyle = 'rgba(255,255,255,0.05)'
                 finalContext.fillText(`Not a real product, don't fall for it :)`, canvasWidth / 2, canvasHeight / 3)
   
-                document.body.append(finalContext.canvas)
+                // Enable for debug
+                // document.body.append(finalContext.canvas)
               }
               // READY TO DOWNLOAD
               const URL = finalCanvas.toDataURL('image/png')
