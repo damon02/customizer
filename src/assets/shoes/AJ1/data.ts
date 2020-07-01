@@ -8,6 +8,8 @@ import Lining from './lining2.png'
 import Outsole from './outsole11.png'
 import Sole from './sole10.png'
 import Swoosh from './swoosh12.png'
+import SwooshFlipped from './swooshflipped.png'
+import SwooshReverse from './swooshreverse.png'
 import Toebox from './toebox3.png'
 import ToeboxSides from './toebox_sides8.png'
 import Tongue from './tongue1.png'
@@ -172,7 +174,7 @@ export const Shoe350V2: IGenericProduct = {
     {
       id: 'heel',
       name: 'Heel',
-      zindex: 9,
+      zindex: 10,
       toggleable: false,
       category: 'upper',
       overrides: {
@@ -226,7 +228,7 @@ export const Shoe350V2: IGenericProduct = {
     {
       id: 'swoosh',
       name: 'Swoosh',
-      zindex: 12,
+      zindex: 10,
       toggleable: true,
       category: 'sole',
       overrides: {
@@ -237,7 +239,17 @@ export const Shoe350V2: IGenericProduct = {
         {
           id: 'swooshNormal',
           file: Swoosh,
-          name: 'Normal Nike Swoosh',
+          name: 'Nike Swoosh',
+        },
+        {
+          id: 'swooshFlipped',
+          file: SwooshFlipped,
+          name: 'Nike Swoosh Flipped',
+        },
+        {
+          id: 'swooshReversed',
+          file: SwooshReverse,
+          name: 'Nike Swoosh Reversed',
         },
       ],
     },
