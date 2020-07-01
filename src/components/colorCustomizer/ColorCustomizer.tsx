@@ -39,7 +39,7 @@ const ColorCustomizer = (props: IProps) => {
   const [display, setDisplay] = React.useState<'none' | 'block'>('block')
 
   const [userPresets, setUserPresets] = React.useState<IColorProperties[]>(loadFromLocalStorage(USER_PRESETS_KEY, []) as IColorProperties[])
-  const allPartsCSSFilter: IPartPropsExposedCSS = {}
+  const cssProps: IPartPropsExposedCSS = {}
 
   // Prepare CSS to expose for rendering
   if (props.allPartProps) {
@@ -49,7 +49,7 @@ const ColorCustomizer = (props: IProps) => {
         const currCSS = combineIntoCSS({ saturation, hue, sepia, brightness, display })
         const currentVariant = selectedVariant || selectedPart.variants[0]
 
-        allPartsCSSFilter[partKey] = { css: currCSS, variant: currentVariant }
+        cssProps[partKey] = { css: currCSS, variant: currentVariant }
       } else {
         // Apply changes from storage
         const css = props.allPartProps && props.allPartProps[partKey].css 
@@ -61,7 +61,7 @@ const ColorCustomizer = (props: IProps) => {
           : selectedPart?.variants[0]
 
         if (css && variant) {
-          allPartsCSSFilter[partKey] = { css, variant }
+          cssProps[partKey] = { css, variant }
         }
       }
     })
@@ -88,7 +88,7 @@ const ColorCustomizer = (props: IProps) => {
   return (
     <React.Fragment>
       {props.children(
-        allPartsCSSFilter, (
+        cssProps, (
           <div className="color-picker">
             <React.Fragment>
               <div className="color-customizer">

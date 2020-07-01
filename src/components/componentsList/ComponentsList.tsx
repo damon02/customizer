@@ -31,7 +31,7 @@ const ComponentsList = (props: IProps) => {
         }
 
         const isEnabled = props.activeComponentCSS && props.activeComponentCSS[c.id]?.css.display !== 'none' 
-        const currentVariant = props.activeComponentCSS && props.activeComponentCSS[c.id]?.variant
+        const currentVariant = props.components.find(part => props.activeComponentCSS && part.id === c.id)?.variants.find(variant => props.activeComponentCSS && variant.id === props.activeComponentCSS[c.id].variant.id)
         const variants = c.variants.map(variant => 
           <option className="option-variant" key={variant.id} value={variant.id}>{variant.name} {variant.description && `(${variant.description})`}</option>
         )
@@ -46,7 +46,7 @@ const ComponentsList = (props: IProps) => {
               <div className={`color-peek ${isEnabled ? 'enabled' : 'disabled'}`} style={isEnabled ? { filter: props.activeComponentCSS && props.activeComponentCSS[c.id]?.css.filter } : {}} />
               <div className="names">
                 <div className="part-name">{c.name}</div>
-                <div className="part-variant">{isEnabled ? currentVariant?.name : 'Disabled'}</div>
+                <div className="part-variant">{isEnabled ? currentVariant?.name !== c.name ? currentVariant?.name : null : 'Disabled'}</div>
               </div>
             </button>
             <div className={`options${isActive && !collapsed ? ' show' : ''}`}>
@@ -59,7 +59,7 @@ const ComponentsList = (props: IProps) => {
                 </button>
               )}
               {variants.length > 1 ? (
-                <select onChange={(e) => handleOnVariantChange(e.target.value)}>
+                <select onChange={(e) => handleOnVariantChange(e.target.value)} defaultValue={currentVariant?.id}>
                   <option disabled>Select {c.name.toLowerCase()} type</option>
                   {variants}
                 </select>
@@ -93,7 +93,7 @@ const ComponentsList = (props: IProps) => {
             }
 
             const isEnabled = props.activeComponentCSS && props.activeComponentCSS[c.id]?.css.display !== 'none' 
-            const currentVariant = props.activeComponentCSS && props.activeComponentCSS[c.id]?.variant
+            const currentVariant = props.components.find(part => props.activeComponentCSS && part.id === c.id)?.variants.find(variant => props.activeComponentCSS && variant.id === props.activeComponentCSS[c.id].variant.id)
 
             return (
               <div className={`component-wrapper small ${isActive && !collapsed ? ' active' : ''}`} key={`part-${c.id}`}>
@@ -105,7 +105,7 @@ const ComponentsList = (props: IProps) => {
                   <div className={`color-peek ${isEnabled ? 'enabled' : 'disabled'}`} style={isEnabled ? { filter: props.activeComponentCSS && props.activeComponentCSS[c.id]?.css.filter } : {}} />
                   <div className="names">
                     <div className="part-name">{c.name}</div>
-                    <div className="part-variant">{isEnabled ? currentVariant?.name : 'Disabled'}</div>
+                    <div className="part-variant">{isEnabled ? currentVariant?.name !== c.name ? currentVariant?.name : null : 'Disabled'}</div>
                   </div>
                 </button>
               </div>

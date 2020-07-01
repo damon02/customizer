@@ -18,6 +18,7 @@ const Home = () => {
 
   const [showAreYouSure, setShowAreYouSure] = React.useState<false | string>(false)
   const unsavedProducts = detectUnsavedProducts()
+  const untouchedProducts = ALL_PRODUCTS.filter(p => !unsavedProducts.map(x => x.product.id).includes(p.id))
 
   React.useEffect(() => {
     if (!showIntroductionModal && trackMe) {
@@ -29,37 +30,27 @@ const Home = () => {
 
   return (
     <div className="page home">
-      {unsavedProducts.length > 0 && (
-        <div className="content-box">
-          <div className="product-box">
-            <h3>My creations</h3>
-            <div className="card-row">
-              {unsavedProducts.map(unsavedProduct => (
-                <Card 
-                  key={unsavedProduct.product.id}
-                  partProps={unsavedProduct.partProps}
-                  product={unsavedProduct.product}
-                  handleClick={() => history.push(`${URL_PREFIX}/edit/${unsavedProduct.product.id}`)}
-                />
-              ))}
-            </div>
+      <div className="content-box">
+        <div className="product-box">
+          <h3>Sneakers</h3>
+          <div className="card-row">
+            {unsavedProducts.map(unsavedProduct => (
+              <Card 
+                key={unsavedProduct.product.id}
+                partProps={unsavedProduct.partProps}
+                product={unsavedProduct.product}
+                handleClick={() => history.push(`${URL_PREFIX}/edit/${unsavedProduct.product.id}`)}
+              />
+            ))}
+            {untouchedProducts.filter(p => p.enabled).map(product => (
+              <Card 
+                key={product.id}
+                product={product}
+                handleClick={() => handleCheckForUnsavedProduct(product.id)}
+              />
+            ))}
           </div>
         </div>
-      )}
-
-      <div className="content-box">
-          <div className="product-box">
-            <h3>Start from scratch</h3>
-            <div className="all-products">
-              {ALL_PRODUCTS.filter(p => p.enabled).map(product => (
-                <Card 
-                  key={product.id}
-                  product={product}
-                  handleClick={() => handleCheckForUnsavedProduct(product.id)}
-                />
-              ))}
-            </div>
-          </div>
       </div>
 
       <Modal

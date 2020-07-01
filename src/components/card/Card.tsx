@@ -1,3 +1,4 @@
+import { formatDistanceToNowStrict } from 'date-fns'
 import React from 'react'
 
 import { IGenericProduct, IPartPropsCSSProperties } from '../../@types/types'
@@ -22,6 +23,11 @@ const Card = (props: IProps) => {
       key={product.id}
       onClick={() => handleClick()}
     >
+      <div className="timestamp">{partProps?.timestamp ? formatDistanceToNowStrict(partProps.timestamp) + ' ago' : 'New'}</div>
+      <div className="texts">
+        <div className="brand-name">{product.brand}</div>
+        <div className="product-name">{product.name}</div>
+      </div>
       <div className="image">
         <div className="border-cover"/>
         {product.assets?.map((part) => {
@@ -48,7 +54,6 @@ const Card = (props: IProps) => {
           )
         })}
       </div>
-      <div className="product-name">{product.name}</div>
       <div className="card-bottom-border" style={{ filter: upperCSS?.filter }} />
     </button>
   )

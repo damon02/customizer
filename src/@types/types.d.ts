@@ -73,4 +73,5 @@ export interface IPartPropsExposedCSS {
 
 export interface IPartPropsCSSProperties { 
   [partKey: string]: { css: ICSSProperties, variant: IPartVariant }
+  timestamp?: number
 }

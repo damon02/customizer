@@ -131,7 +131,8 @@ const ProductOverview = (props: IProps) => {
   
       saveToLocalStorage(props.activeProduct.id, {
         ...originalSaved,
-        [part.id]: { css, variant: { id: variant.id } }
+        [part.id]: { css, variant: { id: variant.id } },
+        timestamp: new Date().valueOf()
       })
     }
   }

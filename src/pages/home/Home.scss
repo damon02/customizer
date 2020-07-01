@@ -1,16 +1,17 @@
 @import '../../style/variables.scss';
 
-.home {
+.page.home {
   display: flex;
   flex-direction: column;
   align-items: center;  
-  height: 100%;
+  height: auto;
   width: 100%;
+  max-height: unset;
 
   .product-box {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: auto;
     flex-direction: column;
     justify-content: center;
   }
@@ -18,7 +19,7 @@
   .all-products, .card-row {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: auto;
     flex-wrap: wrap;
 
     > * {
@@ -29,6 +30,7 @@
     .card {
       width: 33%;
       margin-right: unset;
+      min-height: 200px;
       .card-product-layer {
         display: block;
       }
@@ -40,32 +42,83 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1010px) {
   .page.home {
     .content-box {
       overflow: auto;
       margin: 0;
-      padding-top: 24px
     }
 
-    .card {
-      display: flex;
-      flex-direction: row;
-      height: auto;
-
-      .image {
-        min-width: 100px;
-        height: 100px;
-
-        .card-product-layer, .border-cover {
-          height: 100px;
-          width: 100px;
-        }
+    .card-row {
+      .card {
+        width: 33%;
+        min-width: unset;
       }
+    }
+  }
+}
 
-      .card-bottom-border {
-        position: absolute;
-        bottom: 0px;
+@media screen and (max-width: 700px) {
+  .page.home {
+    .card-row {
+      .card {
+        width: 50%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .page.home {
+    .content-box {
+      padding-top: 24px;
+
+      .card-row {
+        flex-direction: row;
+        height: 100%;
+
+        .card {
+          flex-direction: row-reverse;
+          justify-content: space-between;
+          width: 100%;
+          height: 80px;
+          min-height: unset;
+  
+          .texts {
+            position: unset;
+            width: 100%;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            .brand-name {
+              font-size: 14px;
+            }
+
+            .product-name {
+              justify-content: flex-start;
+              align-items: flex-start;
+              padding: unset;
+              text-align: left;
+            }
+          }
+
+          .timestamp {
+            right: 0;
+            width: 100%;
+            text-align: right;
+            max-width: unset;
+            top: 12px;
+          }
+          
+          .image {
+            height: 75px;
+            width: 100%;
+            .card-product-layer, .border-cover {
+              height: 75px;
+              width: 50%;
+            }
+          }
+        }
       }
     }
   }
