@@ -150,6 +150,7 @@ button, .tab {
 
 @media screen and (max-width: 1000px) {
   .root-inner {
+    position: fixed;
     width: 100%;
     padding-bottom: m#{a}x(32px, #{env(safe-area-inset-bottom)});
     
