@@ -1,7 +1,7 @@
 import React from 'react'
-// import ReactGA from 'react-ga'
 import Div100vh from 'react-div-100vh'
 import ReactDOM from 'react-dom'
+import ReactGA from 'react-ga'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import Footer from './components/footer/Footer'
@@ -10,15 +10,15 @@ import Editor from './pages/editor/Editor'
 import Home from './pages/home/Home'
 
 import { URL_PREFIX } from './utils/constants'
-// import { loadFromLocalStorage } from './utils/localStorage'
+import { loadFromLocalStorage } from './utils/localStorage'
 
 import './style/index.scss'
 
-// const trackMe = loadFromLocalStorage('trackMe', false)
-// if (trackMe) {
-//   ReactGA.initialize('UA-170883719-1')
-//   ReactGA.set({ anonymizeIp: true })
-// }
+const trackMe = loadFromLocalStorage('trackMe', false)
+if (trackMe) {
+  ReactGA.initialize('UA-170883719-1')
+  ReactGA.set({ anonymizeIp: true })
+}
 
 
 ReactDOM.render((
