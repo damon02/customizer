@@ -1,6 +1,6 @@
 {
   "name": "customizer",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "homepage": "https://damon02.github.io/customizer",
   "private": true,
   "dependencies": {

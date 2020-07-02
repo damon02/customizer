@@ -63,7 +63,13 @@ const ProductOverview = (props: IProps) => {
                   maxWidth: props.activeProduct?.dimensions.width,
                 }}
               >
-                <div className="border-cover"/>
+                <div
+                  className="border-cover" 
+                  style={{
+                    maxHeight: props.activeProduct?.dimensions.height,
+                    maxWidth: props.activeProduct?.dimensions.width
+                  }}
+                />
                 <div className="bruh">{pjson.homepage}</div>
                 {props.activeProduct?.assets?.map((part) => { 
                   const variantID = cssProps[part.id]?.variant.id
@@ -100,7 +106,13 @@ const ProductOverview = (props: IProps) => {
               />
               <div className="product-canvas-wrapper">
                 <div className="product-canvas" id="img-src">
-                  <div className="border-cover"/>
+                  <div
+                    className="border-cover"
+                    style={{
+                      maxHeight: props.activeProduct?.dimensions.height,
+                      maxWidth: props.activeProduct?.dimensions.width
+                    }}
+                  />
                   <div className="bruh">{pjson.homepage}</div>
                   {props.activeProduct?.assets?.map((part) => { 
                     const variantID = cssProps[part.id]?.variant.id
