@@ -9,6 +9,10 @@ export const ShoeYZYSlides: IGenericProduct = {
   name: 'YEEZY SLIDE',
   enabled: true,
   type: 'SHOE',
+  dimensions: {
+    width: 1241,
+    height: 714,
+  },
   assets: [
     {
       id: 'upper',

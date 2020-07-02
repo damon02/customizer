@@ -8,11 +8,11 @@ const Footer = () => {
     <div className="footer">
       <p>
         <a
-          href="https://www.github.com/damon02"
+          href="https://www.damon.dev"
           rel="noopener noreferrer"
           target="_blank"
         >
-          Created by damon02
+          Created by damon.dev
         </a>
       </p>
       <p className="version">v{pjson.version}</p>

@@ -25,6 +25,10 @@ export const Shoe350V2: IGenericProduct = {
   name: 'Air Jordan 1 Retro High',
   enabled: true,
   description: 'The classic',
+  dimensions: {
+    width: 1400,
+    height: 1000,
+  },
   assets: [
     {
       id: 'tongue',
@@ -240,16 +244,19 @@ export const Shoe350V2: IGenericProduct = {
           id: 'swooshNormal',
           file: Swoosh,
           name: 'Nike Swoosh',
+          zIndex: 8,
         },
         {
           id: 'swooshFlipped',
           file: SwooshFlipped,
           name: 'Nike Swoosh Flipped',
+          zIndex: 8,
         },
         {
           id: 'swooshReversed',
           file: SwooshReverse,
           name: 'Nike Swoosh Reversed',
+          zIndex: 10,
         },
       ],
     },

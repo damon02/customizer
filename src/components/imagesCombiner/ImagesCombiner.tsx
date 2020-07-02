@@ -2,36 +2,48 @@ import React, { useState } from 'react'
 import Modal from '../modal/Modal'
 
 import { IGenericProduct } from '../../@types/types'
+import { MEME_MESSAGES } from '../../utils/constants'
+import { asyncForEach } from '../../utils/general'
 import './ImagesCombiner.scss'
 
 interface IProps {
   activeProduct: IGenericProduct | undefined
+  setShowFullscreen: (params: { user: string, name: string }) => void
+  creator: string
+  setCreator: (c: string) => void
+  productName: string
+  setProductName: (pn: string) => void
 }
 
 const ImagesCombiner = (props: IProps) => {
-  const width = 1241
-  const height = 700
+  const imageMaxWidth = 1000
+  const imageMaxHeight = 650
   const canvasWidth = 1337
   const canvasHeight = 900
 
-  const { activeProduct } = props 
+  const { activeProduct, creator, setCreator, productName, setProductName } = props 
   const accumulatedImages: string[] = []
 
-  const [showSaveModal, setShowSaveModal] = useState(false)
-  const [productName, setProductName] = useState<string>('')
-  const [creator, setCreator] = useState<string>('')
+  const [loading, setLoading] = useState<undefined | number>()
+  const [showSaveModal, setShowSaveModal] = useState<false | 'fullscreen' | 'save'>(false)
 
   return (
     <div className="images-combiner">
-      <button onClick={() => setShowSaveModal(true)}>Download as image</button>
+      <button onClick={() => setShowSaveModal('fullscreen')}>Fullscreen</button>
+      <button onClick={() => setShowSaveModal('save')}>Download as image (BETA)</button>
 
       <Modal
-        showModal={showSaveModal}
+        showModal={showSaveModal !== false}
         onCancel={() => setShowSaveModal(false)}
-        closeText={'Save as PNG'}
+        closeText={showSaveModal ===  'save' ? 'Save as PNG' : 'Show fullscreen'}
         onClose={() => {
-          setShowSaveModal(false)
-          combineCSSIntoImages()
+          if (showSaveModal === 'save') {
+            setShowSaveModal(false)
+            combineCSSIntoImages()
+          } else {
+            setShowSaveModal(false)
+            props.setShowFullscreen({ user: creator, name: productName })
+          }
         }}
         uuid={'saveImageModal'}
         cancelText={'Back to editing'}
@@ -47,6 +59,29 @@ const ImagesCombiner = (props: IProps) => {
             <p>{`${activeProduct?.name} '${productName || 'CONCEPT'}'`}</p>
             <p>{`as imagined by ${creator || 'a fan'}`}</p>
           </div>
+          {showSaveModal === 'save' && (
+            <div className="beta-notice">
+              <h3>Notice</h3>
+              <div className="notice">
+                Some browsers (Safari/iOS, Opera) will have incorrect color applications. I recommend you to take a screenshot in fullscreen mode instead.
+              </div>
+            </div>
+          )}
+        </div>
+      </Modal>
+
+      <Modal
+        showModal={loading !== undefined}
+        onClose={() => setLoading(undefined)}
+        uuid={'loadingmodal'}
+        closeText={'Hide'}
+      >
+        <div className="modal-save-image">
+          <h3>Putting image together...</h3>
+          <div className="summary">
+            <div className="meme">{MEME_MESSAGES[Math.floor((new Date().getSeconds() / 60) * MEME_MESSAGES.length) + 1]}</div>
+            {loading && activeProduct?.assets && Math.round(loading / activeProduct?.assets?.length * 100)}%
+          </div>
         </div>
       </Modal>
     </div>
@@ -55,7 +90,13 @@ const ImagesCombiner = (props: IProps) => {
   function combineCSSIntoImages() {
     // Get all individual parts
     const productParts = Array.from(document.getElementsByClassName('product-part-image'))
+      .sort((a, b) => Number(getComputedStyle(a).zIndex) - Number(getComputedStyle(b).zIndex))
+
+    const w = getComputedStyle(productParts[0]).maxWidth
+    const h = getComputedStyle(productParts[0]).maxHeight
+    const dimensionsImage = { width: Number(w.substring(0, w.length - 2)), height: Number(h.substring(0, h.length - 2)) }
     
+    setLoading(0)
     // Iterate over each part
     try {
       productParts.forEach((s, i) => {
@@ -72,7 +113,7 @@ const ImagesCombiner = (props: IProps) => {
         }
     
         // Apply the CSS styling to this canvas element
-        const partImage = new Image(width, height)
+        const partImage = new Image(dimensionsImage.width, dimensionsImage.height)
         const backgroundImageSource = getComputedStyle(s).backgroundImage
         const bgURL = backgroundImageSource.substring(5, backgroundImageSource.length - 2)
         ctx.filter = getComputedStyle(s).filter
@@ -81,12 +122,12 @@ const ImagesCombiner = (props: IProps) => {
         partImage.onload = (e) => {
           // Draw the image including the CSS filter
           if (getComputedStyle(s).display !== 'none') {
-            ctx.drawImage(partImage, (canvasWidth - width) / 2, (canvasHeight - height) / 2, width, height)
+            ctx.drawImage(partImage, (canvasWidth - dimensionsImage.width) / 2, (canvasHeight - dimensionsImage.height) / 2, dimensionsImage.width, dimensionsImage.height)
             accumulatedImages.push(canvas.toDataURL('image/png'))
     
             // READY, all products have been loaded
             if ((i + 1) === productParts.length) {
-              mergeImages()
+              mergeImages(dimensionsImage.width, dimensionsImage.height)
             }
           }
         }
@@ -96,14 +137,14 @@ const ImagesCombiner = (props: IProps) => {
     }
   }
 
-  function mergeImages() {
+  function mergeImages(width: number, height: number) {
     const previousCanvas = document.getElementById('final-canvas-drawing')
     if (previousCanvas) {
       previousCanvas.remove()
     }
 
     const now = new Date()
-    const filename = `${activeProduct?.id}_${productName || 'CONCEPT'}_${now.toLocaleDateString()}-${now.toLocaleTimeString()}`
+    const filename = `CUSTOMIZER_${now.toLocaleDateString()}-${now.toLocaleTimeString()}-${activeProduct?.id}_${productName || 'CONCEPT'}`
 
     const finalCanvas = document.createElement(`canvas`)
     const finalContext = finalCanvas.getContext('2d')
@@ -146,26 +187,42 @@ const ImagesCombiner = (props: IProps) => {
   
         // Add URL
         finalContext.fillStyle = '#fff'
-        finalContext.textAlign = 'center'
+        finalContext.textAlign = 'right'
         finalContext.font = '400 14px Chakra Petch'
-        finalContext.fillText(`Design your dream shoes!`, canvasWidth / 2, canvasHeight - 30)
+        finalContext.fillText(`Design your dream shoes!`, canvasWidth - 20, canvasHeight - 30)
+        finalContext.textAlign = 'right'
         finalContext.fillStyle = '#fff'
-        finalContext.fillText(`https://damon02.github.io/customizer/`, canvasWidth / 2, canvasHeight - 10)
+        finalContext.fillText(`https://damon02.github.io/customizer/`, canvasWidth - 20, canvasHeight - 10)
+        finalContext.textAlign = 'center'
+        finalContext.fillStyle = '#fff'
+        finalContext.fillText(`Made with love`, canvasWidth / 2, canvasHeight - 30)
+        finalContext.textAlign = 'center'
+        finalContext.fillStyle = '#fff'
+        finalContext.fillText(`https://damon.dev`, canvasWidth / 2, canvasHeight - 10)
       }
+
+
+      const waitFor = (ms: number) => new Promise(r => setTimeout(r, ms))
     
-      accumulatedImages.forEach((imgString, j) => {
+      asyncForEach<string>(accumulatedImages, async (imgString, j) => {
+        await waitFor(150)
+
         if (imgString) {
           const i = new Image(width, height)
           i.src = imgString
+
+          const dx = (canvasWidth - imageMaxWidth) / 2
+          const dy = (canvasHeight - imageMaxHeight) / 2
           
           i.onload = () => {
-            finalContext?.drawImage(i, 0,0, canvasWidth, canvasHeight)
+            setLoading(j + 1)
+            finalContext?.drawImage(i, dx, dy, imageMaxWidth, imageMaxHeight)
             
             
             if ((j + 1) === accumulatedImages.length) {
               if (finalContext) {
                 finalContext.fillStyle = 'rgba(255,255,255,0.05)'
-                finalContext.fillText(`Not a real product, don't fall for it :)`, canvasWidth / 2, canvasHeight / 3)
+                finalContext.fillText(`fake product, don't fall for it :)`, canvasWidth / 2, canvasHeight / 3)
   
                 // Enable for debug
                 // document.body.append(finalContext.canvas)
@@ -178,6 +235,7 @@ const ImagesCombiner = (props: IProps) => {
   
               anchor.click()
   
+              setLoading(undefined)
               setProductName('')
             }
           }

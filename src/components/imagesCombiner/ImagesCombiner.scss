@@ -2,7 +2,11 @@
 
 .images-combiner {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+
+  button {
+    margin: 8px;
+  }
 }
 
 .modal-save-image {
@@ -26,5 +30,9 @@
       margin: 0;
       text-align: center;
     }
+  }
+
+  .beta-notice {
+    margin-top: 16px;
   }
 }

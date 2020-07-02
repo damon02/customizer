@@ -37,6 +37,10 @@ export const YEEZY700V1: IGenericProduct = {
   name: 'YEEZY BOOST 700',
   enabled: true,
   description: 'Yeezys take on the dad shoe',
+  dimensions: {
+    width: 1241,
+    height: 714,
+  },
   assets: [
     {
       id: 'UpperRearMesh',

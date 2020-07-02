@@ -8,6 +8,10 @@ export interface IGenericProduct {
   description?: string
   assets?: IGenericPart[]
   type: IEnumProductType
+  dimensions: {
+    height: number
+    width: number
+  }
 }
 
 export interface IGenericPart {
@@ -35,6 +39,7 @@ export interface IPartVariant {
   file: string
   name: string
   description?: string
+  zIndex?: number
 }
 
 export interface IMinMax {

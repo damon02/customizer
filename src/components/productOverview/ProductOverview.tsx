@@ -6,7 +6,7 @@ import ComponentsList from '../componentsList/ComponentsList'
 
 import { IColorProperties, ICSSProperties, IGenericPart, IGenericProduct, IPartPropsCSSProperties, IPartVariant } from '../../@types/types'
 import { usePrevious } from '../../hooks/usePrevious'
-import { DEFAULT_WHITE } from '../../utils/constants'
+import { DEFAULT_WHITE, MEME_MESSAGES } from '../../utils/constants'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
 import ImagesCombiner from '../imagesCombiner/ImagesCombiner'
 import './ProductOverview.scss'
@@ -18,6 +18,9 @@ interface IProps {
 const ProductOverview = (props: IProps) => {
   const previousActiveProduct = usePrevious(props.activeProduct)
   const [activePart, setActivePart] = React.useState<IGenericPart | undefined>()
+  const [showFullscreen, setShowFullscreen] = React.useState<{ name: string, user: string } | false>(false)
+  const [productName, setProductName] = React.useState<string>('')
+  const [creator, setCreator] = React.useState<string>(loadFromLocalStorage('creator', ''))
 
   React.useEffect(() => {
     if (!previousActiveProduct && !activePart && props.activeProduct?.assets) {
@@ -26,13 +29,66 @@ const ProductOverview = (props: IProps) => {
   }, [previousActiveProduct, activePart, setActivePart, props.activeProduct])
 
   return (
-    <div className="product-overview">
+    <div className={showFullscreen ? 'fullscreen-overview' : 'product-overview'} onClick={() => showFullscreen ? setShowFullscreen(false) : ({})}>
       <ColorCustomizer
         allPartProps={loadCSSFromStorage()}
         selectedPart={activePart}
         saveCSSToStorage={saveCSSToStorage}
       >
-        {(cssProps, sliders, applyPartPropsChanges) => (
+        {(cssProps, sliders, applyPartPropsChanges) => showFullscreen ? (
+          <div className="overview-row">
+            <div className="info">
+              <div className="product-name">{props.activeProduct?.name} '{showFullscreen.name || 'CONCEPT'}'</div>
+              <div className="creator">as imagined by {showFullscreen.user || 'a fan'}</div>
+            </div>
+            <div className="logo-wrapper">
+              <div className="logo"/>
+              <div className="name">CUSTOMIZER</div>
+            </div>
+            <div className="share">
+              <div className="name">Made with love by damon.dev</div>
+              <div className="url">{pjson.homepage}</div>
+            </div>
+            <div className="hint hideMe">
+              <div>{MEME_MESSAGES[Math.floor((new Date().getSeconds() / 60) * MEME_MESSAGES.length) + 1]}</div>
+              <div>You can click anywhere on the page to go back.</div>
+              <div className="wait">After 3 seconds this will disappear</div>
+            </div>
+            <div className="product-canvas-wrapper">
+              <div
+                className="product-canvas"
+                id="img-src"
+                style={{
+                  maxHeight: props.activeProduct?.dimensions.height,
+                  maxWidth: props.activeProduct?.dimensions.width,
+                }}
+              >
+                <div className="border-cover"/>
+                <div className="bruh">{pjson.homepage}</div>
+                {props.activeProduct?.assets?.map((part) => { 
+                  const variantID = cssProps[part.id]?.variant.id
+                  const variant = part.variants.find(p => p.id === variantID) || part.variants[0]
+
+                  return (
+                    <img
+                      alt={''}
+                      key={`${props.activeProduct?.name}-${part.id}`}
+                      className={`product-part-image ${part.id}`}
+                      id={`product-img ${part.id}`}
+                      style={{
+                        ...cssProps[part.id]?.css,
+                        maxHeight: props.activeProduct?.dimensions.height,
+                        maxWidth: props.activeProduct?.dimensions.width,
+                        zIndex: variant.zIndex || part.zindex,
+                        backgroundImage: `url(${variant.file})`,
+                      }}
+                    />
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        ) : (
           <React.Fragment>
             <div className="overview-row">
               <ComponentsList 
@@ -48,7 +104,7 @@ const ProductOverview = (props: IProps) => {
                   <div className="bruh">{pjson.homepage}</div>
                   {props.activeProduct?.assets?.map((part) => { 
                     const variantID = cssProps[part.id]?.variant.id
-                    const variantImage = part.variants.find(p => p.id === variantID)?.file || part.variants[0].file
+                    const variant = part.variants.find(p => p.id === variantID) || part.variants[0]
 
                     return (
                       <img
@@ -58,15 +114,24 @@ const ProductOverview = (props: IProps) => {
                         id={`product-img ${part.id}`}
                         style={{
                           ...cssProps[part.id]?.css,
-                          zIndex: part.zindex,
-                          backgroundImage: `url(${variantImage})`,
+                          maxHeight: props.activeProduct?.dimensions.height,
+                          maxWidth: props.activeProduct?.dimensions.width,
+                          zIndex: variant.zIndex || part.zindex,
+                          backgroundImage: `url(${variant.file})`,
                         }}
                       />
                     )
                   })}
                 </div>
                 <div className="bottom">
-                  <ImagesCombiner activeProduct={props.activeProduct} />
+                  <ImagesCombiner
+                    activeProduct={props.activeProduct}
+                    setShowFullscreen={(a) => setShowFullscreen(a)}
+                    creator={creator}
+                    setCreator={saveCreatorToStorage}
+                    productName={productName}
+                    setProductName={setProductName}
+                  />
                 </div>
               </div>
               {sliders}
@@ -135,6 +200,11 @@ const ProductOverview = (props: IProps) => {
         timestamp: new Date().valueOf()
       })
     }
+  }
+
+  function saveCreatorToStorage(c: string) {
+    saveToLocalStorage('creator', c)
+    setCreator(c)
   }
 }
 

@@ -19,6 +19,10 @@ export const Shoe350V2: IGenericProduct = {
   name: 'YEEZY BOOST 350 V2',
   enabled: true,
   description: 'A modern classic',
+  dimensions: {
+    width: 1241,
+    height: 714,
+  },
   assets: [
     {
       id: 'upper',

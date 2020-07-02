@@ -38,7 +38,7 @@ const Card = (props: IProps) => {
               : combineIntoCSS({ ...DEFAULT_WHITE.values, display: 'block' })
 
           const variantID = (partProps && partProps[part.id]?.variant.id) || part.variants[0].id
-          const variantImage = part.variants.find(p => p.id === variantID)?.file || part.variants[0].file
+          const variantImage = part.variants.find(p => p.id === variantID) || part.variants[0]
 
           return (
             <img
@@ -47,8 +47,8 @@ const Card = (props: IProps) => {
               className={`card-product-layer ${part.id}`}
               style={{
                 ...partCSS,
-                zIndex: part.zindex,
-                backgroundImage: `url(${variantImage})`,
+                zIndex: variantImage.zIndex || part.zindex,
+                backgroundImage: `url(${variantImage.file})`,
               }}
             />
           )

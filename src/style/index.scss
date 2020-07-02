@@ -160,3 +160,27 @@ button, .tab {
     }
   }
 }
+
+.hideMe {
+  -moz-animation: cssAnimation 1.5s ease-in 3s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation 1.5s ease-in 3s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation 1.5s ease-in 3s forwards;
+  /* Opera */
+  animation: cssAnimation 1.5s ease-in 3s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes cssAnimation {
+  to {
+      opacity: 0;
+  }
+}
+
+@-webkit-keyframes cssAnimation {
+  to {
+    opacity: 0;
+  }
+}
