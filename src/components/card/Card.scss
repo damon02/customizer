@@ -86,6 +86,7 @@
   }
   
   .image {
+    position: relative;
     width: 200px;
     height: 150px;
     z-index: 99;
@@ -94,7 +95,7 @@
       width: 200px;
       height: 150px;
       background-color: rgba(0,0,0,0);
-      border: 5px solid $color-background-dark;
+      border: 6px solid $color-background-dark;
       position: absolute;
       z-index: 900000;
       transition: $default-transition;
@@ -106,9 +107,10 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
-      width: 200px;
-      height: 150px;
+      width: 190px;
+      height: 140px;
       border-image: unset;
+      margin: 5px;
     }
   }
 }
