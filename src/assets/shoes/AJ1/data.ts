@@ -8,6 +8,7 @@ import Lining from './lining2.png'
 import Outsole from './outsole11.png'
 import Sole from './sole10.png'
 import Swoosh from './swoosh12.png'
+import SwooshDefiant from './swooshdefiant.png'
 import SwooshFlipped from './swooshflipped.png'
 import SwooshReverse from './swooshreverse.png'
 import Toebox from './toebox3.png'
@@ -249,13 +250,19 @@ export const Shoe350V2: IGenericProduct = {
         {
           id: 'swooshFlipped',
           file: SwooshFlipped,
-          name: 'Nike Swoosh Flipped',
+          name: 'Nike Swoosh Upside down',
           zIndex: 8,
         },
         {
           id: 'swooshReversed',
           file: SwooshReverse,
           name: 'Nike Swoosh Reversed',
+          zIndex: 10,
+        },
+        {
+          id: 'swooshDefiant',
+          file: SwooshDefiant,
+          name: 'Nike Swoosh Defiant Couture',
           zIndex: 10,
         },
       ],

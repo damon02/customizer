@@ -5,10 +5,10 @@ import { useHistory } from 'react-router'
 import Modal from '../../components/modal/Modal'
 
 import { IGenericProduct, IPartPropsCSSProperties } from '../../@types/types'
+import { ALL_PRODUCTS } from '../../assets/products'
 import Card from '../../components/card/Card'
 import { URL_PREFIX } from '../../utils/constants'
 import { loadFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
-import { ALL_PRODUCTS } from '../../utils/products'
 import './Home.scss'
 
 const Home = () => {

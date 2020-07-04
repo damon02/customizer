@@ -5,8 +5,8 @@ import { Redirect, useHistory, useParams } from 'react-router'
 import ProductOverview from '../../components/productOverview/ProductOverview'
 
 import { IGenericProduct } from '../../@types/types'
+import { ALL_PRODUCTS } from '../../assets/products'
 import { URL_PREFIX } from '../../utils/constants'
-import { ALL_PRODUCTS } from '../../utils/products'
 
 import './Editor.scss'
 
