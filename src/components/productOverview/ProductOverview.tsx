@@ -38,7 +38,7 @@ const ProductOverview = (props: IProps) => {
         {(cssProps, sliders, applyPartPropsChanges) => showFullscreen ? (
           <div className="overview-row">
             <div className="info">
-              <div className="product-name">{props.activeProduct?.name} '{showFullscreen.name || 'CONCEPT'}'</div>
+              <div className="product-name">{props.activeProduct?.brand} {props.activeProduct?.name} '{showFullscreen.name || 'CONCEPT'}'</div>
               <div className="creator">as imagined by {showFullscreen.user || 'a fan'}</div>
             </div>
             <div className="logo-wrapper">

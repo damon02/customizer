@@ -51,12 +51,12 @@ const ImagesCombiner = (props: IProps) => {
         <div className="modal-save-image">
           <div className="inputs">
             <h3>Add your own custom name to the image</h3>
-            <input className="input product-name" placeholder={'Model name'} value={productName} onChange={(e) => setProductName(e.target.value)} />
+            <input className="input product-name" autoFocus placeholder={'Model name'} value={productName} onChange={(e) => setProductName(e.target.value)} />
             <input className="input product-name" placeholder={'Your name'} value={creator} onChange={(e) => setCreator(e.target.value)} />
           </div>
           <div className="summary">
             <h3>Your {activeProduct?.type.toLowerCase()}</h3>
-            <p>{`${activeProduct?.name} '${productName || 'CONCEPT'}'`}</p>
+            <p>{`${activeProduct?.brand} ${activeProduct?.name} '${productName || 'CONCEPT'}'`}</p>
             <p>{`as imagined by ${creator || 'a fan'}`}</p>
           </div>
           {showSaveModal === 'save' && (
@@ -162,7 +162,7 @@ const ImagesCombiner = (props: IProps) => {
         finalContext.fillStyle = '#fff'
         finalContext.font = '800 48px Chakra Petch'
         finalContext.textAlign = 'center'
-        finalContext.fillText(`${activeProduct?.name} '${productName || 'CONCEPT'}'`, canvasWidth / 2, 80)
+        finalContext.fillText(`${activeProduct?.brand} ${activeProduct?.name} '${productName || 'CONCEPT'}'`, canvasWidth / 2, 80)
         
         // Add username to image
         finalContext.fillStyle = '#fff'
