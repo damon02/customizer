@@ -7,6 +7,7 @@ export interface IGenericProduct {
   enabled: boolean
   description?: string
   assets?: IGenericPart[]
+  backgroundAsset?: IBackgroundPart
   type: IEnumProductType
   dimensions: {
     height: number
@@ -32,6 +33,14 @@ export interface IGenericPart {
     values: { brightness: number, saturation: number, sepia: number, hue: number }
   }[],
   default?: ICSSProperties
+}
+
+export interface IBackgroundPart {
+  id: string
+  name: string
+  zIndex: 0,
+  variant: IPartVariant
+  default: { filter: string }
 }
 
 export interface IPartVariant {

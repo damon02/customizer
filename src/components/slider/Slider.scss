@@ -1,14 +1,20 @@
 .slider.item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
+  padding: 6px 12px;
+  margin-bottom: 4px;
 
-  > span {
-    width: 50%;
+  .item-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 12px;
   }
+}
 
-  > div {
-    width: 50%;
+@media screen and (max-width: 1000px) {
+  .slider.item {
+    .item-details {
+      font-size: 13px;
+    }
   }
 }

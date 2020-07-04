@@ -91,6 +91,22 @@ const ProductOverview = (props: IProps) => {
                     />
                   )
                 })}
+                {props.activeProduct?.backgroundAsset && (
+                  <img
+                    alt={''}
+                    key={`${props.activeProduct?.name}-${props.activeProduct.backgroundAsset.id}`}
+                    className={`product-part-image ${props.activeProduct.backgroundAsset.id}`}
+                    id={`product-img ${props.activeProduct.backgroundAsset.id}`}
+                    style={{
+                      ...props.activeProduct.backgroundAsset.default,
+                      maxHeight: props.activeProduct?.dimensions.height,
+                      maxWidth: props.activeProduct?.dimensions.width,
+                      zIndex: props.activeProduct.backgroundAsset.zIndex,
+                      opacity: 0.3,
+                      backgroundImage: `url(${props.activeProduct.backgroundAsset.variant.file})`,
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -134,6 +150,22 @@ const ProductOverview = (props: IProps) => {
                       />
                     )
                   })}
+                  {props.activeProduct?.backgroundAsset && (
+                    <img
+                      alt={''}
+                      key={`${props.activeProduct?.name}-${props.activeProduct.backgroundAsset.id}`}
+                      className={`product-part-image ${props.activeProduct.backgroundAsset.id}`}
+                      id={`product-img ${props.activeProduct.backgroundAsset.id}`}
+                      style={{
+                        ...props.activeProduct.backgroundAsset.default,
+                        maxHeight: props.activeProduct?.dimensions.height,
+                        maxWidth: props.activeProduct?.dimensions.width,
+                        zIndex: props.activeProduct.backgroundAsset.zIndex,
+                        opacity: 0.3,
+                        backgroundImage: `url(${props.activeProduct.backgroundAsset.variant.file})`,
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="bottom">
                   <ImagesCombiner

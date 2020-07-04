@@ -1,6 +1,8 @@
 import { IGenericProduct } from '../../../@types/types'
 import { DEFAULT_COLORS } from '../../../utils/constants'
+import { combineIntoCSSFilter } from '../../../utils/css'
 
+import Product from './500.png'
 import HeelBack from './heelback.png'
 import HeelBack2 from './heelback2.png'
 import Laces from './laces.png'
@@ -26,6 +28,13 @@ export const Shoe500Low: IGenericProduct = {
   dimensions: {
     width: 1400,
     height: 1000,
+  },
+  backgroundAsset: {
+    id: 'background',
+    name: 'Background',
+    zIndex: 0,
+    default: { filter: combineIntoCSSFilter({ saturation: 0, hue: 0, sepia: 0, brightness: 2.5 }) },
+    variant: { id: 'product', file: Product, name: '500' }
   },
   assets: [
     {

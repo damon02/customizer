@@ -29,13 +29,17 @@ const GenericSlider = (props: IProps ) => {
 
   return (
     <div className={`slider item ${props.name.toLowerCase()}`}>
-      <span>{props.name} ({props.value}) </span>
+      <div className="item-details">
+        <span>{props.name}</span>
+        <span>({props.value})</span>
+      </div>
       <Slider
         rootStyle={sliderStyle}
         domain={domain} // [min, max]
         values={[props.value]} // slider values
         onUpdate={(e) => props.onChange(Number(e[0].toPrecision(3)))}
         step={0.01}
+        className="slider-wrapper"
       >
         <Rail>
           {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
