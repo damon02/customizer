@@ -7,7 +7,9 @@ import Lining from './liner.png'
 import Outsole from './outsole.png'
 import Pulltab from './pulltab.png'
 import Sole from './sole.png'
+import SoleAIR from './soleair.png'
 import SwooshDefault from './swooshdefault.png'
+import SwooshChrome from './swooshtscott.png'
 import Toebox from './toebox.png'
 import ToeboxCap from './toeboxcap.png'
 import Tongue from './tongue.png'
@@ -121,7 +123,12 @@ export const AF1: IGenericProduct = {
           id: 'swooshDefault', 
           file: SwooshDefault, 
           name: 'Nike Swoosh'
-        }
+        },
+        { 
+          id: 'swooshTravisScott', 
+          file: SwooshChrome, 
+          name: 'Chrome Nike Swoosh'
+        },
       ],
       overrides: {
         brightness: { min: 0, max: 3 }
@@ -224,6 +231,25 @@ export const AF1: IGenericProduct = {
         { 
           id: 'laces', 
           file: Laces, 
+          name: 'Default'
+        }
+      ],
+      overrides: {
+        brightness: { min: 0, max: 3 }
+      }
+    },
+    {
+      id: 'soleAIR',
+      name: 'Sole AIR Detail',
+      category: 'sole',
+      presets: DEFAULT_COLORS,
+      zindex: 14,
+      toggleable: true,
+      default: { display: 'none', brightness: 2, saturation: 0, sepia: 0, hue: 0 },
+      variants: [
+        { 
+          id: 'soleAIR', 
+          file: SoleAIR, 
           name: 'Default'
         }
       ],
