@@ -71,7 +71,10 @@
 @media screen and (max-width: 500px) {
   .page.home {
     .content-box {
-      padding-top: 24px;
+
+      .product-box {
+        padding-top: 24px;
+      }
 
       .card-row {
         flex-direction: row;
@@ -111,11 +114,16 @@
           }
           
           .image {
-            height: 75px;
+            height: 73px;
             width: 100%;
-            .card-product-layer, .border-cover {
+            .card-product-layer {
               height: 75px;
               width: 50%;
+            }
+            
+            .border-cover {
+              height: 80px;
+              width: 54%;
             }
           }
         }
