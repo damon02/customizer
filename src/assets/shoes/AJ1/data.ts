@@ -263,7 +263,7 @@ export const Shoe350V2: IGenericProduct = {
           id: 'swooshDefiant',
           file: SwooshDefiant,
           name: 'Nike Swoosh Defiant Couture',
-          zIndex: 10,
+          zIndex: 50,
         },
       ],
     },

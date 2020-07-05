@@ -6,6 +6,7 @@ import YEEZY500 from './shoes/500/data'
 import YEEZY700V1 from './shoes/700V1/data'
 import AJ1 from './shoes/AJ1/data'
 import DUNKLOW from './shoes/DUNKLOW/data'
+import FOG1 from './shoes/FOG1/data'
 import YEEZYSLIDE from './shoes/SLIDE/data'
 
 export const SHOES_YEEZY: IGenericProduct[] = sortByKey([
@@ -14,6 +15,7 @@ export const SHOES_YEEZY: IGenericProduct[] = sortByKey([
   YEEZYSLIDE,
   YEEZY500,
   AJ1,
+  FOG1,
   DUNKLOW
 ], 'name')
 
