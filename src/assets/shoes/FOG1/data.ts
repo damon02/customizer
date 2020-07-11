@@ -17,6 +17,7 @@ export const FOG1: IGenericProduct = {
   id: 'FOG1',
   brand: 'Nike',
   name: 'Air Fear of God 1',
+  tags: ['Nike', 'High top'],
   enabled: true,
   type: 'SHOE',
   dimensions: {

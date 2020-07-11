@@ -20,6 +20,7 @@ export const AF1: IGenericProduct = {
   id: 'AF1',
   brand: 'Nike',
   name: 'Air Force 1 Low',
+  tags: ['Nike', 'Low'],
   enabled: true,
   type: 'SHOE',
   dimensions: {

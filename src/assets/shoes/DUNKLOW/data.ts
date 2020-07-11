@@ -23,6 +23,7 @@ export const ShoeDunkLow: IGenericProduct = {
   id: 'DUNKLOW',
   brand: 'Nike',
   name: 'Dunk Low',
+  tags: ['Nike', 'Low'],
   enabled: true,
   type: 'SHOE',
   dimensions: {

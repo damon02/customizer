@@ -23,6 +23,7 @@ export const Shoe500Low: IGenericProduct = {
   id: '500',
   brand: 'adidas',
   name: 'YEEZY 500',
+  tags: ['YEEZY', 'adidas', 'Low'],
   enabled: true,
   type: 'SHOE',
   dimensions: {

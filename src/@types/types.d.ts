@@ -13,6 +13,7 @@ export interface IGenericProduct {
     height: number
     width: number
   }
+  tags: string[]
 }
 
 export interface IGenericPart {

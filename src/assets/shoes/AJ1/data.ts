@@ -26,6 +26,7 @@ export const Shoe350V2: IGenericProduct = {
   name: 'Air Jordan 1 Retro High',
   enabled: true,
   description: 'The classic',
+  tags: ['Nike', 'Air Jordan', 'High top'],
   dimensions: {
     width: 1400,
     height: 1000,
