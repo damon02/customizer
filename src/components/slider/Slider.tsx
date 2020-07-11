@@ -12,6 +12,7 @@ interface IProps {
   min: number
   max: number
   onChange: (v: number) => void
+  cssFilter?: string
 }
 
 const GenericSlider = (props: IProps ) => {
@@ -42,7 +43,7 @@ const GenericSlider = (props: IProps ) => {
         className="slider-wrapper"
       >
         <Rail>
-          {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
+          {({ getRailProps }) => <SliderRail getRailProps={getRailProps} cssFilter={props.cssFilter} />}
         </Rail>
         <Handles>
           {({ handles, getHandleProps }) => (

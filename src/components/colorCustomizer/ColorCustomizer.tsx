@@ -13,8 +13,9 @@ import {
   IPartVariant
 } from '../../@types/types'
 import { USER_PRESETS_KEY } from '../../utils/constants'
-import { combineIntoCSS } from '../../utils/css'
+import { combineIntoCSS, combineIntoCSSFilter } from '../../utils/css'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
+import ComponentOptions from '../componentOptions/ComponentOptions'
 import './ColorCustomizer.scss'
 
 interface IProps {
@@ -23,13 +24,16 @@ interface IProps {
   saveCSSToStorage: (css: ICSSProperties, variant: IPartVariant, part: IGenericPart) => void
   children: (
     partProps: IPartPropsExposedCSS, 
-    slider: React.ReactNode, 
-    setPartProperties: (changes: { css?: IOptionalCSSProperties, variant?: { id: string } }) => void
+    customizers: React.ReactNode
   ) => React.ReactNode
 }
 
-const ColorCustomizer = (props: IProps) => {
+type IActiveTab = 'options' | 'colorCustomizer' | 'colorPicker'
+
+const Customizer = (props: IProps) => {
   const { selectedPart, saveCSSToStorage, allPartProps } = props
+
+  const [activeTab, setActiveTab] = React.useState<IActiveTab>('colorCustomizer')
 
   const [selectedVariant, setVariant] = React.useState<IPartVariant | undefined>(selectedPart?.variants[0])
   const [saturation, setSaturation] = React.useState<number>(1)
@@ -89,40 +93,82 @@ const ColorCustomizer = (props: IProps) => {
     <React.Fragment>
       {props.children(
         cssProps, (
-          <div className="color-picker">
-            <React.Fragment>
-              <div className="color-customizer">
-                <div className="selected-item">
-                  {props.selectedPart && <h3 className="title">{props.selectedPart.name}</h3>}
-                </div>
+          <div className="customizer">
+            <div className={`tab-content options${activeTab === 'options' ? ' show' : ''}`}>
+              <ComponentOptions
+                cssProps={cssProps}
+                selectedPart={selectedPart}
+                applyPartPropsChanges={applyPartPropsChanges}
+              />
+            </div>
 
-                {props.selectedPart && display && (
-                  <React.Fragment>
-                    <GenericSlider selectedPart={selectedPart} name="Hue" min={0} max={360} value={hue} onChange={(e) => setHue(e)} />
-                    <GenericSlider selectedPart={selectedPart} name="Saturation" min={0} max={2} value={saturation} onChange={(e) => setSaturation(e)} />
-                    <GenericSlider selectedPart={selectedPart} name="Sepia" min={0} max={1} value={sepia} onChange={(e) => setSepia(e)} />
-                    <GenericSlider selectedPart={selectedPart} name="Brightness" min={0.2} max={1.1} value={brightness} onChange={(e) => setBrightness(e)} />
-                    <button className="button small save-preset" onClick={() => savePresetToStorage()}>Save color preset</button>
-                  </React.Fragment>
-                )}
-              </div>
-              {display && (
-                <ColorPickerList 
-                  selectedPart={props.selectedPart}
-                  setProperties={(cp) => {
-                    setHue(cp.hue)
-                    setBrightness(cp.brightness)
-                    setSaturation(cp.saturation)
-                    setSepia(cp.sepia)
-                  }}
-                  userPresets={userPresets}
-                  setUserPresets={setUserPresets}
-                />
-              )}
-            </React.Fragment>
+            <div className={`tab-content color-customizer${activeTab === 'colorCustomizer' ? ' show' : ''}`}>
+              <GenericSlider
+                selectedPart={selectedPart}
+                name="Hue"
+                min={0}
+                max={360}
+                value={hue}
+                onChange={(e) => setHue(e)}
+                cssFilter={combineIntoCSSFilter({ saturation, brightness, sepia })}
+              />
+              <GenericSlider
+                selectedPart={selectedPart}
+                name="Saturation"
+                min={0}
+                max={2}
+                value={saturation}
+                onChange={(e) => setSaturation(e)}
+                cssFilter={combineIntoCSSFilter({ hue, brightness, sepia, saturation: 2 })}
+              />
+              <GenericSlider
+                selectedPart={selectedPart}
+                name="Brightness"
+                min={0.2}
+                max={1.1}
+                value={brightness}
+                onChange={(e) => setBrightness(e)}
+                cssFilter={combineIntoCSSFilter({ hue, saturation, sepia })}
+              />
+              <button className="button small save-preset" onClick={() => savePresetToStorage()}>Save color preset</button>
+            </div>
+
+            <div className={`tab-content color-picker-list${activeTab === 'colorPicker' ? ' show' : ''}`}>
+              <ColorPickerList 
+                selectedPart={props.selectedPart}
+                setProperties={(cp) => {
+                  setHue(cp.hue)
+                  setBrightness(cp.brightness)
+                  setSaturation(cp.saturation)
+                  setSepia(cp.sepia)
+                }}
+                userPresets={userPresets}
+                setUserPresets={setUserPresets}
+              />
+            </div>
+
+            <div className="tabs">
+              <button
+                className={`tab ${activeTab === 'colorCustomizer' ? ' active' : ''}`}
+                onClick={() => setActiveTab('colorCustomizer')}
+              >
+                Custom color
+              </button>
+              <button
+                className={`tab ${activeTab === 'colorPicker' ? ' active' : ''}`}
+                onClick={() => setActiveTab('colorPicker')}
+              >
+                Preset colors
+              </button>
+              <button
+                className={`tab ${activeTab === 'options' ? ' active' : ''}`}
+                onClick={() => setActiveTab('options')}
+              >
+                Options
+              </button>
+            </div>
         </div>
-      ), (changes) => applyPartPropsChanges(changes)
-      )}
+      ))}
     </React.Fragment>
   )
 
@@ -161,4 +207,4 @@ const ColorCustomizer = (props: IProps) => {
   }
 }
 
-export default ColorCustomizer
+export default Customizer

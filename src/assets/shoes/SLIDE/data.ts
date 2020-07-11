@@ -19,7 +19,7 @@ export const ShoeYZYSlides: IGenericProduct = {
       id: 'upper',
       name: 'Slide',
       category: 'shoe',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 1,
       variants: [
         { 

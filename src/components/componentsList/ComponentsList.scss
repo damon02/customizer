@@ -8,16 +8,14 @@
   transition: none;
   overflow: auto;
   padding: 6px;
+  align-items: center;
+  max-width: 300px;
 
   .component-wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
     transition: $default-transition;
-
-    &.active {
-      height: 100%;
-    }
     
     .select-button {
       display: flex;
@@ -75,58 +73,81 @@
         }
       }
     }
-
-    .options {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      padding: 16px;
-      
-      &.show {
-        display: flex;
-        height: 100%;
-      }
-
-      select {
-        -webkit-appearance:none;
-        background-color: $color-background-notdark;
-        color: $font-darkmode;
-        height: 40px;
-        border: unset;
-        outline: unset;
-        font-size: 13px;
-        width: 100%;
-        padding: 0px 12px;
-        border-radius: $border-radius;
-        font-weight: 700;
-      }
-
-      .button-part {
-        background-color: unset;
-        color: #fff;
-        margin-bottom: 16px;
-        border: 0px;
-        width: 100%;
-        border-radius: $border-radius;
-        max-width: 100%;
-        padding: 12px;
-        min-height: 32px;
-
-        &:hover, &:focus {
-          border: 0px;
-          background-color: $color-primary;
-        }
-      }
-
-      .no-variants {
-        display: none;
-      }
-    }
   }
 }
 
 #modal-wrapper-part-selector {
   display: none;
   flex-direction: column;
+}
+
+@media screen and (max-width: 1280px) and (min-width: 1001px) {
+  .components-list {
+    max-width: 200px;
+
+    .component-wrapper {
+      .select-button {
+        padding: 8px;
+        font-size: 13px;
+
+        .names {
+          align-items: flex-start;
+          flex-direction: column;
+
+          .part-variant {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  #modal-wrapper-part-selector {
+    display: flex;
+  }
+  
+  .components-list {
+    order: 2;
+    height: 100%;
+    max-height: 52px;
+    max-width: unset;
+
+    .component-wrapper {
+      display: none;
+      height: auto;
+      
+      .select-button {
+        padding: 8px;
+        font-size: 13px;
+      }
+      
+      .options {
+        flex-direction: column-reverse;
+        padding: 0;
+        height: auto;
+
+        select {
+          margin-top: 6px;
+        }
+
+        .button-part {
+          margin: unset;
+        }
+      }
+
+
+      &.active {
+        display: flex;
+        min-height: 34px;
+        padding: unset;
+        margin-bottom: unset;
+      }
+
+      &.small {
+        display: flex;
+      }
+    }
+  }
 }

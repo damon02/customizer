@@ -34,7 +34,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'upper350V2static',
@@ -57,7 +57,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'upperlip350V2',
@@ -75,7 +75,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'stripe350V2full',
@@ -106,7 +106,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'pulltab350V2singleColor',
@@ -125,7 +125,7 @@ export const Shoe350V2: IGenericProduct = {
         brightness: { max: 2 },
         saturation: { max: 3 },
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'laces350V2',
@@ -140,7 +140,7 @@ export const Shoe350V2: IGenericProduct = {
       zindex: 100,
       toggleable: false,
       category: 'sole',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'midsole350V2static',
@@ -158,7 +158,7 @@ export const Shoe350V2: IGenericProduct = {
       zindex: 101,
       toggleable: false,
       category: 'outsole',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       overrides: {
         brightness: { min: 0, max: 2 }
       },

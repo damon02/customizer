@@ -16,8 +16,11 @@ import Upper from './upper.png'
 import UpperHigh from './upperhigh.png'
 import UpperLaces from './upperlaces.png'
 
-const DUNKLOW_COLORS = DEFAULT_COLORS.filter(x => x.name !== 'White')
-DUNKLOW_COLORS.splice(1, 0, { name: 'White', cssString: '#ffffff', values: { brightness: 3, hue: 0, saturation: 0, sepia: 0 } })
+const filteredColors = DEFAULT_COLORS.presets.filter(x => x.name !== 'White')
+const DUNKLOW_COLORS = {
+  name: 'Default',
+  presets: filteredColors.splice(1, 0, { name: 'White', cssString: '#ffffff', values: { brightness: 3, hue: 0, saturation: 0, sepia: 0 } })
+}
 
 export const ShoeDunkLow: IGenericProduct = {
   id: 'DUNKLOW',
@@ -35,7 +38,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'upper',
       name: 'Upper',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 1,
       variants: [
         { 
@@ -53,7 +56,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'tongue',
       name: 'Tongue',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 2,
       variants: [
         { 
@@ -71,7 +74,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'toebox',
       name: 'Toebox',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 3,
       variants: [
         { 
@@ -89,7 +92,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'toeboxCap',
       name: 'Toebox cap',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 4,
       variants: [
         { 
@@ -107,7 +110,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'upperLaces',
       name: 'Upper laces',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 5,
       variants: [
         { 
@@ -125,7 +128,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'upperHigh',
       name: 'Upper high rear',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 6,
       variants: [
         { 
@@ -143,7 +146,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'lining',
       name: 'Lining',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 7,
       variants: [
         { 
@@ -161,7 +164,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'heelCap',
       name: 'Heel cap',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 8,
       variants: [
         { 
@@ -179,7 +182,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'swoosh',
       name: 'Swoosh',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 9,
       variants: [
         { 
@@ -197,7 +200,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'pullTab',
       name: 'Pull tab',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 10,
       variants: [
         { 
@@ -215,7 +218,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'pullTabLogo',
       name: 'Pull tab logo',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 11,
       variants: [
         { 
@@ -233,7 +236,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'midsole',
       name: 'Midsole',
       category: 'sole',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 12,
       variants: [
         { 
@@ -251,7 +254,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'outsole',
       name: 'Outsole',
       category: 'sole',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 13,
       variants: [
         { 
@@ -269,7 +272,7 @@ export const ShoeDunkLow: IGenericProduct = {
       id: 'laces',
       name: 'Laces',
       category: 'upper',
-      presets: DUNKLOW_COLORS,
+      presets: [DUNKLOW_COLORS],
       zindex: 14,
       variants: [
         { 

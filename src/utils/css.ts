@@ -1,4 +1,4 @@
-import { IColorProperties, ICSSProperties, IExposedCSS } from '../@types/types'
+import { IColorProperties, ICSSProperties, IExposedCSS, IOptionalColorProperties } from '../@types/types'
 
 export function combineIntoCSS(cssProperties: ICSSProperties): IExposedCSS  {
   return { 
@@ -7,6 +7,11 @@ export function combineIntoCSS(cssProperties: ICSSProperties): IExposedCSS  {
   }
 }
 
-export function combineIntoCSSFilter(cssProperties: IColorProperties)  {
-  return `saturate(${cssProperties.saturation}) hue-rotate(${cssProperties.hue}deg) sepia(${cssProperties.sepia}) brightness(${cssProperties.brightness})`
+export function combineIntoCSSFilter(cssProperties: IOptionalColorProperties)  {
+  const saturation = `saturate(${cssProperties.saturation && cssProperties.saturation >= 0 ? cssProperties.saturation : 0})`
+  const hue = `hue-rotate(${cssProperties.hue || 0}deg)`
+  const brightness = `brightness(${cssProperties.brightness && cssProperties.brightness >= 0 ? cssProperties.brightness : 1})`
+  const sepia = `sepia(${cssProperties.sepia || 0})`
+
+  return `${saturation} ${hue} ${sepia} ${brightness}`
 }

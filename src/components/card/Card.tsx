@@ -53,18 +53,6 @@ const Card = (props: IProps) => {
             />
           )
         })}
-        {product.backgroundAsset && (
-          <img
-            alt={''}
-            key={`${product?.name}-${product.backgroundAsset.id}`}
-            className={`card-product-layer ${product.backgroundAsset.id}`}
-            style={{
-              ...product.backgroundAsset.default,
-              zIndex: product.backgroundAsset.variant.zIndex,
-              backgroundImage: `url(${product.backgroundAsset.variant.file})`,
-            }}
-          />
-        )}
       </div>
       <div className="card-bottom-border" style={{ filter: upperCSS?.filter }} />
     </button>

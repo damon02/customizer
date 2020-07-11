@@ -7,7 +7,6 @@ export interface IGenericProduct {
   enabled: boolean
   description?: string
   assets?: IGenericPart[]
-  backgroundAsset?: IBackgroundPart
   type: IEnumProductType
   dimensions: {
     height: number
@@ -28,20 +27,8 @@ export interface IGenericPart {
     saturation?: IMinMax
     sepia?: IMinMax
   },
-  presets: {
-    name: string
-    cssString: string
-    values: { brightness: number, saturation: number, sepia: number, hue: number }
-  }[],
+  presets: IColorCategory[],
   default?: ICSSProperties
-}
-
-export interface IBackgroundPart {
-  id: string
-  name: string
-  zIndex: 0,
-  variant: IPartVariant
-  default: { filter: string }
 }
 
 export interface IPartVariant {
@@ -62,11 +49,23 @@ export interface IExposedCSS {
   display: 'none' | 'block'
 }
 
+export interface IColorCategory {
+  name: string,
+  presets: { name: string, cssString: string, values: IColorProperties }[]
+}
+
 export interface IColorProperties {
   saturation: number
   hue: number
   sepia: number
   brightness: number
+}
+
+export interface IOptionalColorProperties {
+  saturation?: number
+  hue?: number
+  sepia?: number
+  brightness?: number
 }
 
 export interface ICSSProperties extends IColorProperties {

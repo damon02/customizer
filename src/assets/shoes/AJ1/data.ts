@@ -41,7 +41,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 6 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'tongue',
@@ -60,7 +60,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'lining',
@@ -78,7 +78,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'toebox',
@@ -96,7 +96,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'upperHigh',
@@ -114,7 +114,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'upper',
@@ -132,7 +132,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'upperLacesPanel',
@@ -150,7 +150,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'upperFront',
@@ -168,7 +168,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'toeboxSides',
@@ -186,7 +186,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'heel',
@@ -204,7 +204,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'midsole',
@@ -222,7 +222,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'outsole',
@@ -240,7 +240,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'swooshNormal',
@@ -277,7 +277,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'ajangelslogo',
@@ -295,7 +295,7 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       variants: [
         {
           id: 'laces',

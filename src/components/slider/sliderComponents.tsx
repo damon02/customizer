@@ -25,18 +25,18 @@ const railInnerStyle = {
   transform: 'translate(0%, -50%)',
   borderRadius: 7,
   pointerEvents: 'none' as 'none',
-  backgroundColor: 'rgb(155,155,155)',
 }
 
 interface SliderRailProps {
   getRailProps: GetRailProps
+  cssFilter?: string
 }
 
-export const SliderRail: React.FC<SliderRailProps> = ({ getRailProps }) => {
+export const SliderRail: React.FC<SliderRailProps> = ({ getRailProps, cssFilter }) => {
   return (
     <>
-      <div style={railOuterStyle} {...getRailProps()} />
-      <div style={railInnerStyle} />
+      <div className="rail-outer" style={railOuterStyle} {...getRailProps()} />
+      <div className="rail-inner" style={{ ...railInnerStyle, filter: cssFilter }} />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { IGenericPart, IGenericProduct } from '../../../@types/types'
+import { IColorCategory, IGenericProduct } from '../../../@types/types'
 
 import Laces from './laces.png'
 import Lining from './lining.png'
@@ -17,18 +17,21 @@ import UpperSuedeMiddle from './upper_suede_middle.png'
 import UpperSuedeRear from './upper_suede_rear.png'
 import UpperSuedeToebox from './upper_suede_toebox.png'
 
-export const COLORS700: IGenericPart['presets'] = [
-  { name: 'Black', cssString: '#000000', values: { brightness: 0.25, sepia: 0, saturation: 0, hue: 0 } },
-  { name: 'White', cssString: '#ffffff', values: { brightness: 3, sepia: 0, saturation: 0, hue: 0 } },
-  { name: 'Red', cssString: '#ff1f3b', values: { brightness: 1.34, sepia: 0, saturation: 1, hue: 0 } },
-  { name: 'Orange', cssString: '#ffa338', values: { brightness: 1.34, sepia: 0, saturation: 1, hue: 45 } },
-  { name: 'Yellow', cssString: '#ffff00', values: { brightness: 1.66, sepia: 0, saturation: 1.2, hue: 67 } },
-  { name: 'Green', cssString: '#387400', values: { brightness: 1.34, sepia: 0, saturation: 1, hue: 90 } },
-  { name: 'Cyan', cssString: '#00ffff', values: { brightness: 1.34, sepia: 0, saturation: 1, hue: 180 } },
-  { name: 'Blue', cssString: '#0000ff', values: { brightness: 0.89, sepia: 0, saturation: 2, hue: 240 } },
-  { name: 'Purple', cssString: '#4b0082', values: { brightness: 0.67, sepia: 0, saturation: 1, hue: 290 } },
-  { name: 'Hot pink', cssString: '#ff0087', values: { brightness: 1, sepia: 0, saturation: 2.39, hue: 325 } },
-]
+export const COLORS700: IColorCategory = {
+  name: 'Default',
+  presets: [
+    { name: 'Black', cssString: '#000000', values: { brightness: 0.25, sepia: 0, saturation: 0, hue: 0 } },
+    { name: 'White', cssString: '#ffffff', values: { brightness: 3, sepia: 0, saturation: 0, hue: 0 } },
+    { name: 'Red', cssString: '#ff1f3b', values: { brightness: 1.34, sepia: 0, saturation: 1, hue: 0 } },
+    { name: 'Orange', cssString: '#ffa338', values: { brightness: 1.34, sepia: 0, saturation: 1, hue: 45 } },
+    { name: 'Yellow', cssString: '#ffff00', values: { brightness: 1.66, sepia: 0, saturation: 1.2, hue: 67 } },
+    { name: 'Green', cssString: '#387400', values: { brightness: 1.34, sepia: 0, saturation: 1, hue: 90 } },
+    { name: 'Cyan', cssString: '#00ffff', values: { brightness: 1.34, sepia: 0, saturation: 1, hue: 180 } },
+    { name: 'Blue', cssString: '#0000ff', values: { brightness: 0.89, sepia: 0, saturation: 2, hue: 240 } },
+    { name: 'Purple', cssString: '#4b0082', values: { brightness: 0.67, sepia: 0, saturation: 1, hue: 290 } },
+    { name: 'Hot pink', cssString: '#ff0087', values: { brightness: 1, sepia: 0, saturation: 2.39, hue: 325 } },
+  ]
+}
 
 export const YEEZY700V1: IGenericProduct = {
   id: '700V1',
@@ -49,7 +52,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 1,
       toggleable: false,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'UpperMeshRear',
@@ -68,7 +71,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 2,
       toggleable: false,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'UpperSuedeRear',
@@ -87,7 +90,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 3,
       toggleable: false,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'UpperLeather',
@@ -106,7 +109,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 4,
       toggleable: false,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'UpperSuedeMiddle',
@@ -125,7 +128,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 4,
       toggleable: false,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'UpperSuedeFront',
@@ -144,7 +147,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 5,
       toggleable: true,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'UpperSuedeToebox',
@@ -163,7 +166,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 10,
       toggleable: false,
       category: 'inner',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'Lining',
@@ -182,7 +185,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 11,
       toggleable: false,
       category: 'inner',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'Tongue',
@@ -201,7 +204,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 14,
       toggleable: false,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'upper',
@@ -220,7 +223,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 15,
       toggleable: false,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'upper',
@@ -239,7 +242,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 16,
       toggleable: true,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'UpperAccentBack',
@@ -258,7 +261,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 50,
       toggleable: false,
       category: 'sole',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'Midsole',
@@ -277,7 +280,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 51,
       toggleable: true,
       category: 'sole',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'MidsoleAccentFront',
@@ -296,7 +299,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 52,
       toggleable: true,
       category: 'sole',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'MidsoleAccentRear',
@@ -315,7 +318,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 60,
       toggleable: false,
       category: 'sole',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'Outsole',
@@ -334,7 +337,7 @@ export const YEEZY700V1: IGenericProduct = {
       zindex: 65,
       toggleable: false,
       category: 'upper',
-      presets: COLORS700,
+      presets: [COLORS700],
       variants: [
         {
           id: 'Laces',

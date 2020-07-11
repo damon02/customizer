@@ -1,24 +1,26 @@
 @import '../../style/variables.scss';
 
-.color-picker {
+.customizer {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
   overflow: auto;
-  padding: 6px;
-  
+  align-items: center;
+  max-width: 300px;
+
   .color-customizer {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
+    margin-bottom: 12px;
   
     .selected-item {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 8px;
+      padding: 12px;
       height: 42px;
       
       .title {
@@ -28,6 +30,75 @@
 
     .save-preset {
       margin-top: 8px;
+    }
+  }
+
+  .tab-content {
+    display: flex;
+    height: auto;
+    width: 100%;
+
+    &.color-picker-list {
+      overflow: hidden;
+    }
+  }
+
+  .tabs {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+
+    .tab {
+      border-radius: 0px;
+      height: 100%;
+      width: 100%;
+      font-size: 14px;
+      min-height: 36px;
+
+      &.active {
+        background-color: $color-blue;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) and (min-width: 1001px) {
+  .customizer {
+    max-width: 200px;
+
+    .color-customizer {
+      .slider.item .item-details {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .customizer {
+    order: 3;
+    width: 100%;
+    max-width: unset;
+    max-height: 225px;
+    overflow: hidden;
+
+    .tab-content {
+      display: none;
+      overflow: hidden;
+
+      &.show {
+        display: flex;
+      }
+
+      &.color-picker-list {
+        overflow: auto;
+      }
+    }
+    .tabs {
+      display: flex;
+      width: 100%;
+      min-height: 36px;
     }
   }
 }

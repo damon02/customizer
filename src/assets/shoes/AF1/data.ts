@@ -32,7 +32,7 @@ export const AF1: IGenericProduct = {
       id: 'tongue',
       name: 'Tongue',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 1,
       variants: [
         { 
@@ -49,7 +49,7 @@ export const AF1: IGenericProduct = {
       id: 'upper',
       name: 'Upper',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 2,
       variants: [
         { 
@@ -66,7 +66,7 @@ export const AF1: IGenericProduct = {
       id: 'toebox',
       name: 'Toebox',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 3,
       variants: [
         { 
@@ -83,7 +83,7 @@ export const AF1: IGenericProduct = {
       id: 'toeboxCap',
       name: 'Toebox cap',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 4,
       variants: [
         { 
@@ -100,7 +100,7 @@ export const AF1: IGenericProduct = {
       id: 'heel',
       name: 'Heel',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 5,
       variants: [
         { 
@@ -117,7 +117,7 @@ export const AF1: IGenericProduct = {
       id: 'swoosh',
       name: 'Swoosh',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 6,
       variants: [
         { 
@@ -139,7 +139,7 @@ export const AF1: IGenericProduct = {
       id: 'pulltab',
       name: 'Pull tab',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 7,
       variants: [
         { 
@@ -156,7 +156,7 @@ export const AF1: IGenericProduct = {
       id: 'lining',
       name: 'Lining',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 8,
       variants: [
         { 
@@ -173,7 +173,7 @@ export const AF1: IGenericProduct = {
       id: 'upperLaces',
       name: 'Upper laces',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 9,
       variants: [
         { 
@@ -190,7 +190,7 @@ export const AF1: IGenericProduct = {
       id: 'sole',
       name: 'Sole',
       category: 'sole',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 10,
       variants: [
         { 
@@ -207,7 +207,7 @@ export const AF1: IGenericProduct = {
       id: 'outsole',
       name: 'Outsole',
       category: 'sole',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 11,
       toggleable: true,
       default: { brightness: 2, display: 'none', sepia: 0, hue: 0, saturation: 0 },
@@ -226,7 +226,7 @@ export const AF1: IGenericProduct = {
       id: 'laces',
       name: 'Laces',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 13,
       variants: [
         { 
@@ -243,7 +243,7 @@ export const AF1: IGenericProduct = {
       id: 'soleAIR',
       name: 'Sole AIR Detail',
       category: 'sole',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 14,
       toggleable: true,
       default: { display: 'none', brightness: 2, saturation: 0, sepia: 0, hue: 0 },

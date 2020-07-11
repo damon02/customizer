@@ -1,14 +1,16 @@
 import * as React from 'react'
-import pjson from '../../../package.json'
 
-import ColorCustomizer from '../colorCustomizer/ColorCustomizer'
+import Customizer from '../colorCustomizer/ColorCustomizer'
 import ComponentsList from '../componentsList/ComponentsList'
+import FullscreenDisplay from '../fullscreenDisplay/FullscreenDisplay'
+import ImagesCombiner from '../imagesCombiner/ImagesCombiner'
 
 import { IColorProperties, ICSSProperties, IGenericPart, IGenericProduct, IPartPropsCSSProperties, IPartVariant } from '../../@types/types'
 import { usePrevious } from '../../hooks/usePrevious'
-import { DEFAULT_WHITE, MEME_MESSAGES } from '../../utils/constants'
+import { DEFAULT_WHITE } from '../../utils/constants'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
-import ImagesCombiner from '../imagesCombiner/ImagesCombiner'
+
+import Product from '../product/Product'
 import './ProductOverview.scss'
 
 interface IProps {
@@ -29,162 +31,46 @@ const ProductOverview = (props: IProps) => {
   }, [previousActiveProduct, activePart, setActivePart, props.activeProduct])
 
   return (
-    <div className={showFullscreen ? 'fullscreen-overview' : 'product-overview'} onClick={() => showFullscreen ? setShowFullscreen(false) : ({})}>
-      <ColorCustomizer
-        allPartProps={loadCSSFromStorage()}
-        selectedPart={activePart}
-        saveCSSToStorage={saveCSSToStorage}
-      >
-        {(cssProps, sliders, applyPartPropsChanges) => showFullscreen ? (
-          <div className="overview-row">
-            <div className="info">
-              <div className="product-name">{props.activeProduct?.brand} {props.activeProduct?.name} '{showFullscreen.name || 'CONCEPT'}'</div>
-              <div className="creator">as imagined by {showFullscreen.user || 'a fan'}</div>
-            </div>
-            <div className="logo-wrapper">
-              <div className="logo"/>
-              <div className="name">CUSTOMIZER</div>
-            </div>
-            <div className="share">
-              <div className="name">Made with love by damon.dev</div>
-              <div className="url">{pjson.homepage}</div>
-            </div>
-            <div className="hint hideMe">
-              <div>{MEME_MESSAGES[Math.floor((new Date().getSeconds() / 60) * MEME_MESSAGES.length) + 1]}</div>
-              <div>You can click anywhere on the page to go back.</div>
-              <div className="wait">After 3 seconds this will disappear</div>
-            </div>
-            <div className="product-canvas-wrapper">
-              <div
-                className="product-canvas"
-                id="img-src"
-                style={{
-                  maxHeight: props.activeProduct?.dimensions.height,
-                  maxWidth: props.activeProduct?.dimensions.width,
-                }}
-              >
-                <div
-                  className="border-cover" 
-                  style={{
-                    maxHeight: props.activeProduct?.dimensions.height,
-                    maxWidth: props.activeProduct?.dimensions.width
-                  }}
+    <Customizer
+      allPartProps={loadCSSFromStorage()}
+      selectedPart={activePart}
+      saveCSSToStorage={saveCSSToStorage}
+    >
+      {(cssProps, customizers) => showFullscreen ? (
+        <FullscreenDisplay 
+          activeProduct={props.activeProduct}
+          cssProps={cssProps}
+          showFullscreen={showFullscreen}
+          setShowFullscreen={() => setShowFullscreen(false)}
+        />
+      ) : (
+        <React.Fragment>
+          <div className="product-overview">
+            <ComponentsList 
+              components={props.activeProduct?.assets || []}
+              onSetActiveComponent={(ac) => setActivePart(ac)}
+              activeComponent={activePart}
+              activeComponentCSS={cssProps}
+            />
+            <div className="product-with-buttons">
+              <Product activeProduct={props.activeProduct} cssProps={cssProps} />
+              <div className="bottom">
+                <ImagesCombiner
+                  activeProduct={props.activeProduct}
+                  setShowFullscreen={(a) => setShowFullscreen(a)}
+                  creator={creator}
+                  setCreator={saveCreatorToStorage}
+                  productName={productName}
+                  setProductName={setProductName}
                 />
-                <div className="bruh">{pjson.homepage}</div>
-                {props.activeProduct?.assets?.map((part) => { 
-                  const variantID = cssProps[part.id]?.variant.id
-                  const variant = part.variants.find(p => p.id === variantID) || part.variants[0]
-
-                  return (
-                    <img
-                      alt={''}
-                      key={`${props.activeProduct?.name}-${part.id}`}
-                      className={`product-part-image ${part.id}`}
-                      id={`product-img ${part.id}`}
-                      style={{
-                        ...cssProps[part.id]?.css,
-                        maxHeight: props.activeProduct?.dimensions.height,
-                        maxWidth: props.activeProduct?.dimensions.width,
-                        zIndex: variant.zIndex || part.zindex,
-                        backgroundImage: `url(${variant.file})`,
-                      }}
-                    />
-                  )
-                })}
-                {props.activeProduct?.backgroundAsset && (
-                  <img
-                    alt={''}
-                    key={`${props.activeProduct?.name}-${props.activeProduct.backgroundAsset.id}`}
-                    className={`product-part-image ${props.activeProduct.backgroundAsset.id}`}
-                    id={`product-img ${props.activeProduct.backgroundAsset.id}`}
-                    style={{
-                      ...props.activeProduct.backgroundAsset.default,
-                      maxHeight: props.activeProduct?.dimensions.height,
-                      maxWidth: props.activeProduct?.dimensions.width,
-                      zIndex: props.activeProduct.backgroundAsset.zIndex,
-                      opacity: 0.3,
-                      backgroundImage: `url(${props.activeProduct.backgroundAsset.variant.file})`,
-                    }}
-                  />
-                )}
               </div>
             </div>
+            {customizers}
           </div>
-        ) : (
-          <React.Fragment>
-            <div className="overview-row">
-              <ComponentsList 
-                components={props.activeProduct?.assets || []}
-                onSetActiveComponent={(ac) => setActivePart(ac)}
-                activeComponent={activePart}
-                activeComponentCSS={cssProps}
-                applyPartPropsChanges={(changes) => applyPartPropsChanges(changes)}
-              />
-              <div className="product-canvas-wrapper">
-                <div className="product-canvas" id="img-src">
-                  <div
-                    className="border-cover"
-                    style={{
-                      maxHeight: props.activeProduct?.dimensions.height,
-                      maxWidth: props.activeProduct?.dimensions.width
-                    }}
-                  />
-                  <div className="bruh">{pjson.homepage}</div>
-                  {props.activeProduct?.assets?.map((part) => { 
-                    const variantID = cssProps[part.id]?.variant.id
-                    const variant = part.variants.find(p => p.id === variantID) || part.variants[0]
-
-                    return (
-                      <img
-                        alt={''}
-                        key={`${props.activeProduct?.name}-${part.id}`}
-                        className={`product-part-image ${part.id}`}
-                        id={`product-img ${part.id}`}
-                        style={{
-                          ...cssProps[part.id]?.css,
-                          maxHeight: props.activeProduct?.dimensions.height,
-                          maxWidth: props.activeProduct?.dimensions.width,
-                          zIndex: variant.zIndex || part.zindex,
-                          backgroundImage: `url(${variant.file})`,
-                        }}
-                      />
-                    )
-                  })}
-                  {props.activeProduct?.backgroundAsset && (
-                    <img
-                      alt={''}
-                      key={`${props.activeProduct?.name}-${props.activeProduct.backgroundAsset.id}`}
-                      className={`product-part-image ${props.activeProduct.backgroundAsset.id}`}
-                      id={`product-img ${props.activeProduct.backgroundAsset.id}`}
-                      style={{
-                        ...props.activeProduct.backgroundAsset.default,
-                        maxHeight: props.activeProduct?.dimensions.height,
-                        maxWidth: props.activeProduct?.dimensions.width,
-                        zIndex: props.activeProduct.backgroundAsset.zIndex,
-                        opacity: 0.3,
-                        backgroundImage: `url(${props.activeProduct.backgroundAsset.variant.file})`,
-                      }}
-                    />
-                  )}
-                </div>
-                <div className="bottom">
-                  <ImagesCombiner
-                    activeProduct={props.activeProduct}
-                    setShowFullscreen={(a) => setShowFullscreen(a)}
-                    creator={creator}
-                    setCreator={saveCreatorToStorage}
-                    productName={productName}
-                    setProductName={setProductName}
-                  />
-                </div>
-              </div>
-              {sliders}
-            </div>
-            
-          </React.Fragment>
-        )}
-      </ColorCustomizer>
-    </div>
+          
+        </React.Fragment>
+      )}
+    </Customizer>
   )
 
   function loadCSSFromStorage() {

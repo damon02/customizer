@@ -29,7 +29,7 @@ export const FOG1: IGenericProduct = {
       id: 'zipper',
       name: 'Zipper',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 1,
       variants: [
         { 
@@ -46,7 +46,7 @@ export const FOG1: IGenericProduct = {
       id: 'inset',
       name: 'Inset',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 2,
       variants: [
         { 
@@ -63,7 +63,7 @@ export const FOG1: IGenericProduct = {
       id: 'upper',
       name: 'Upper',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 3,
       variants: [
         { 
@@ -80,7 +80,7 @@ export const FOG1: IGenericProduct = {
       id: 'upperFront',
       name: 'Upper front',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 4,
       variants: [
         { 
@@ -97,7 +97,7 @@ export const FOG1: IGenericProduct = {
       id: 'toebox',
       name: 'Toebox',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 5,
       variants: [
         { 
@@ -114,7 +114,7 @@ export const FOG1: IGenericProduct = {
       id: 'cage',
       name: 'Cage',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 6,
       variants: [
         { 
@@ -131,7 +131,7 @@ export const FOG1: IGenericProduct = {
       id: 'swoosh',
       name: 'Swoosh',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 7,
       variants: [
         { 
@@ -148,7 +148,7 @@ export const FOG1: IGenericProduct = {
       id: 'sole',
       name: 'Sole',
       category: 'sole',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 8,
       variants: [
         { 
@@ -165,7 +165,7 @@ export const FOG1: IGenericProduct = {
       id: 'airUnit',
       name: 'Air Unit',
       category: 'sole',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 9,
       variants: [
         { 
@@ -182,7 +182,7 @@ export const FOG1: IGenericProduct = {
       id: 'frontTab',
       name: 'Front tab',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 10,
       variants: [
         { 
@@ -199,7 +199,7 @@ export const FOG1: IGenericProduct = {
       id: 'laces',
       name: 'Laces',
       category: 'upper',
-      presets: DEFAULT_COLORS,
+      presets: [DEFAULT_COLORS],
       zindex: 11,
       variants: [
         { 

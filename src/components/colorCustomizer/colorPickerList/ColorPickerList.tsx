@@ -19,37 +19,9 @@ const ColorPickerList = (props: IProps) => {
   if (selectedPart && selectedPart.presets) {
     return (
       <div className="presets">
-        <h4 className="title">Colors</h4>
-        <div className="columns bigscreen">
-          <div className="column">
-            {selectedPart.presets.map(p => (
-              <button
-                key={p.name}
-                className="preset-button"
-                style={{ backgroundColor: p.cssString }}
-                onClick={() => setProperties(p.values)}
-              />
-            ))}
-          </div>
-          {userPresets.length > 0 && (
-            <div className="column">
-              {userPresets.map((p, i) => (
-                <div className="row user-preset" key={i}>
-                  <button
-                    className="preset-button"
-                    style={{ backgroundColor: 'red', filter: combineIntoCSSFilter(p) }}
-                    onClick={() => setProperties(p)}
-                  />
-                  <button className="button delete" onClick={() => deleteFromPresets(i)}>
-                    <i className="fas fa-times" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        <div className="columns mobile">
-          <div className="column">
+        {userPresets.length > 0 && (
+          <div className="preset-list">
+            <div className="preset-header">Your colors</div>
             {userPresets.map((p, i) => (
               <div className="row user-preset" key={i}>
                 <button
@@ -62,16 +34,23 @@ const ColorPickerList = (props: IProps) => {
                 </button>
               </div>
             ))}
-            {selectedPart.presets.map(p => (
+          </div>
+        )}
+        {selectedPart.presets.map((category) => (
+          <div className="preset-list" key={category.name}>
+            <div className="preset-header">{category.name}</div>
+            {category.presets.map(p => (
               <button
                 key={p.name}
                 className="preset-button"
                 style={{ backgroundColor: p.cssString }}
                 onClick={() => setProperties(p.values)}
-              />
+              >
+                <div className="text">{p.name}</div>
+              </button>
             ))}
           </div>
-        </div>
+        ))}
       </div>
     )
   } else {

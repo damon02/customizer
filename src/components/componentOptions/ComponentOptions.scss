@@ -1,0 +1,71 @@
+@import '../../style/variables.scss';
+
+.product-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  
+  &.show {
+    display: flex;
+    height: 100%;
+  }
+
+  select, .no-variants {
+    -webkit-appearance:none;
+    background-color: $color-background-notdark;
+    color: $font-darkmode;
+    min-height: 36px;
+    line-height: 36px;
+    border: unset;
+    outline: unset;
+    font-size: 13px;
+    width: 100%;
+    padding: 0px 12px;
+    border-radius: $border-radius;
+    font-weight: 700;
+  }
+
+  .no-variants {
+    cursor: not-allowed;
+  }
+
+  .button-part {
+    background-color: unset;
+    color: #fff;
+    margin-bottom: 8px;
+    border: 0px;
+    width: 100%;
+    border-radius: $border-radius;
+    max-width: 100%;
+    height: 100%;
+    min-height: 36px;
+    max-height: 36px;
+    font-size: 13px;
+    padding: unset;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    &:hover {
+      border-color: $color-primary;
+      background-color: $color-primary;
+    }
+    
+    &:disabled {
+      color: rgba(255, 255, 255, 0.5);
+
+      &:hover {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: unset;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) and (min-width: 1001px) {
+  .product-options {
+    padding: 0px;
+    margin-right: 8px;
+    margin-top: 8px;
+  }
+}
