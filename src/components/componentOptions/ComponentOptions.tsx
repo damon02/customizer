@@ -27,7 +27,7 @@ const ComponentOptions = (props: IProps) => {
   }
 
   const isEnabled = cssProps[selectedPart.id]?.css.display !== 'none' 
-  const currentVariant = selectedPart.variants.find(variant => cssProps && variant.id === cssProps[selectedPart.id].variant.id)
+  const currentVariant = selectedPart.variants.find(variant => cssProps && variant.id === cssProps[selectedPart.id]?.variant.id)
 
   const variants = selectedPart.variants.map(variant => (
     <option 

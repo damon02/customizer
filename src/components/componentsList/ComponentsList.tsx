@@ -32,7 +32,7 @@ const ComponentsList = (props: IProps) => {
 
         const isEnabled = activeComponentCSS && activeComponentCSS[c.id]?.css.display !== 'none' 
         const currentVariant = components.find(part => activeComponentCSS && part.id === c.id)?.variants
-          .find(variant => activeComponentCSS && variant.id === activeComponentCSS[c.id].variant.id)
+          .find(variant => activeComponentCSS && variant.id === activeComponentCSS[c.id]?.variant.id)
 
         return (
           <div className={`component-wrapper${isActive && !collapsed ? ' active' : ''}`} key={`part-${c.id}`}>
@@ -74,7 +74,7 @@ const ComponentsList = (props: IProps) => {
 
             const isEnabled = activeComponentCSS && activeComponentCSS[c.id]?.css.display !== 'none' 
             const currentVariant = components.find(part => activeComponentCSS && part.id === c.id)?.variants
-              .find(variant => activeComponentCSS && variant.id === activeComponentCSS[c.id].variant.id)
+              .find(variant => activeComponentCSS && variant.id === activeComponentCSS[c.id]?.variant.id)
 
             return (
               <div className={`component-wrapper small ${isActive && !collapsed ? ' active' : ''}`} key={`part-${c.id}`}>

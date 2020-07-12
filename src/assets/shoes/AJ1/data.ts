@@ -1,5 +1,5 @@
 import { IGenericProduct } from '../../../@types/types'
-import { DEFAULT_COLORS } from '../../../utils/constants'
+import { DEFAULT_COLORS, PASTEL_COLORS } from '../../../utils/constants'
 
 import AIRJordanLogo from './airjordan13.png'
 import Heel from './heel9.png'
@@ -14,6 +14,7 @@ import SwooshReverse from './swooshreverse.png'
 import Toebox from './toebox3.png'
 import ToeboxSides from './toebox_sides8.png'
 import Tongue from './tongue1.png'
+import TongueSwoosh from './tongue_nike.png'
 import Upper from './upper5.png'
 import UpperFront from './upper_front7.png'
 import UpperHigh from './upper_high4.png'
@@ -41,7 +42,10 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 6 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'tongue',
@@ -52,15 +56,40 @@ export const Shoe350V2: IGenericProduct = {
       default: { brightness: 6, saturation: 0, hue: 0, sepia: 0, display: 'block' }
     },
     {
+      id: 'tongueSwoosh',
+      name: 'Tongue swoosh',
+      zindex: 2,
+      toggleable: true,
+      category: 'tongue',
+      overrides: {
+        brightness: { max: 6 }
+      },
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
+      variants: [
+        {
+          id: 'tongueSwoosh',
+          file: TongueSwoosh,
+          name: 'Default',
+        },
+      ],
+      default: { brightness: 6, saturation: 0, hue: 0, sepia: 0, display: 'block' }
+    },
+    {
       id: 'lining',
       name: 'Lining',
-      zindex: 2,
+      zindex: 3,
       toggleable: false,
       category: 'upper',
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'lining',
@@ -72,13 +101,16 @@ export const Shoe350V2: IGenericProduct = {
     {
       id: 'toebox',
       name: 'Toebox',
-      zindex: 3,
+      zindex: 4,
       toggleable: false,
       category: 'upper',
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'toebox',
@@ -90,13 +122,16 @@ export const Shoe350V2: IGenericProduct = {
     {
       id: 'upperHigh',
       name: 'Upper High',
-      zindex: 4,
+      zindex: 5,
       toggleable: false,
       category: 'upper',
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'upperHigh',
@@ -108,13 +143,16 @@ export const Shoe350V2: IGenericProduct = {
     {
       id: 'upper',
       name: 'Upper',
-      zindex: 5,
+      zindex: 6,
       toggleable: false,
       category: 'upper',
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'upper',
@@ -126,13 +164,16 @@ export const Shoe350V2: IGenericProduct = {
     {
       id: 'upperLacesPanel',
       name: 'Upper Laces Panel',
-      zindex: 6,
+      zindex: 7,
       toggleable: false,
       category: 'upper',
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'upperLacesPanel',
@@ -144,13 +185,16 @@ export const Shoe350V2: IGenericProduct = {
     {
       id: 'upperFront',
       name: 'Upper Front',
-      zindex: 7,
+      zindex: 8,
       toggleable: false,
       category: 'upper',
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'upperFront',
@@ -162,13 +206,16 @@ export const Shoe350V2: IGenericProduct = {
     {
       id: 'toeboxSides',
       name: 'Toebox sides',
-      zindex: 8,
+      zindex: 9,
       toggleable: false,
       category: 'upper',
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'toeboxSides',
@@ -186,7 +233,10 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'heel',
@@ -204,7 +254,10 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'midsole',
@@ -222,7 +275,10 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'outsole',
@@ -240,7 +296,10 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'swooshNormal',
@@ -277,7 +336,10 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'ajangelslogo',
@@ -295,7 +357,10 @@ export const Shoe350V2: IGenericProduct = {
       overrides: {
         brightness: { max: 3 }
       },
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       variants: [
         {
           id: 'laces',

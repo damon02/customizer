@@ -104,7 +104,8 @@ const ProductOverview = (props: IProps) => {
         props.activeProduct.assets?.forEach((asset, i) => {
           if (!partProps[asset.id] || Object.keys(partProps[asset.id]).length !== Object.keys(defaultCSS).length) {
             // Existing object has been extended, edit saved CSS
-            // partProps.css[asset.id] = { ...defaultCSS, ...partProps[asset.id] }
+            console.log(asset.id, partProps)
+            partProps[asset.id] = { ...defaultCSS, ...partProps[asset.id] }
             edited = true
           }
         })

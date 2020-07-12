@@ -1,4 +1,4 @@
-import { IColorProperties, ICSSProperties, IExposedCSS, IOptionalColorProperties } from '../@types/types'
+import { ICSSProperties, IExposedCSS, IOptionalColorProperties } from '../@types/types'
 
 export function combineIntoCSS(cssProperties: ICSSProperties): IExposedCSS  {
   return { 

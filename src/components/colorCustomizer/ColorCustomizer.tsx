@@ -119,7 +119,7 @@ const Customizer = (props: IProps) => {
                 max={2}
                 value={saturation}
                 onChange={(e) => setSaturation(e)}
-                cssFilter={combineIntoCSSFilter({ hue, brightness, sepia, saturation: 2 })}
+                cssFilter={combineIntoCSSFilter({ hue, brightness: brightness > 1 ? 1 : brightness, sepia, saturation: 2 })}
               />
               <GenericSlider
                 selectedPart={selectedPart}

@@ -1,5 +1,5 @@
 import { IGenericProduct } from '../../../@types/types'
-import { DEFAULT_COLORS } from '../../../utils/constants'
+import { DEFAULT_COLORS, PASTEL_COLORS } from '../../../utils/constants'
 
 import HeelBack from './heelback.png'
 import HeelBack2 from './heelback2.png'
@@ -33,7 +33,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'tongue',
       name: 'Tongue',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 1,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -51,8 +54,12 @@ export const Shoe500Low: IGenericProduct = {
       id: 'tongueTop',
       name: 'Tongue top',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 2,
+      toggleable: true,
       default: { display: 'none', saturation: 0, hue: 0, sepia: 0, brightness: 0 },
       variants: [
         { 
@@ -69,7 +76,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'upper',
       name: 'Upper panels',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 3,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -87,7 +97,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'upperFront',
       name: 'Upper front',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 4,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -105,7 +118,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'upperRear',
       name: 'Upper rear',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 5,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -123,7 +139,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'heelBack2',
       name: 'Heel panel inside',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 6,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -141,7 +160,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'heelBack',
       name: 'Heel panel outside',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 7,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -159,7 +181,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'upperlow',
       name: 'Upper low',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 8,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -177,7 +202,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'toebox',
       name: 'Toebox',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 9,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -195,7 +223,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'upperLaceRoundels',
       name: 'Upper lace roundels',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 10,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -213,7 +244,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'uppersole',
       name: 'Uppersole',
       category: 'sole',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 11,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -231,7 +265,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'midsole',
       name: 'Midsole',
       category: 'sole',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 12,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -249,7 +286,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'outsole',
       name: 'Outsole',
       category: 'sole',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 13,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       toggleable: true,
@@ -268,7 +308,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'lining',
       name: 'Lining',
       category: 'upper',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 14,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [
@@ -286,7 +329,10 @@ export const Shoe500Low: IGenericProduct = {
       id: 'laces',
       name: 'Laces',
       category: 'laces',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 15,
       default: { display: 'block', saturation: 0, hue: 0, sepia: 0, brightness: 3 },
       variants: [

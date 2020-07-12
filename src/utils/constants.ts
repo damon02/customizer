@@ -5,6 +5,20 @@ export const USER_PRESETS_KEY = 'colorPresets'
 
 export const RED_COLOR = '#dc3d4b'
 export const DEFAULT_WHITE = { name: 'White', cssString: '#ffffff', values: { brightness: 2, sepia: 0, saturation: 0, hue: 0 } }
+
+export const PASTEL_COLORS: IColorCategory = {
+  name: 'Pastel colors',
+  presets: [
+    { name: 'Light red', cssString: '#ffbac8', values: {'sepia':0,'saturation':0.45,'brightness':2.27,'hue':0 } },  
+    { name: 'Papaya', cssString: '#ff9f64', values: {'sepia':0,'saturation':0.45,'brightness':2.27,'hue':28.6 } },
+    { name: 'Light yellow', cssString: '#ffff9c', values: {'sepia':0,'saturation':0.3,'brightness':2.64,'hue':62.7 } },
+    { name: 'Mint green', cssString: '#aff7ca', values: {'sepia':0,'saturation':0.2,'brightness':2.35,'hue':146 } },
+    { name: 'Light blue', cssString: '#9ac1f4', values: {'sepia':0,'saturation':0.26,'brightness':1.94,'hue':228 } },
+    { name: 'Lavender', cssString: '#ceb1fb', values: {'sepia':0,'saturation':0.26,'brightness':1.94,'hue':277 } },
+    { name: 'Light pink', cssString: '#f6a8d9', values: {'sepia':0,'saturation':0.26,'brightness':1.94,'hue':325 } },
+  ]
+}
+
 export const DEFAULT_COLORS: IColorCategory = {
   name: 'Regular colors',
   presets: [
@@ -20,6 +34,7 @@ export const DEFAULT_COLORS: IColorCategory = {
     { name: 'Hot pink', cssString: '#ff0087', values: { brightness: 1, sepia: 0, saturation: 2.39, hue: 325 } },
   ]
 }
+
 
 export const MEME_MESSAGES = [
   'Interesting color choices!',

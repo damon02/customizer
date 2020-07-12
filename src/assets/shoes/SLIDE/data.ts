@@ -1,5 +1,5 @@
 import { IGenericProduct } from '../../../@types/types'
-import { DEFAULT_COLORS } from '../../../utils/constants'
+import { DEFAULT_COLORS, PASTEL_COLORS } from '../../../utils/constants'
 
 import YZYSLIDE from './YZYSLIDE.png'
 
@@ -19,7 +19,10 @@ export const ShoeYZYSlides: IGenericProduct = {
       id: 'upper',
       name: 'Slide',
       category: 'shoe',
-      presets: [DEFAULT_COLORS],
+      presets: [
+        DEFAULT_COLORS, 
+        PASTEL_COLORS
+      ],
       zindex: 1,
       variants: [
         { 
