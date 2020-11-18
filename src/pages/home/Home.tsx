@@ -2,12 +2,11 @@ import React from 'react'
 import ReactGA from 'react-ga'
 import { useHistory } from 'react-router'
 
+import Card from '../../components/card/Card'
 import Modal from '../../components/modal/Modal'
 
 import { IGenericProduct, IPartPropsCSSProperties } from '../../@types/types'
 import { ALL_PRODUCTS } from '../../assets/products'
-import Card from '../../components/card/Card'
-import { URL_PREFIX } from '../../utils/constants'
 import { loadFromLocalStorage, removeFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
 import './Home.scss'
 
@@ -39,7 +38,7 @@ const Home = () => {
                 key={unsavedProduct.product.id}
                 partProps={unsavedProduct.partProps}
                 product={unsavedProduct.product}
-                handleClick={() => history.push(`${URL_PREFIX}/edit/${unsavedProduct.product.id}`)}
+                handleClick={() => history.push(`/edit/${unsavedProduct.product.id}`)}
               />
             ))}
             {untouchedProducts.filter(p => p.enabled).map(product => (
@@ -75,7 +74,7 @@ const Home = () => {
           <h3>Privacy policy</h3>
           <p>This website uses cookies, JavaScript and other comparable technologies in order to give you the best experience possible. With this, we can analyse and track the behaviour of visitors to this website.</p>
           <p>Cookies are used on this website in order to save customizations to products and custom colors. These cookies are stored for an indefinite amount of time and are needed for the website to function. This is done so that you can pick up where you left off at any given time on the same device.</p>
-          <a href={`${URL_PREFIX}/privacy.html`} target="_blank" rel="noopener noreferrer">Click here to view the full privacy policy.</a>
+          <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Click here to view the full privacy policy.</a>
           <p><b>By clicking "I accept" you are agreeing to the privacy policy.</b></p>
         </div>
       </Modal>
@@ -88,7 +87,7 @@ const Home = () => {
             removeFromLocalStorage(showAreYouSure)
           }
           setShowAreYouSure(false)
-          history.push(`${URL_PREFIX}/edit/${showAreYouSure}`)
+          history.push(`/edit/${showAreYouSure}`)
         }}
         uuid={'are-you-sure'}
         buttonColors={{ backgroundColor: '#d30f0f', color: '#fff' }}
@@ -112,7 +111,7 @@ const Home = () => {
     if (previous) {
       setShowAreYouSure(id)
     } else {
-      history.push(`${URL_PREFIX}/edit/${id}`)
+      history.push(`/edit/${id}`)
     }
   }
 

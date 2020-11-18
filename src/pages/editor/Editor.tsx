@@ -6,7 +6,6 @@ import ProductOverview from '../../components/productOverview/ProductOverview'
 
 import { IGenericProduct } from '../../@types/types'
 import { ALL_PRODUCTS } from '../../assets/products'
-import { URL_PREFIX } from '../../utils/constants'
 
 import './Editor.scss'
 
@@ -25,14 +24,14 @@ const Editor = () => {
 
   if (!activeProduct) {
     console.error(`Product ${params.id} not matchable, returning to home`)
-    return <Redirect to={`${URL_PREFIX}`} />
+    return <Redirect to="/" />
   }
 
   return (
     <div className="page editor">
       <div className="title-box">
         <h3 className="title">{activeProduct.brand} {activeProduct.name}</h3>
-        <button className="back-button" onClick={() => history.push(`${URL_PREFIX}`)}>
+        <button className="back-button" onClick={() => history.push('/')}>
           <i className="fas fa-arrow-left" />
           <div className="text">Save and go back</div>
         </button>

@@ -192,7 +192,7 @@ const ImagesCombiner = (props: IProps) => {
         finalContext.fillText(`Design your dream shoes!`, canvasWidth - 20, canvasHeight - 30)
         finalContext.textAlign = 'right'
         finalContext.fillStyle = '#fff'
-        finalContext.fillText(`https://damon02.github.io/customizer/`, canvasWidth - 20, canvasHeight - 10)
+        finalContext.fillText(`https://damon.dev/customizer/`, canvasWidth - 20, canvasHeight - 10)
         finalContext.textAlign = 'center'
         finalContext.fillStyle = '#fff'
         finalContext.fillText(`Made with love`, canvasWidth / 2, canvasHeight - 30)

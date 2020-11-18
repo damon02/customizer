@@ -2,14 +2,13 @@ import React from 'react'
 import Div100vh from 'react-div-100vh'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 
 import Footer from './components/footer/Footer'
 import Header from './components/header/Header'
 import Editor from './pages/editor/Editor'
 import Home from './pages/home/Home'
 
-import { URL_PREFIX } from './utils/constants'
 import { loadFromLocalStorage } from './utils/localStorage'
 
 import './style/index.scss'
@@ -24,15 +23,15 @@ if (trackMe) {
 ReactDOM.render((
   <React.StrictMode>
     <Div100vh className="root-inner">
-      <BrowserRouter>
+      <HashRouter>
         <Header />
         <Switch>
-          <Route exact path={`${URL_PREFIX}/edit/:id`} component={Editor} />
-          <Route exact path={`${URL_PREFIX}`} component={Home} />
-          <Redirect to={`${URL_PREFIX}`} />
+          <Route exact path={`/edit/:id`} component={Editor} />
+          <Route exact path={`/`} component={Home} />
+          <Redirect to={`/`} />
         </Switch>
         <Footer />
-      </BrowserRouter>
+      </HashRouter>
     </Div100vh>
     
   </React.StrictMode>

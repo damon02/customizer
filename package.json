@@ -1,11 +1,10 @@
 {
   "name": "customizer",
   "version": "1.0.0",
-  "homepage": "https://customizer.damon.dev",
+  "homepage": "https://damon.dev/customizer",
   "private": true,
   "dependencies": {
     "date-fns": "2.16.1",
-    "gh-pages": "3.1.0",
     "lodash": "4.17.20",
     "node-sass": "4.14.1",
     "react": "17.0.1",

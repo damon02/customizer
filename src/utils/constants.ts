@@ -1,6 +1,5 @@
 import { IColorCategory } from '../@types/types'
 
-export const URL_PREFIX = '/customizer'
 export const USER_PRESETS_KEY = 'colorPresets'
 
 export const RED_COLOR = '#dc3d4b'
