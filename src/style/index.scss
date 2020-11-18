@@ -135,9 +135,8 @@ button, .tab {
 .content-box {
   display: flex;
   width: 100%;
-  max-width: 1200px;
+  // max-width: 1200px;
   padding: 24px;
-  margin: 24px 0px;
 
   background-color: $color-background-dark;
   border-radius: $border-radius;

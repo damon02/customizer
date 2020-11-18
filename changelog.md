@@ -1,5 +1,9 @@
 # Changelog
 
+# 2020-11-18, version 1.0.0
+
+- Initial public release
+
 # 2020-07-03, version 0.4.0
 
 - Fixed z-index for variants

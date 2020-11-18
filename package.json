@@ -1,7 +1,7 @@
 {
   "name": "customizer",
-  "version": "0.5.0",
-  "homepage": "https://damon02.github.io/customizer",
+  "version": "1.0.0",
+  "homepage": "https://customizer.damon.dev",
   "private": true,
   "dependencies": {
     "date-fns": "2.16.1",
