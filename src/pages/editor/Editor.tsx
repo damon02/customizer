@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactGA from 'react-ga'
+import { Helmet } from 'react-helmet'
 import { Redirect, useHistory, useParams } from 'react-router'
 
 import ProductOverview from '../../components/productOverview/ProductOverview'
@@ -29,6 +30,12 @@ const Editor = () => {
 
   return (
     <div className="page editor">
+      <Helmet>
+        <title>{activeProduct.brand} {activeProduct.name} - CUSTOMIZER</title>
+        <meta property="og:title" content="CUSTOMIZER" />
+        <meta property="og:description" content={`Create your own dream concept ${activeProduct.brand} ${activeProduct.name}`} />
+        <meta property="og:image" content="%PUBLIC_URL%/preview.png" />
+      </Helmet>
       <div className="title-box">
         <h3 className="title">{activeProduct.brand} {activeProduct.name}</h3>
         <button className="back-button" onClick={() => history.push('/')}>

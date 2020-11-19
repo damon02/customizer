@@ -1,16 +1,18 @@
 import * as React from 'react'
+// import { useHistory } from 'react-router'
 
 import Customizer from '../colorCustomizer/ColorCustomizer'
 import ComponentsList from '../componentsList/ComponentsList'
 import FullscreenDisplay from '../fullscreenDisplay/FullscreenDisplay'
 import ImagesCombiner from '../imagesCombiner/ImagesCombiner'
+import Product from '../product/Product'
 
 import { IColorProperties, ICSSProperties, IGenericPart, IGenericProduct, IPartPropsCSSProperties, IPartVariant } from '../../@types/types'
 import { usePrevious } from '../../hooks/usePrevious'
 import { DEFAULT_WHITE } from '../../utils/constants'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
+// import { genericObjectToQueryString } from '../../utils/url'
 
-import Product from '../product/Product'
 import './ProductOverview.scss'
 
 interface IProps {
@@ -18,6 +20,8 @@ interface IProps {
 }
 
 const ProductOverview = (props: IProps) => {
+  // const history = useHistory()
+
   const previousActiveProduct = usePrevious(props.activeProduct)
   const [activePart, setActivePart] = React.useState<IGenericPart | undefined>()
   const [showFullscreen, setShowFullscreen] = React.useState<{ name: string, user: string } | false>(false)
@@ -104,7 +108,6 @@ const ProductOverview = (props: IProps) => {
         props.activeProduct.assets?.forEach((asset, i) => {
           if (!partProps[asset.id] || Object.keys(partProps[asset.id]).length !== Object.keys(defaultCSS).length) {
             // Existing object has been extended, edit saved CSS
-            console.log(asset.id, partProps)
             partProps[asset.id] = { ...defaultCSS, ...partProps[asset.id] }
             edited = true
           }
@@ -124,12 +127,11 @@ const ProductOverview = (props: IProps) => {
   function saveCSSToStorage(css: IColorProperties, variant: IPartVariant, part: IGenericPart) {
     if (props.activeProduct && variant) {
       const originalSaved = loadFromLocalStorage(props.activeProduct?.id, {})
-  
-      saveToLocalStorage(props.activeProduct.id, {
-        ...originalSaved,
-        [part.id]: { css, variant: { id: variant.id } },
-        timestamp: new Date().valueOf()
-      })
+      const newA = { ...originalSaved, [part.id]: { css, variant: { id: variant.id } }, timestamp: new Date().valueOf() }
+      
+      // const queryString = genericObjectToQueryString(newA)
+      // history.push({ pathname: history.location.pathname, search: queryString })
+      saveToLocalStorage(props.activeProduct.id, newA)
     }
   }
 

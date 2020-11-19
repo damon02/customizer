@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import ComponentOptions from '../componentOptions/ComponentOptions'
 import GenericSlider from '../slider/Slider'
 import ColorPickerList from './colorPickerList/ColorPickerList'
 
@@ -15,7 +16,6 @@ import {
 import { USER_PRESETS_KEY } from '../../utils/constants'
 import { combineIntoCSS, combineIntoCSSFilter } from '../../utils/css'
 import { loadFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage'
-import ComponentOptions from '../componentOptions/ComponentOptions'
 import './ColorCustomizer.scss'
 
 interface IProps {
@@ -32,7 +32,6 @@ type IActiveTab = 'options' | 'colorCustomizer' | 'colorPicker'
 
 const Customizer = (props: IProps) => {
   const { selectedPart, saveCSSToStorage, allPartProps } = props
-
   const [activeTab, setActiveTab] = React.useState<IActiveTab>('colorCustomizer')
 
   const [selectedVariant, setVariant] = React.useState<IPartVariant | undefined>(selectedPart?.variants[0])
@@ -70,7 +69,7 @@ const Customizer = (props: IProps) => {
       }
     })
   }
-
+  
   React.useEffect(() => {
     if (selectedPart) {
       saveCSSToStorage({ saturation, hue, sepia, brightness, display }, selectedVariant || selectedPart.variants[0], selectedPart)

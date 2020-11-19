@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactGA from 'react-ga'
+import { Helmet } from 'react-helmet'
 import { useHistory } from 'react-router'
 
 import Card from '../../components/card/Card'
@@ -29,6 +30,12 @@ const Home = () => {
 
   return (
     <div className="page home">
+      <Helmet>
+        <title>CUSTOMIZER</title>
+        <meta property="og:title" content="CUSTOMIZER" />
+        <meta property="og:description" content="Customize and create your own dream sneaker concepts!" />
+        <meta property="og:image" content="%PUBLIC_URL%/preview.png" />
+      </Helmet>
       <div className="content-box">
         <div className="product-box">
           <h3>Sneakers</h3>
