@@ -61,28 +61,35 @@ const Home = () => {
 
       <Modal
         showModal={showIntroductionModal}
-        closeText={'I accept'}
+        closeText={'I agree'}
         onClose={() => {
           setShowIntroModal(false)
           saveToLocalStorage('showIntro', false)
           saveToLocalStorage('trackMe', true)
           setTrackMe(true)
         }}
+        onCancel={() => {
+          setShowIntroModal(false)
+          saveToLocalStorage('showIntro', false)
+          saveToLocalStorage('trackMe', false)
+        }}
+        cancelText={'Do not track me'}
         uuid={'introModal'}
         inContent={true}
       >
         <div className="intro-inner">
           <h3>Hello world!</h3>
-          <p>I am a huge YEEZY and also sneaker fan in general, but felt like some sneakers have been releasing in some mediocre colorways.</p>
+          <p>I am a huge sneaker fan in general, but felt like some sneakers have been releasing in some mediocre colorways.</p>
           <p>I thought that even I could do better.</p>
           <p>So I found this new site... just kidding, I made this as a hobby project and want to share it with the world!</p>
-          <p>Don't bait too many people on Instagram with this please <span role="img" aria-label="sweating smile emoji">😅</span></p>
+          <p>Don't bait too many people with this please <span role="img" aria-label="sweating smile emoji">😅</span></p>
 
           <h3>Privacy policy</h3>
-          <p>This website uses cookies, JavaScript and other comparable technologies in order to give you the best experience possible. With this, we can analyse and track the behaviour of visitors to this website.</p>
-          <p>Cookies are used on this website in order to save customizations to products and custom colors. These cookies are stored for an indefinite amount of time and are needed for the website to function. This is done so that you can pick up where you left off at any given time on the same device.</p>
-          <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Click here to view the full privacy policy.</a>
-          <p><b>By clicking "I accept" you are agreeing to the privacy policy.</b></p>
+          <p>This website uses cookies, JavaScript and other comparable technologies in order to give you the best experience possible. With this, I can analyse and track the behaviour of visitors to and on this website with Google Analytics.</p>
+          <a href="customizer/privacy.html" target="_blank" rel="noopener noreferrer">Click here to view the full privacy policy.</a>
+
+          <p>Cookies are used on this website in order to save customizations of products and custom colors. These cookies are stored for an indefinite amount of time and are required for the website to function properly. This is done so that you can pick up where you left off at any given time on the same device.</p>
+          <p><b>By clicking "I agree" you are agreeing to the privacy policy. By clicking "Do not track me" you are not agreeing to the privacy policy and will only be subject to required cookies and scripts needed to run this website.</b></p>
         </div>
       </Modal>
 

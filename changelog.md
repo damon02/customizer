@@ -1,5 +1,9 @@
 # Changelog
 
+# 2020-11-19, version 1.0.1
+
+- Updated privacy policy modal
+
 # 2020-11-18, version 1.0.0
 
 - Initial public release
